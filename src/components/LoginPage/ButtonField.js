@@ -7,9 +7,11 @@ const ButtonField = () => {
     <Button
       variant="contained"
       sx={{
+        fontSize: "1.6rem",
         width: "100%",
-        borderRadius: "16px",
-        margin: "10px 0px",
+        borderRadius: "1.6rem",
+        margin: "0.5rem 0",
+        padding: "1rem",
         bgcolor: green,
         "&:hover": {
           backgroundColor: "lightseagreen",

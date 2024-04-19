@@ -1,12 +1,14 @@
 import Grid from "@mui/material/Grid";
-const Image = ({ image, alt, height, borderRadius }) => {
+const Image = ({ ...props }) => {
   return (
     <Grid item xs={3}>
       <img
-        src={image}
-        alt={alt}
-        height={height}
-        style={{ borderRadius: borderRadius ? borderRadius : "0px" }}
+        src={props.image}
+        alt={props.alt}
+        height={props.height}
+        style={{
+          borderRadius: props.borderRadius ? props.borderRadius : "0",
+        }}
       />
     </Grid>
   );
