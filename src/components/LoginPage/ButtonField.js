@@ -7,7 +7,7 @@ const ButtonField = () => {
     <Button
       variant="contained"
       sx={{
-        fontSize: "1.6rem",
+        fontSize: "1.4rem",
         width: "100%",
         borderRadius: "1.6rem",
         margin: "0.5rem 0",
