@@ -1,16 +1,14 @@
 import React, { useState, useRef } from "react";
+// import { TextField, InputAdornment } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Keyboard from "react-simple-keyboard";
 import InputField from "../InputField";
 import { Button } from "@mui/material";
 import "react-simple-keyboard/build/css/index.css";
 
-const VirtualKeyboard = ({ icon, ...props }) => {
-  const theme = useTheme();
-  const green = theme.palette.green.main;
+const VirtualKeyboard = () => {
   const [inputUserName, setInputUserName] = useState("");
   const [inputPass, setInputPass] = useState("");
-  const [showKeyboard, setShowKeyboard] = useState(false);
   const [layout, setLayout] = useState("default");
   const keyboardUserName = useRef();
   const keyboardPass = useRef();
@@ -23,7 +21,7 @@ const VirtualKeyboard = ({ icon, ...props }) => {
     } else if (inputName === "inputPass") {
       setInputPass(input);
     }
-    console.log("Input changed", input);
+    // console.log("Input changed", input);
   };
 
   const handleShift = () => {
@@ -32,7 +30,7 @@ const VirtualKeyboard = ({ icon, ...props }) => {
   };
 
   const onKeyPress = (button) => {
-    console.log("Button pressed", button);
+    // console.log("Button pressed", button);
     if (button === "{shift}" || button === "{lock}") handleShift();
   };
 
@@ -65,6 +63,7 @@ const VirtualKeyboard = ({ icon, ...props }) => {
   return (
     <>
       <InputField
+        type="text"
         label="Kullanıcı Adı"
         icon="PersonIcon"
         placeholder={"Kullanıcı Adı Giriniz"}
@@ -72,6 +71,7 @@ const VirtualKeyboard = ({ icon, ...props }) => {
         onChangeInput={onChangeInputUserName}
         onFocus={onInputFocus1}
       />
+
       <InputField
         label="Şifre"
         type="password"
@@ -101,11 +101,8 @@ const VirtualKeyboard = ({ icon, ...props }) => {
       <Button onClick={onButtonClick} variant="contained" color="primary">
         Hide Keyboard
       </Button>
-      {/* <Button onClick={onButtonClick}>Hide Keyboard</Button> */}
     </>
   );
 };
 
 export default VirtualKeyboard;
-
-// <Button onClick={onButtonClick}>Hide Keyboard</Button>

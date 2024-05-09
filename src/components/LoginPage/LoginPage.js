@@ -3,6 +3,7 @@ import posPhoto from "../../assets/pos.jpg";
 import logo from "../../assets/logo.png";
 import Image from "../LoginPage/Image";
 import Form from "../LoginPage/Form";
+
 const LoginPage = () => {
   return (
     <Grid container py="0.4rem" my={16}>
