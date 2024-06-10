@@ -1,19 +1,35 @@
 import React, { useState, useRef } from "react";
-// import { TextField, InputAdornment } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Keyboard from "react-simple-keyboard";
 import InputField from "../InputField";
 import { Button } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import { FormControl } from "@mui/material";
+import { Box } from "@mui/system";
+import Select from "@mui/material/Select";
+import keyboardLayouts from "./keyboardLayouts.js";
+
 import "react-simple-keyboard/build/css/index.css";
 
 const VirtualKeyboard = () => {
+  const theme = useTheme();
+  const green = theme.palette.green.main;
+
   const [inputUserName, setInputUserName] = useState("");
   const [inputPass, setInputPass] = useState("");
   const [layout, setLayout] = useState("default");
+  const [language, setLanguage] = useState("english");
   const keyboardUserName = useRef();
   const keyboardPass = useRef();
   const [showKeyboard1, setShowKeyboard1] = useState(false);
   const [showKeyboard2, setShowKeyboard2] = useState(false);
+
+  const handleChangeLanguage = (event) => {
+    const newLanguage = event.target.value;
+    setLanguage(newLanguage);
+    setLayout("default"); // Reset to default layout on language change
+  };
 
   const onChange = (input, inputName) => {
     if (inputName === "inputUserName") {
@@ -21,7 +37,6 @@ const VirtualKeyboard = () => {
     } else if (inputName === "inputPass") {
       setInputPass(input);
     }
-    // console.log("Input changed", input);
   };
 
   const handleShift = () => {
@@ -30,7 +45,6 @@ const VirtualKeyboard = () => {
   };
 
   const onKeyPress = (button) => {
-    // console.log("Button pressed", button);
     if (button === "{shift}" || button === "{lock}") handleShift();
   };
 
@@ -39,6 +53,7 @@ const VirtualKeyboard = () => {
     setInputUserName(input);
     keyboardUserName.current.setInput(input);
   };
+
   const onChangeInputPass = (event) => {
     const input = event.target.value;
     setInputPass(input);
@@ -88,6 +103,7 @@ const VirtualKeyboard = () => {
           layoutName={layout}
           onChange={(input) => onChange(input, "inputUserName")}
           onKeyPress={onKeyPress}
+          layout={keyboardLayouts[language]}
         />
       )}
       {showKeyboard2 && (
@@ -96,8 +112,33 @@ const VirtualKeyboard = () => {
           layoutName={layout}
           onChange={(input) => onChange(input, "inputPass")}
           onKeyPress={onKeyPress}
+          layout={keyboardLayouts[language]}
         />
       )}
+      <Box m={1}>
+        <FormControl fullWidth>
+          <InputLabel id="language-select-label" color="green">
+            Language
+          </InputLabel>
+          <Select
+            labelId="language-select-label"
+            id="language-select"
+            value={language}
+            label="Language"
+            color="green"
+            sx={{
+              width: "100%",
+              "& fieldset": {
+                borderColor: green,
+              },
+            }}
+            onChange={handleChangeLanguage}>
+            <MenuItem value="english">English</MenuItem>
+            <MenuItem value="turkish">Türkçe</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
       <Button onClick={onButtonClick} variant="contained" color="primary">
         Hide Keyboard
       </Button>
