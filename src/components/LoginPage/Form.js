@@ -37,7 +37,7 @@ const Form = () => {
 
       // Redirect or show an error based on credentials check
       if (isValidUser) {
-        navigate("/dashboard");
+        navigate("dashboard");
       } else {
         setLoginError("Invalid credentials");
       }
