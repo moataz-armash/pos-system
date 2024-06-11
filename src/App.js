@@ -1,13 +1,16 @@
-import "./App.css";
-import LoginPage from "./components/LoginPage/LoginPage.js";
+import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
+import AppRoutes from "./routes/AppRoutes";
 import { theme } from "./muiTheme.js";
-function App() {
+
+const App = () => {
   return (
-    <ThemeProvider theme={theme} className="App">
-      <LoginPage />
+    <ThemeProvider theme={theme}>
+      {/* Header */}
+      <AppRoutes />
+      {/* Footer */}
     </ThemeProvider>
   );
-}
+};
 
 export default App;
