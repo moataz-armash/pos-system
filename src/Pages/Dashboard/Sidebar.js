@@ -9,7 +9,7 @@ export const SidebarContext = React.createContext({
   collapsewidth: "80px",
   textColor: "#8D939D",
   isCollapse: false,
-  themeColor: "#5d87ff",
+  themeColor: "#029199",
 });
 
 export const Sidebar = React.forwardRef(
@@ -20,8 +20,8 @@ export const Sidebar = React.forwardRef(
       collapsewidth = "80px",
       textColor = "#2b2b2b",
       isCollapse = false,
-      themeColor = "#5d87ff",
-      themeSecondaryColor = "#49beff",
+      themeColor = "#029199",
+      themeSecondaryColor = "#02747a",
       mode = "light",
       direction = "ltr",
       userName = "Mathew",
