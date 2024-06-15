@@ -14,6 +14,7 @@ import CahserInfo from "./CashierInfo";
 import CashierStatus from "./CashierStatus";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import CashierSystem from "./CashierSystem";
 
 function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -149,6 +150,7 @@ function Dashboard() {
           <CashierStatus />
         </Drawer>
       </Hidden>
+      <CashierSystem />
     </>
   );
 }

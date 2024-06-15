@@ -12,4 +12,16 @@ export const fetchStoreInfo = async () => {
   }
 };
 
+export const fetchProducts = async () => {
+  try {
+    const response = await axiosInstance.get(
+      "/eaf13d98-0a40-4b32-8b7c-01bb682ddb6e"
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
+
 // Add more API service functions as needed
