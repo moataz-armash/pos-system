@@ -1,106 +1,151 @@
-// import * as React from "react";
-// import { Box } from "@mui/material";
-// import { useTheme } from "@mui/material";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-// // import { Profile } from "./UserProfile";
+import { Sidebar } from "./Sidebar";
+import { Menu } from "./Menu";
+import { MenuItem } from "./MenuItem";
+import { Icon } from "../../components/Icon";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Hidden from "@mui/material/Hidden";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
 
-// export const SidebarContext = React.createContext({
-//   width: "270px",
-//   collapsewidth: "80px",
-//   textColor: "#8D939D",
-//   isCollapse: false,
-//   themeColor: "#5d87ff",
-// });
+function Dashboard() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-// export const Sidebar = React.forwardRef(
-//   (
-//     {
-//       children,
-//       width = "260px",
-//       collapsewidth = "80px",
-//       textColor = "#2b2b2b",
-//       isCollapse = false,
-//       themeColor = "#5d87ff",
-//       themeSecondaryColor = "#49beff",
-//       mode = "light",
-//       direction = "ltr",
-//       userName = "Mathew",
-//       designation = "Designer",
-//       showProfile = true,
-//       userimg = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg",
-//     },
-//     ref
-//   ) => {
-//     const [isSidebarHover, setIsSidebarHover] = React.useState(false);
-//     const toggleWidth = isCollapse && !isSidebarHover ? collapsewidth : width;
-//     const theme = useTheme();
-//     const myTheme = createTheme({
-//       direction: direction,
-//       palette: {
-//         mode: mode,
-//         primary: {
-//           main: themeColor,
-//         },
-//         secondary: {
-//           main: themeSecondaryColor,
-//           contrastText: "#fff",
-//         },
-//       },
-//     });
-
-//     if (mode === "dark") {
-//       textColor = "rgba(255,255,255, 0.9)";
-//     }
-//     return (
-//       <ThemeProvider theme={myTheme}>
-//         <Box
-//           dir={direction}
-//           sx={{
-//             width: toggleWidth,
-//             flexShrink: 0,
-//             fontFamily: "inherit",
-//             color: textColor,
-//           }}>
-//           <Box
-//             sx={{
-//               width: toggleWidth,
-//             }}>
-//             <SidebarContext.Provider
-//               value={{
-//                 textColor,
-//                 isCollapse,
-//                 width,
-//                 collapsewidth,
-//                 themeColor,
-//               }}>
-//               {children}
-//             </SidebarContext.Provider>
-
-//             {/* {showProfile ? (
-//               <Profile
-//                 userName={userName}
-//                 designation={designation}
-//                 userimg={userimg}
-//                 isCollapse={isCollapse}
-//               />
-//             ) : (
-//               ""
-//             )} */}
-//           </Box>
-//         </Box>
-//       </ThemeProvider>
-//     );
-//   }
-// );
-
-import React from "react";
-
-const Dashboard = () => {
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
+  // <AppBar position="sticky">
+  //   <Toolbar>
+  //     <IconButton
+  //       edge="start"
+  //       color="inherit"
+  //       aria-label="menu"
+  //       onClick={toggleDrawer(true)}>
+  //       <MenuIcon />
+  //     </IconButton>
+  //   </Toolbar>
+  // </AppBar>;
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <>
+      <Hidden mdDown onClick={toggleDrawer(true)}>
+        <Box
+          sx={{
+            backgroundColor: "rgb(255, 255, 255)",
+            color: "rgba(0, 0, 0, 0.87)",
+            boxShadow: "none",
+            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            flex: "1 0 auto",
+            zIndex: 1200,
+            position: "fixed",
+            top: 0,
+            outline: 0,
+            left: 0,
+            borderRight: "1px solid rgba(0, 0, 0, 0.12)",
+            transition: "width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+            width: "270px",
+            boxSizing: "border-box",
+          }}>
+          <Sidebar>
+            <Menu subHeading="ANA SAYFA">
+              <MenuItem
+                link="/"
+                badge={true}
+                icon={<Icon name="shoppingCart" />}>
+                SATIŞ
+              </MenuItem>
+              <MenuItem link="/price" icon={<Icon name="attachMoney" />}>
+                FIYAT GÖR
+              </MenuItem>
+              <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
+                IADE İŞLEMİ
+              </MenuItem>
+            </Menu>
+            <Menu subHeading="UYGULAMALAR">
+              <MenuItem link="/collections" icon={<Icon name="receipt" />}>
+                TAHSİLATLAR
+              </MenuItem>
+              <MenuItem link="/reports" icon={<Icon name="assessment" />}>
+                RAPORLAR
+              </MenuItem>
+            </Menu>
+            <Menu subHeading="DİĞER">
+              <MenuItem
+                link="/other-operations"
+                icon={<Icon name="settings" />}>
+                DIĞER İŞLEMLER
+              </MenuItem>
+              <MenuItem link="/direct-entry" icon={<Icon name="input" />}>
+                DİREKT ÜRÜN GİRİŞİ
+              </MenuItem>
+              <MenuItem link="/www" icon={<Icon name="language" />}>
+                WWW
+              </MenuItem>
+            </Menu>
+          </Sidebar>
+        </Box>
+      </Hidden>
+      <Hidden mdUp>
+        <AppBar position="sticky" color="green">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+              sx={{ color: "white" }}>
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+          <Sidebar>
+            <Menu subHeading="ANA SAYFA">
+              <MenuItem
+                link="/"
+                badge={true}
+                icon={<Icon name="shoppingCart" />}>
+                SATIŞ
+              </MenuItem>
+              <MenuItem link="/price" icon={<Icon name="attachMoney" />}>
+                FIYAT GÖR
+              </MenuItem>
+              <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
+                IADE İŞLEMİ
+              </MenuItem>
+            </Menu>
+            <Menu subHeading="UYGULAMALAR">
+              <MenuItem link="/collections" icon={<Icon name="receipt" />}>
+                TAHSİLATLAR
+              </MenuItem>
+              <MenuItem link="/reports" icon={<Icon name="assessment" />}>
+                RAPORLAR
+              </MenuItem>
+            </Menu>
+            <Menu subHeading="DİĞER">
+              <MenuItem
+                link="/other-operations"
+                icon={<Icon name="settings" />}>
+                DIĞER İŞLEMLER
+              </MenuItem>
+              <MenuItem link="/direct-entry" icon={<Icon name="input" />}>
+                DİREKT ÜRÜN GİRİŞİ
+              </MenuItem>
+              <MenuItem link="/www" icon={<Icon name="language" />}>
+                WWW
+              </MenuItem>
+            </Menu>
+          </Sidebar>
+        </Drawer>
+      </Hidden>
+    </>
   );
-};
+}
 
 export default Dashboard;
