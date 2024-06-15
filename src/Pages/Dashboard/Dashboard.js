@@ -5,7 +5,6 @@ import { Icon } from "../../components/Icon";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Hidden from "@mui/material/Hidden";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -13,24 +12,21 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import CahserInfo from "./CashierInfo";
 import CashierStatus from "./CashierStatus";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate(); // Use useHistory hook
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
-  // <AppBar position="sticky">
-  //   <Toolbar>
-  //     <IconButton
-  //       edge="start"
-  //       color="inherit"
-  //       aria-label="menu"
-  //       onClick={toggleDrawer(true)}>
-  //       <MenuIcon />
-  //     </IconButton>
-  //   </Toolbar>
-  // </AppBar>;
+
+  const handleLogout = () => {
+    // Perform any necessary cleanup actions here (e.g., clearing tokens)
+    navigate("/");
+  };
   return (
     <>
       <Hidden mdDown onClick={toggleDrawer(true)}>
@@ -57,7 +53,7 @@ function Dashboard() {
           <Sidebar>
             <Menu subHeading="ANA SAYFA">
               <MenuItem
-                link="/"
+                link="/dashboard"
                 badge={true}
                 icon={<Icon name="shoppingCart" />}>
                 SATIŞ
@@ -88,6 +84,9 @@ function Dashboard() {
               </MenuItem>
               <MenuItem link="/www" icon={<Icon name="language" />}>
                 WWW
+              </MenuItem>
+              <MenuItem link="/" onClick={handleLogout} icon={<LogoutIcon />}>
+                LOGOUT
               </MenuItem>
             </Menu>
           </Sidebar>
@@ -111,10 +110,7 @@ function Dashboard() {
         <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
           <Sidebar>
             <Menu subHeading="ANA SAYFA">
-              <MenuItem
-                link="/"
-                badge={true}
-                icon={<Icon name="shoppingCart" />}>
+              <MenuItem link="/" icon={<Icon name="shoppingCart" />}>
                 SATIŞ
               </MenuItem>
               <MenuItem link="/price" icon={<Icon name="attachMoney" />}>
@@ -143,6 +139,9 @@ function Dashboard() {
               </MenuItem>
               <MenuItem link="/www" icon={<Icon name="language" />}>
                 WWW
+              </MenuItem>
+              <MenuItem link="/" onClick={handleLogout} icon={<LogoutIcon />}>
+                LOGOUT
               </MenuItem>
             </Menu>
           </Sidebar>
