@@ -11,7 +11,8 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import CahserInfo from "./CahserInfo";
+import CahserInfo from "./CashierInfo";
+import CashierStatus from "./CashierStatus";
 
 function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -91,6 +92,7 @@ function Dashboard() {
             </Menu>
           </Sidebar>
           <CahserInfo />
+          <CashierStatus />
         </Box>
       </Hidden>
       <Hidden mdUp>
@@ -145,6 +147,7 @@ function Dashboard() {
             </Menu>
           </Sidebar>
           <CahserInfo />
+          <CashierStatus />
         </Drawer>
       </Hidden>
     </>
