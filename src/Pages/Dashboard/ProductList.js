@@ -10,12 +10,10 @@ import {
   FormControl,
   InputLabel,
   Button,
-  Drawer,
   List,
   ListItem,
   ListItemText,
   IconButton,
-  Divider,
   Checkbox,
   Pagination,
   Box,
@@ -30,7 +28,6 @@ const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [cart, setCart] = useState([]);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [discount, setDiscount] = useState(0);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [buy3Pay2AppliedProducts, setBuy3Pay2AppliedProducts] = useState([]);
@@ -104,10 +101,6 @@ const ProductList = () => {
     setBuy3Pay2AppliedProducts([]);
   };
 
-  const toggleDrawer = (open) => () => {
-    setDrawerOpen(open);
-  };
-
   const handleToggleProduct = (productId) => {
     setSelectedProducts((prevSelected) =>
       prevSelected.includes(productId)
@@ -117,6 +110,12 @@ const ProductList = () => {
   };
 
   const applyBuy3Pay2 = () => {
+    // Check if the discount has already been applied
+    if (discount > 0) {
+      alert("Buy 3 Pay 2 discount has already been applied.");
+      return;
+    }
+
     const productQuantityMap = new Map();
     cart.forEach((product) => {
       const currentQuantity = productQuantityMap.get(product.id) || 0;
@@ -133,13 +132,8 @@ const ProductList = () => {
       if (
         selectedProducts.includes(product.id) && // Apply only for selected products
         freeItems > 0 &&
-        !buy3Pay2AppliedProducts.includes(product.id) &&
         currentQuantity >= 3
       ) {
-        setBuy3Pay2AppliedProducts((prevApplied) => [
-          ...prevApplied,
-          product.id,
-        ]);
         totalDiscount += discountAmount;
       }
 
@@ -160,11 +154,19 @@ const ProductList = () => {
     setPage(newPage);
   };
 
+  const handleIncrement = (product) => {
+    const updatedQuantity = product.quantity + 1;
+    handleQuantityChange(product, updatedQuantity);
+  };
+
+  const handleDecrement = (product) => {
+    const updatedQuantity = product.quantity > 1 ? product.quantity - 1 : 1;
+    handleQuantityChange(product, updatedQuantity);
+  };
+
   const filteredProducts = products
     .filter((product) => {
-      const matchesSearch = product.name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      const matchesSearch = product.barcode.includes(searchQuery);
       return (
         (selectedCategory === "all" ||
           product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
@@ -175,165 +177,175 @@ const ProductList = () => {
 
   return (
     <Container maxWidth="lg" style={{ marginTop: 20 }}>
-      <Paper elevation={3} style={{ padding: 20 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={4} lg={3}>
-            <TextField
-              label="Search Products"
-              variant="outlined"
-              fullWidth
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={3}>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel id="category-label">Category</InputLabel>
-              <Select
-                labelId="category-label"
-                value={selectedCategory}
-                onChange={handleCategoryChange}
-                label="Category">
-                <MenuItem value="all">All</MenuItem>
-                <MenuItem value="vegetables">Vegetables</MenuItem>
-                <MenuItem value="fruits">Fruits</MenuItem>
-                {/* Add more categories as needed */}
-              </Select>
-            </FormControl>
-          </Grid>
-          {filteredProducts.map((product) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-              <Paper
-                style={{ padding: 20, textAlign: "center", height: "100%" }}>
-                <Box
-                  sx={{
-                    height: 150,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    overflow: "hidden",
-                    marginBottom: 2,
-                  }}>
-                  <img
-                    src={product.image}
-                    alt={product.name}
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={8}>
+          <Paper elevation={3} style={{ padding: 20 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <TextField
+                  label="Search by Barcode"
+                  variant="outlined"
+                  fullWidth
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <FormControl variant="outlined" fullWidth>
+                  <InputLabel id="category-label">Category</InputLabel>
+                  <Select
+                    labelId="category-label"
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                    label="Category">
+                    <MenuItem value="all">All</MenuItem>
+                    <MenuItem value="vegetables">Vegetables</MenuItem>
+                    <MenuItem value="fruits">Fruits</MenuItem>
+                    <MenuItem value="Dairy">Dairy</MenuItem>
+                    <MenuItem value="Bakery">Bakery</MenuItem>
+                    <MenuItem value="Seafood">Seafood</MenuItem>
+                    <MenuItem value="Pantry">Pantry</MenuItem>
+                    <MenuItem value="Meat">Meat</MenuItem>
+                    <MenuItem value="Frozen">Frozen</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              {filteredProducts.map((product) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                  <Paper
                     style={{
-                      maxHeight: "100%",
-                      maxWidth: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-                <Typography variant="h6" gutterBottom>
-                  {product.name}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  ${product.price}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleAddToCart(product)}>
-                  Add to Cart
-                </Button>
+                      padding: 20,
+                      textAlign: "center",
+                      height: "100%",
+                    }}>
+                    <Box
+                      sx={{
+                        height: 150,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        marginBottom: 2,
+                      }}>
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        style={{
+                          maxHeight: "100%",
+                          maxWidth: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </Box>
+                    <Typography variant="h6" gutterBottom>
+                      {product.name}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      ${product.price}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleAddToCart(product)}>
+                      Add to Cart
+                    </Button>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+            <Pagination
+              count={Math.ceil(products.length / itemsPerPage)}
+              page={page}
+              onChange={handleChangePage}
+              style={{
+                marginTop: 20,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            />
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <Grid container direction="column" spacing={3}>
+            <Grid item>
+              <Paper elevation={3} style={{ padding: 20, textAlign: "center" }}>
+                <Typography variant="h6">Cart</Typography>
+                {cart.length === 0 && (
+                  <Typography variant="body1" style={{ marginTop: 10 }}>
+                    Your cart is empty. Please add something.
+                  </Typography>
+                )}
+                <List>
+                  {cart.map((product) => (
+                    <ListItem key={product.id} divider>
+                      <ListItemText
+                        primary={product.name}
+                        secondary={`$${product.price}`}
+                      />
+                      <IconButton
+                        aria-label="decrement"
+                        onClick={() => handleDecrement(product)}>
+                        <Typography variant="h6">-</Typography>
+                      </IconButton>
+                      <TextField
+                        type="number"
+                        value={product.quantity}
+                        InputProps={{ readOnly: true }}
+                        style={{ width: 60, textAlign: "center" }}
+                      />
+                      <IconButton
+                        aria-label="increment"
+                        onClick={() => handleIncrement(product)}>
+                        <Typography variant="h6">+</Typography>
+                      </IconButton>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => handleRemoveFromCart(product)}>
+                        <DeleteIcon />
+                      </IconButton>
+                      <Checkbox
+                        checked={selectedProducts.includes(product.id)}
+                        onChange={() => handleToggleProduct(product.id)}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+                {cart.length > 0 && (
+                  <>
+                    <Typography variant="h6" style={{ padding: 10 }}>
+                      Subtotal: ${subtotal.toFixed(2)}
+                    </Typography>
+                    <Typography variant="h6" style={{ padding: 10 }}>
+                      Total Amount: ${totalAmount.toFixed(2)}
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: 20,
+                      }}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={applyBuy3Pay2}>
+                        Apply Buy 3 Pay 2
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleClearCart}>
+                        Clear Cart
+                      </Button>
+                    </div>
+                  </>
+                )}
               </Paper>
             </Grid>
-          ))}
+          </Grid>
         </Grid>
-        <Pagination
-          count={Math.ceil(products.length / itemsPerPage)}
-          page={page}
-          onChange={handleChangePage}
-          style={{ marginTop: 20, display: "flex", justifyContent: "center" }}
-        />
-      </Paper>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: 20,
-        }}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={toggleDrawer(true)}>
-          View Cart ({cart.length})
-        </Button>
-        <Button variant="outlined" color="primary" onClick={handleClearCart}>
-          Clear Cart
-        </Button>
-      </div>
-
-      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
-        <div style={{ width: 300, padding: 20 }}>
-          <Typography variant="h6">Cart</Typography>
-          {cart.length === 0 && (
-            <Typography variant="body1" style={{ marginTop: 10 }}>
-              Your cart is empty. Please add something.
-            </Typography>
-          )}
-          <List>
-            {cart.map((product) => (
-              <ListItem key={product.id} divider>
-                <ListItemText
-                  primary={product.name}
-                  secondary={`$${product.price}`}
-                />
-                <TextField
-                  type="number"
-                  value={product.quantity}
-                  onChange={(e) =>
-                    handleQuantityChange(product, parseInt(e.target.value))
-                  }
-                  inputProps={{ min: 0 }}
-                  style={{ width: 60, marginRight: 10 }}
-                />
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => handleRemoveFromCart(product)}>
-                  <DeleteIcon />
-                </IconButton>
-                <Checkbox
-                  checked={selectedProducts.includes(product.id)}
-                  onChange={() => handleToggleProduct(product.id)}
-                />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          {cart.length > 0 && (
-            <>
-              <Typography variant="h6" style={{ padding: 20 }}>
-                Subtotal: ${subtotal.toFixed(2)}
-              </Typography>
-              <Typography variant="h6" style={{ padding: 20 }}>
-                Total Amount: ${totalAmount.toFixed(2)}
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: 20,
-                }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={applyBuy3Pay2}>
-                  Apply Buy 3 Pay 2
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleClearCart}>
-                  Clear Cart
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
-      </Drawer>
+      </Grid>
     </Container>
   );
 };
