@@ -84,7 +84,7 @@ export const MenuItem = forwardRef(
           href={link}
           sx={{ display: "flex", gap: "15px" }}
           target={target}
-          selected={link == "/" ? true : false}>
+          selected={link === "/dashboard" ? true : false}>
           <ListItemIcon
             sx={{
               minWidth: "0px",
