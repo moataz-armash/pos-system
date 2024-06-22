@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Grid } from "@mui/material";
-// import ShoppingCart from "./ShoppingCart";
+import ShoppingCart from "./ShoppingCart";
 import { CartProvider } from "../../hooks/Context/CartContext";
 import ProductList from "../../components/ProductList/ProductList";
 
@@ -9,11 +9,13 @@ const CashierSystem = () => {
     <Container sx={{ marginTop: 4 }}>
       <Grid container spacing={4}>
         <Grid item>
-          <CartProvider>
+          {/* <CartProvider>
             <ProductList />
-          </CartProvider>
+          </CartProvider> */}
         </Grid>
-        {/* <Grid item><ShoppingCart /></Grid> */}
+        <Grid item>
+          <ShoppingCart />
+        </Grid>
       </Grid>
     </Container>
   );
