@@ -14,7 +14,9 @@ const CashierSystem = () => {
           </CartProvider> */}
         </Grid>
         <Grid item>
-          <ShoppingCart />
+          <CartProvider>
+            <ShoppingCart />
+          </CartProvider>
         </Grid>
       </Grid>
     </Container>

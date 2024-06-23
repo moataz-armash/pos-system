@@ -1,66 +1,42 @@
 import React from "react";
-import { Paper, Typography, List, Button } from "@mui/material";
+import { Box, Typography, List } from "@mui/material";
+import { useCart } from "../../hooks/Context/CartContext";
 import CartItem from "./CartItem";
+import CartSummary from "./CartSummary";
+import CartActions from "./CartActions";
 
-const Cart = ({
-  cart,
-  selectedProducts,
-  handleDecrement,
-  handleIncrement,
-  handleRemoveFromCart,
-  handleToggleProduct,
-  subtotal,
-  totalAmount,
-  applyBuy3Pay2,
-  handleClearCart,
-}) => {
+const Cart = ({ onClose }) => {
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
+
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   return (
-    <Paper elevation={3} style={{ padding: 20, textAlign: "center" }}>
-      <Typography variant="h6">Cart</Typography>
+    <Box sx={{ width: 300, p: 2 }}>
+      <Typography variant="h6" gutterBottom>
+        Your Cart
+      </Typography>
       {cart.length === 0 ? (
-        <Typography variant="body1" style={{ marginTop: 10 }}>
-          Your cart is empty. Please add something.
-        </Typography>
+        <Typography>Your cart is empty</Typography>
       ) : (
         <>
           <List>
-            {cart.map((product) => (
+            {cart.map((item) => (
               <CartItem
-                key={product.id}
-                product={product}
-                selectedProducts={selectedProducts}
-                handleDecrement={handleDecrement}
-                handleIncrement={handleIncrement}
-                handleRemoveFromCart={handleRemoveFromCart}
-                handleToggleProduct={handleToggleProduct}
+                key={item.id}
+                item={item}
+                updateQuantity={updateQuantity}
+                removeFromCart={removeFromCart}
               />
             ))}
           </List>
-          <Typography variant="h6" style={{ padding: 10 }}>
-            Subtotal: ${subtotal.toFixed(2)}
-          </Typography>
-          <Typography variant="h6" style={{ padding: 10 }}>
-            Total Amount: ${totalAmount.toFixed(2)}
-          </Typography>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: 20,
-            }}>
-            <Button variant="contained" color="primary" onClick={applyBuy3Pay2}>
-              Apply Buy 3 Pay 2
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleClearCart}>
-              Clear Cart
-            </Button>
-          </div>
+          <CartSummary totalPrice={totalPrice} />
+          <CartActions onClear={clearCart} onCheckout={onClose} />
         </>
       )}
-    </Paper>
+    </Box>
   );
 };
 

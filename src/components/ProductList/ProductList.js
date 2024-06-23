@@ -147,8 +147,12 @@
 
 import React from "react";
 import { Grid, Paper, Typography, Button } from "@mui/material";
+import { useCart } from "../../hooks/Context/CartContext";
+import GreenButton from "../Button/GreenButton";
+import AddToCartButton from "../Button/AddToCartButton";
 
 const ProductList = ({ products, searchQuery, selectedSubcategory }) => {
+  const { addToCart, removeFromCart, updateQuantity, getQuantity } = useCart();
   const noMatchingProducts = products.length === 0 && searchQuery;
 
   return (
@@ -181,9 +185,14 @@ const ProductList = ({ products, searchQuery, selectedSubcategory }) => {
                 <Typography variant="body2">
                   ${product.price.toFixed(2)}
                 </Typography>
-                <Button variant="contained" color="primary">
-                  Add to Cart
-                </Button>
+                <AddToCartButton
+                  key={product.id}
+                  product={product}
+                  getQuantity={getQuantity}
+                  removeFromCart={removeFromCart}
+                  addToCart={addToCart}
+                  updateQuantity={updateQuantity}
+                />
               </Paper>
             </Grid>
           ))}
@@ -215,9 +224,14 @@ const ProductList = ({ products, searchQuery, selectedSubcategory }) => {
                 <Typography variant="body2">
                   ${product.price.toFixed(2)}
                 </Typography>
-                <Button variant="contained" color="primary">
-                  Add to Cart
-                </Button>
+                <AddToCartButton
+                  key={product.id}
+                  product={product}
+                  getQuantity={getQuantity}
+                  removeFromCart={removeFromCart}
+                  addToCart={addToCart}
+                  updateQuantity={updateQuantity}
+                />
               </Paper>
             </Grid>
           ))}

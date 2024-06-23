@@ -1,20 +1,23 @@
 import React from "react";
 import { Grid, Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import GreenButton from "../Button/GreenButton";
 
 const CategoryList = ({ categories, selectedCategory, onCategorySelect }) => {
   return (
     <Grid container spacing={2}>
       {categories.map((category, index) => (
         <Grid item key={index}>
-          <Button
+          <GreenButton
             variant={
               selectedCategory === category.name ? "contained" : "outlined"
             }
-            color="primary"
             onClick={() => onCategorySelect(category.name)}
-            style={{ marginRight: 10 }}>
+            style={{
+              marginRight: 10,
+            }}>
             {category.name}
-          </Button>
+          </GreenButton>
         </Grid>
       ))}
     </Grid>

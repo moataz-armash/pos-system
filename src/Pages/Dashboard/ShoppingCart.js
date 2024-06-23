@@ -13,6 +13,9 @@ import SubcategoryList from "../../components/ProductList/SubcategoryList";
 import ProductList from "../../components/ProductList/ProductList";
 import SearchBar from "../../components/ProductList/SearchBar";
 import BreadcrumbNavigation from "../../components/ProductList/BreadcrumbNavigation";
+import { CartProvider } from "../../hooks/Context/CartContext";
+import CartDrawer from "../../components/ProductList/CartDrawer";
+import CartButton from "../../components/ProductList/CartButton";
 
 const ShoppingCart = () => {
   const [categories, setCategories] = useState([]);
@@ -21,6 +24,7 @@ const ShoppingCart = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -56,6 +60,18 @@ const ShoppingCart = () => {
       )
     );
   };
+
+  const handleCartClick = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  if (loading) {
+    return (
+      <Backdrop open={true} style={{ zIndex: 9999 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
 
   const handleCategorySelect = (categoryName) => {
     setSelectedCategory(categoryName);
@@ -116,10 +132,17 @@ const ShoppingCart = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={3} style={{ padding: 20 }}>
-            <SearchBar
-              searchQuery={searchQuery}
-              onSearchChange={handleSearchChange}
-            />
+            <Grid container>
+              <Grid item xs={10}>
+                <SearchBar
+                  searchQuery={searchQuery}
+                  onSearchChange={handleSearchChange}
+                />
+              </Grid>
+              <Grid item>
+                <CartButton onClick={handleCartClick} />
+              </Grid>
+            </Grid>
             <BreadcrumbNavigation
               selectedCategory={selectedCategory}
               selectedSubcategory={selectedSubcategory}
@@ -148,6 +171,12 @@ const ShoppingCart = () => {
               selectedSubcategory={selectedSubcategory}
             />
           </Paper>
+          <Grid item xs={12} md={4}>
+            <CartDrawer
+              isOpen={isCartOpen}
+              onClose={() => setIsCartOpen(false)}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Container>
