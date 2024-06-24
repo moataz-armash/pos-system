@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { Grid, Paper, Typography, Button, Pagination } from "@mui/material";
 import { useCart } from "../../hooks/Context/CartContext";
-import GreenButton from "../Button/GreenButton";
+import { styled } from "@mui/material/styles";
 import AddToCartButton from "../Button/AddToCartButton";
+
+const StyledPagination = styled(Pagination)(({ theme }) => ({
+  "& .MuiPaginationItem-root": {
+    color: "#014d50",
+  },
+  "& .MuiPaginationItem-page.Mui-selected": {
+    backgroundColor: "#02747a", // Darker shade for the selected item
+    color: "#fff",
+  },
+  "& .MuiPaginationItem-root:hover": {
+    backgroundColor: "#02747a",
+    color: "white",
+  },
+}));
 
 const ProductList = ({
   products,
@@ -118,20 +132,13 @@ const ProductList = ({
         </Typography>
       )}
       <Grid container justifyContent="center" style={{ marginTop: 20 }}>
-        <Pagination
-          count={Math.ceil(products.length / itemsPerPage)}
-          page={currentPage}
-          onChange={handlePageChange}
-          sx={{
-            "& .MuiPaginationItem-root": {
-              color: "#02747a",
-            },
-            "& .Mui-selected": {
-              backgroundColor: "#02747a",
-              color: "#fff",
-            },
-          }}
-        />
+        {searchQuery && (
+          <StyledPagination
+            count={Math.ceil(products.length / itemsPerPage)}
+            page={currentPage}
+            onChange={handlePageChange}
+          />
+        )}
       </Grid>
     </>
   );
