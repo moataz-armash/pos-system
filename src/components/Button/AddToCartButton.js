@@ -43,10 +43,18 @@ const AddToCartButton = ({ product, quantity, setQuantity }) => {
         <Grid item xs={12}>
           <Button
             color="primary"
-            variant="contained"
+            variant="outlined"
             onClick={handleAddToCart}
             fullWidth
-            sx={{ height: "36px" }}>
+            sx={{
+              height: "36px",
+              color: "#01666b",
+              borderColor: "#01666b",
+              "&:hover": {
+                backgroundColor: "#e0f7fa",
+                borderColor: "#01666b",
+              },
+            }}>
             Add {quantity} to Cart
           </Button>
         </Grid>
@@ -61,7 +69,8 @@ const AddToCartButton = ({ product, quantity, setQuantity }) => {
             <IconButton
               color="primary"
               onClick={handleDecreaseQuantity}
-              size="small">
+              size="small"
+              sx={{ color: "#01666b" }}>
               {cartQuantity === 1 ? <DeleteIcon /> : <RemoveIcon />}
             </IconButton>
           </Grid>
@@ -76,7 +85,8 @@ const AddToCartButton = ({ product, quantity, setQuantity }) => {
             <IconButton
               color="primary"
               onClick={handleIncreaseQuantity}
-              size="small">
+              size="small"
+              sx={{ color: "#01666b" }}>
               <AddIcon />
             </IconButton>
           </Grid>
