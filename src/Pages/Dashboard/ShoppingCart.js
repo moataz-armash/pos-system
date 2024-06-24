@@ -12,12 +12,14 @@ import CategoryList from "../../components/ProductList/CategoryList";
 import SubcategoryList from "../../components/ProductList/SubcategoryList";
 import ProductList from "../../components/ProductList/ProductList";
 import SearchBar from "../../components/ProductList/SearchBar";
-import BreadcrumbNavigation from "../../components/ProductList/BreadcrumbNavigation";
+import BreadcrumbNavigation from "../../components/Cart/BreadcrumbNavigation";
 import { CartProvider } from "../../hooks/Context/CartContext";
-import CartDrawer from "../../components/ProductList/CartDrawer";
-import CartButton from "../../components/ProductList/CartButton";
+import CartDrawer from "../../components/Cart/CartDrawer";
+import CartButton from "../../components/Cart/CartButton";
+import { useCart } from "../../hooks/Context/CartContext";
 
-const ShoppingCart = () => {
+const ShoppingCart = ({ quantity, setQuantity }) => {
+  const { addToCart } = useCart();
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -59,6 +61,12 @@ const ShoppingCart = () => {
           : []
       )
     );
+  };
+
+  const handleProductSelect = (product) => {
+    addToCart({ ...product, quantity: quantity || 1 });
+    console.log(`Adding ${quantity || 1} of ${product.name} to cart`);
+    setQuantity(1); // Reset quantity to 1 after adding to cart
   };
 
   const handleCartClick = () => {
@@ -169,6 +177,9 @@ const ShoppingCart = () => {
               }
               searchQuery={searchQuery}
               selectedSubcategory={selectedSubcategory}
+              onProductSelect={handleProductSelect}
+              quantity={quantity}
+              setQuantity={setQuantity}
             />
           </Paper>
           <Grid item xs={12} md={4}>

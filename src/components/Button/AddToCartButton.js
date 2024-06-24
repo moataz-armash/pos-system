@@ -5,14 +5,20 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useCart } from "../../hooks/Context/CartContext";
 
-const AddToCartButton = ({ product }) => {
+const AddToCartButton = ({ product, quantity, setQuantity }) => {
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
 
   const cartItem = cart.find((item) => item.id === product.id);
-  const quantity = cartItem ? cartItem.quantity : 0;
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   const handleAddToCart = () => {
-    addToCart(product);
+    if (cartQuantity === 0) {
+      addToCart({ ...product, quantity: quantity });
+    } else {
+      updateQuantity(product.id, cartQuantity + quantity);
+    }
+    setQuantity(1); // Reset quantity to 1 after adding to cart
+    console.log(`Added ${quantity} of ${product.name} to cart`); // Debug log
   };
 
   const handleRemoveFromCart = () => {
@@ -20,20 +26,20 @@ const AddToCartButton = ({ product }) => {
   };
 
   const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      updateQuantity(product.id, quantity - 1);
+    if (cartQuantity > 1) {
+      updateQuantity(product.id, cartQuantity - 1);
     } else {
       handleRemoveFromCart();
     }
   };
 
   const handleIncreaseQuantity = () => {
-    updateQuantity(product.id, quantity + 1);
+    updateQuantity(product.id, cartQuantity + 1);
   };
 
   return (
     <Grid container justifyContent="center" alignItems="center">
-      {quantity === 0 ? (
+      {cartQuantity === 0 ? (
         <Grid item xs={12}>
           <Button
             color="primary"
@@ -41,7 +47,7 @@ const AddToCartButton = ({ product }) => {
             onClick={handleAddToCart}
             fullWidth
             sx={{ height: "36px" }}>
-            Add to Cart
+            Add {quantity} to Cart
           </Button>
         </Grid>
       ) : (
@@ -56,14 +62,14 @@ const AddToCartButton = ({ product }) => {
               color="primary"
               onClick={handleDecreaseQuantity}
               size="small">
-              {quantity === 1 ? <DeleteIcon /> : <RemoveIcon />}
+              {cartQuantity === 1 ? <DeleteIcon /> : <RemoveIcon />}
             </IconButton>
           </Grid>
           <Grid item>
             <Typography
               variant="body1"
               sx={{ mx: 1, minWidth: "20px", textAlign: "center" }}>
-              {quantity}
+              {cartQuantity}
             </Typography>
           </Grid>
           <Grid item>

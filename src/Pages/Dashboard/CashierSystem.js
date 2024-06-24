@@ -1,24 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Grid } from "@mui/material";
 import ShoppingCart from "./ShoppingCart";
+import NumberPad from "../../components/ProductList/NumberPad"; // Make sure this path is correct
 import { CartProvider } from "../../hooks/Context/CartContext";
-import ProductList from "../../components/ProductList/ProductList";
 
 const CashierSystem = () => {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
+
   return (
     <Container sx={{ marginTop: 4 }}>
-      <Grid container spacing={4}>
-        <Grid item>
-          {/* <CartProvider>
-            <ProductList />
-          </CartProvider> */}
+      <CartProvider>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={8}>
+            <ShoppingCart quantity={quantity} setQuantity={setQuantity} />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <NumberPad onQuantityChange={handleQuantityChange} />
+          </Grid>
         </Grid>
-        <Grid item>
-          <CartProvider>
-            <ShoppingCart />
-          </CartProvider>
-        </Grid>
-      </Grid>
+      </CartProvider>
     </Container>
   );
 };
