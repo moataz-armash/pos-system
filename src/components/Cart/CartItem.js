@@ -8,12 +8,20 @@ import {
   IconButton,
   Typography,
   Divider,
+  Checkbox,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useCart } from "../../hooks/Context/CartContext";
 
-const CartItem = ({ item, updateQuantity, removeFromCart }) => {
+const CartItem = ({ item }) => {
+  const {
+    selectedProducts,
+    updateQuantity,
+    removeFromCart,
+    handleToggleProduct,
+  } = useCart();
   return (
     <>
       <ListItem>
@@ -50,6 +58,10 @@ const CartItem = ({ item, updateQuantity, removeFromCart }) => {
             onClick={() => removeFromCart(item.id)}>
             <DeleteIcon />
           </IconButton>
+          <Checkbox
+            checked={selectedProducts.includes(item.id)}
+            onChange={() => handleToggleProduct(item.id)}
+          />
         </ListItemSecondaryAction>
       </ListItem>
       <Typography variant="body2" align="right" sx={{ pr: 2, pb: 1 }}>

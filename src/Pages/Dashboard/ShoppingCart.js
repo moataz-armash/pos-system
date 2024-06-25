@@ -13,13 +13,12 @@ import SubcategoryList from "../../components/ProductList/SubcategoryList";
 import ProductList from "../../components/ProductList/ProductList";
 import SearchBar from "../../components/ProductList/SearchBar";
 import BreadcrumbNavigation from "../../components/Cart/BreadcrumbNavigation";
-import { CartProvider } from "../../hooks/Context/CartContext";
 import CartDrawer from "../../components/Cart/CartDrawer";
 import CartButton from "../../components/Cart/CartButton";
 import { useCart } from "../../hooks/Context/CartContext";
 
-const ShoppingCart = ({ quantity, setQuantity }) => {
-  const { addToCart } = useCart();
+const ShoppingCart = () => {
+  const { addToCart, quantity, setQuantity } = useCart();
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");

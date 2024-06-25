@@ -23,10 +23,8 @@ const ProductList = ({
   searchQuery,
   selectedSubcategory,
   onProductSelect,
-  quantity,
-  setQuantity,
 }) => {
-  const { addToCart, removeFromCart, updateQuantity, getQuantity } = useCart();
+  const { addToCart, quantity, setQuantity } = useCart();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
@@ -78,10 +76,7 @@ const ProductList = ({
                 <AddToCartButton
                   key={product.id}
                   product={product}
-                  getQuantity={getQuantity}
                   addToCart={() => handleAddToCart(product)}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
                 />
               </Paper>
             </Grid>
@@ -117,10 +112,7 @@ const ProductList = ({
                 <AddToCartButton
                   key={product.id}
                   product={product}
-                  getQuantity={getQuantity}
                   addToCart={() => handleAddToCart(product)}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
                 />
               </Paper>
             </Grid>

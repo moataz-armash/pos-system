@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Grid, Button, Typography, Paper, TextField, Box } from "@mui/material";
+import { Grid, Button, Paper, TextField, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
+import { useCart } from "../../hooks/Context/CartContext";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   fontSize: "1.2rem",
   padding: theme.spacing(1.5),
 }));
 
-const NumberPad = ({ onQuantityChange }) => {
+const NumberPad = () => {
+  const { onQuantityChange } = useCart();
   const [display, setDisplay] = useState("1");
 
   const theme = useTheme();

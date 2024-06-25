@@ -5,8 +5,15 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useCart } from "../../hooks/Context/CartContext";
 
-const AddToCartButton = ({ product, quantity, setQuantity }) => {
-  const { cart, addToCart, removeFromCart, updateQuantity } = useCart();
+const AddToCartButton = ({ product }) => {
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    quantity,
+    setQuantity,
+  } = useCart();
 
   const cartItem = cart.find((item) => item.id === product.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
