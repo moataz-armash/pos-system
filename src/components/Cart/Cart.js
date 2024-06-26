@@ -121,7 +121,7 @@ const Cart = ({ onClose }) => {
                 onChange={handleOfferChange}
                 displayEmpty
                 fullWidth
-                color="green"
+                color="lightGreen"
                 sx={{ mb: 1 }}>
                 <MenuItem value="" disabled>
                   Select an offer
@@ -133,9 +133,9 @@ const Cart = ({ onClose }) => {
                 <MenuItem value="50percentoff">50% Off</MenuItem>
               </Select>
               <Button
-                variant="contained"
+                variant="outlined"
                 color="green"
-                sx={{ color: "white" }}
+                sx={{ color: "green" }}
                 fullWidth
                 onClick={handleApplyOffer}>
                 Apply Offer

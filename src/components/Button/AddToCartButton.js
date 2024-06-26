@@ -1,9 +1,11 @@
-import React from "react";
+import { React, useState } from "react";
 import { Button, Typography, Grid, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useCart } from "../../hooks/Context/CartContext";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const AddToCartButton = ({ product }) => {
   const {
@@ -15,6 +17,21 @@ const AddToCartButton = ({ product }) => {
     setQuantity,
   } = useCart();
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const showSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const cartItem = cart.find((item) => item.id === product.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
@@ -24,7 +41,7 @@ const AddToCartButton = ({ product }) => {
     } else {
       updateQuantity(product.id, cartQuantity + quantity);
     }
-    setQuantity(1); // Reset quantity to 1 after adding to cart
+    showSnackbar(`Added ${quantity} of ${product.name} to cart`);
     console.log(`Added ${quantity} of ${product.name} to cart`); // Debug log
   };
 
@@ -99,6 +116,18 @@ const AddToCartButton = ({ product }) => {
           </Grid>
         </Grid>
       )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+        <MuiAlert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Grid>
   );
 };

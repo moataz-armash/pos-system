@@ -9,7 +9,7 @@ const CartActions = ({ onClear, onCheckout }) => {
       </Button>
       <Button
         variant="contained"
-        color="blue"
+        color="green"
         sx={{ color: "white" }}
         onClick={onCheckout}>
         Checkout

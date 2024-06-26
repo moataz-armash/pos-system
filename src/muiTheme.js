@@ -14,12 +14,10 @@ export const theme = createTheme({
     },
     lightGreen: {
       main: "#02747a",
+      secondary: "#01575c",
     },
     lightBlue: {
       main: "#67bdc2",
-    },
-    blue: {
-      main: "#024599",
     },
   },
 });
