@@ -27,10 +27,14 @@ const Cart = ({ onClose }) => {
     discount,
     applyOffer,
     errorMessage,
+    setErrorMessage,
+    successMessage,
+    selectedOffer,
+    setSelectedOffer,
+    toggleButton,
+    setToggleButton,
   } = useCart();
-  const [selectedOffer, setSelectedOffer] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -42,8 +46,13 @@ const Cart = ({ onClose }) => {
 
   const handleApplyOffer = () => {
     if (!selectedOffer) {
-      setSnackbarMessage("Please select an offer to apply.");
-      setOpenSnackbar(true);
+      setErrorMessage("Please select an offer to apply.");
+      return;
+    }
+    // Check if no products are selected after the update
+    if (!toggleButton) {
+      setErrorMessage("Please select at least one product to apply an offer.");
+      setSelectedOffer("");
       return;
     }
 
@@ -54,10 +63,6 @@ const Cart = ({ onClose }) => {
 
     applyOffer(selectedOffer);
     setSelectedOffer(""); // Reset the select value
-
-    // setSnackbarMessage(`Offer applied! You saved $${savings.toFixed(2)}`);
-    // setOpenSnackbar(true);
-    // setSelectedOffer("");
   };
 
   const handleCloseSnackbar = (event, reason) => {
@@ -83,10 +88,16 @@ const Cart = ({ onClose }) => {
         <Typography variant="h6" gutterBottom>
           Your Cart
         </Typography>
-        {errorMessage && (
+        {errorMessage ? (
           <Typography color="error" variant="body2">
             {errorMessage}
           </Typography>
+        ) : (
+          successMessage && (
+            <Typography color="success.light" variant="body2">
+              {successMessage}
+            </Typography>
+          )
         )}
       </Box>
       {cart.length === 0 ? (
@@ -110,6 +121,7 @@ const Cart = ({ onClose }) => {
                 onChange={handleOfferChange}
                 displayEmpty
                 fullWidth
+                color="green"
                 sx={{ mb: 1 }}>
                 <MenuItem value="" disabled>
                   Select an offer
@@ -122,7 +134,8 @@ const Cart = ({ onClose }) => {
               </Select>
               <Button
                 variant="contained"
-                color="primary"
+                color="green"
+                sx={{ color: "white" }}
                 fullWidth
                 onClick={handleApplyOffer}>
                 Apply Offer
@@ -133,25 +146,6 @@ const Cart = ({ onClose }) => {
           <CartActions onClear={clearCart} onCheckout={onClose} />
         </>
       )}
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        message={snackbarMessage}
-        action={
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={handleCloseSnackbar}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        }
-      />
     </Box>
   );
 };

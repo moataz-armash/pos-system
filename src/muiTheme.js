@@ -18,5 +18,8 @@ export const theme = createTheme({
     lightBlue: {
       main: "#67bdc2",
     },
+    blue: {
+      main: "#024599",
+    },
   },
 });

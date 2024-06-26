@@ -10,6 +10,9 @@ export const CartProvider = ({ children }) => {
   const [discount, setDiscount] = useState(0);
   const [AppliedOffer, setAppliedOffer] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [selectedOffer, setSelectedOffer] = useState("");
+  const [toggleButton, setToggleButton] = useState(false);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -25,6 +28,7 @@ export const CartProvider = ({ children }) => {
     });
     console.log("Cart after adding:", cart); // Debug log
     setErrorMessage("");
+    setSuccessMessage("");
   };
 
   const removeFromCart = (productId) => {
@@ -42,6 +46,7 @@ export const CartProvider = ({ children }) => {
       return updatedCart;
     });
     setErrorMessage("");
+    setSuccessMessage("");
   };
 
   const updateQuantity = (productId, newQuantity) => {
@@ -54,6 +59,7 @@ export const CartProvider = ({ children }) => {
     );
     console.log("Cart after updating quantity:", cart); // Debug log
     setErrorMessage("");
+    setSuccessMessage("");
   };
 
   const clearCart = () => {
@@ -61,10 +67,12 @@ export const CartProvider = ({ children }) => {
     setSelectedProducts([]);
     setBuy3Pay2AppliedProducts([]);
     setErrorMessage("");
+    setSuccessMessage("");
   };
 
   const applyOffer = (offerType) => {
     setErrorMessage("");
+    setSuccessMessage("");
     const validOffers = [
       "buy3pay2",
       "buy1get1free",
@@ -78,13 +86,16 @@ export const CartProvider = ({ children }) => {
     }
 
     let totalDiscount = 0;
+    let appliedOfferCount = 0;
+    let alreadyAppliedCount = 0;
     let updatedCart = cart.map((product) => {
       if (!selectedProducts.includes(product.id)) {
         return product;
       }
 
-      // If an offer is already applied, don't change it
+      // If an offer is already applied, count it and don't change the product
       if (product.offerApplied) {
+        alreadyAppliedCount++;
         totalDiscount += product.appliedDiscount || 0;
         return product;
       }
@@ -100,9 +111,6 @@ export const CartProvider = ({ children }) => {
             discountedQuantity = product.quantity - freeItems;
             appliedDiscount = product.price * freeItems;
           } else {
-            setErrorMessage(
-              `The quantity of ${product.name} must be at least 3 for Buy 3 Pay 2 offer`
-            );
             return product;
           }
           break;
@@ -113,9 +121,6 @@ export const CartProvider = ({ children }) => {
             discountedQuantity = product.quantity - freeItems;
             appliedDiscount = product.price * freeItems;
           } else {
-            setErrorMessage(
-              `The quantity of ${product.name} must be at least 2 for Buy 1 Get 1 Free offer`
-            );
             return product;
           }
           break;
@@ -126,9 +131,6 @@ export const CartProvider = ({ children }) => {
             discountedQuantity = product.quantity - freeItems;
             appliedDiscount = product.price * freeItems;
           } else {
-            setErrorMessage(
-              `The quantity of ${product.name} must be at least 3 for Buy 2 Get 1 Free offer`
-            );
             return product;
           }
           break;
@@ -151,6 +153,7 @@ export const CartProvider = ({ children }) => {
         (discountedPrice * discountedQuantity) / product.quantity;
 
       totalDiscount += appliedDiscount;
+      appliedOfferCount++;
 
       return {
         ...product,
@@ -163,55 +166,39 @@ export const CartProvider = ({ children }) => {
       };
     });
 
-    setCart(updatedCart);
-    setDiscount(totalDiscount);
-    setAppliedOffer(offerType);
+    // Handle messages based on the results
+    if (alreadyAppliedCount > 0) {
+      setErrorMessage(
+        `Cannot apply more than one offer to the same product. ${alreadyAppliedCount} product already have offers applied.`
+      );
+      return; // Exit the function without applying new offers
+    } else if (appliedOfferCount === 0) {
+      setErrorMessage("No items were eligible for the selected offer.");
+    } else {
+      setSuccessMessage(
+        `${offerType} offer has been applied to ${appliedOfferCount} product(s).`
+      );
+      setCart(updatedCart);
+      setDiscount(totalDiscount);
+      setAppliedOffer(offerType);
+    }
 
     console.log(`Applied offer: ${offerType}`);
     console.log(`Total discount: $${totalDiscount.toFixed(2)}`);
     console.log("Updated cart:", updatedCart);
   };
 
-  // const applyBuy3Pay2 = () => {
-  //   let totalDiscount = 0;
-  //   let totalDiscountedItems = 0;
-
-  //   const updatedCart = cart.map((product) => {
-  //     if (
-  //       selectedProducts.includes(product.id) &&
-  //       product.quantity >= 3 &&
-  // product.discountApplied
-  //     ) {
-  //       const discountedItems = 1; // Always discount 1 item per product
-  //       const discountAmount = product.originalPrice || product.price; // Use original price if available
-
-  //       totalDiscount += discountAmount;
-  //       totalDiscountedItems += discountedItems;
-
-  //       const newQuantity = product.quantity - discountedItems;
-
-  //       return {
-  //         ...product,
-  //         quantity: newQuantity,
-  //         originalPrice: product.originalPrice || product.price, // Store original price
-  //         discountedItems: discountedItems,
-  //         discountApplied: true, // Mark that discount has been applied
-  //       };
-  //     }
-  //     return product;
-  //   });
-
-  //   setDiscount((prevDiscount) => prevDiscount + totalDiscount);
-  //   setCart(updatedCart);
-  //   setDiscountedItemCount((prevCount) => prevCount + totalDiscountedItems);
-  // };
   const handleToggleProduct = (productId) => {
-    setSelectedProducts((prevSelected) =>
-      prevSelected.includes(productId)
+    setSelectedProducts((prevSelected) => {
+      const newSelected = prevSelected.includes(productId)
         ? prevSelected.filter((item) => item !== productId)
-        : [...prevSelected, productId]
-    );
-    setErrorMessage("");
+        : [...prevSelected, productId];
+      if (newSelected.length === 0 && AppliedOffer) {
+        setToggleButton(false);
+      }
+      setToggleButton(true);
+      return newSelected;
+    });
   };
 
   const onQuantityChange = (newQuantity) => {
@@ -235,6 +222,12 @@ export const CartProvider = ({ children }) => {
         selectedProducts,
         errorMessage,
         setErrorMessage,
+        successMessage,
+        setSuccessMessage,
+        selectedOffer,
+        setSelectedOffer,
+        toggleButton,
+        setToggleButton,
       }}>
       {children}
     </CartContext.Provider>

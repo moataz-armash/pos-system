@@ -61,10 +61,11 @@ const CartItem = ({ item }) => {
           <Checkbox
             checked={selectedProducts.includes(item.id)}
             onChange={() => handleToggleProduct(item.id)}
+            color="green"
           />
         </ListItemSecondaryAction>
       </ListItem>
-      <Typography variant="body2" align="right" sx={{ pr: 2, pb: 1 }}>
+      <Typography variant="body1" align="right" sx={{ pr: 2, pb: 1 }}>
         Subtotal: ${(item.price * item.quantity).toFixed(2)}
       </Typography>
       <Divider />

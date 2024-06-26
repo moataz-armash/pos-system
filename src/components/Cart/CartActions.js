@@ -4,10 +4,14 @@ import { Box, Button } from "@mui/material";
 const CartActions = ({ onClear, onCheckout }) => {
   return (
     <Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
-      <Button variant="outlined" onClick={onClear}>
+      <Button variant="outlined" color="error" onClick={onClear}>
         Clear Cart
       </Button>
-      <Button variant="contained" onClick={onCheckout}>
+      <Button
+        variant="contained"
+        color="blue"
+        sx={{ color: "white" }}
+        onClick={onCheckout}>
         Checkout
       </Button>
     </Box>
