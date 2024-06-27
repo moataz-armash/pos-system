@@ -160,7 +160,8 @@ const ProductList = () => {
   };
 
   const handleDecrement = (product) => {
-    const updatedQuantity = product.quantity > 1 ? product.quantity - 1 : 1;
+    const updatedQuantity =
+      product.quantity > 1 && product.quantity > 0 ? product.quantity - 1 : 1;
     handleQuantityChange(product, updatedQuantity);
   };
 

@@ -10,9 +10,14 @@ export const theme = createTheme({
     // Add your custom color here
     green: {
       main: "#029199", // Replace 'yourCustomColor' with your desired color code
+      secondary: "#02747a",
     },
     lightGreen: {
       main: "#02747a",
+      secondary: "#01575c",
+    },
+    lightBlue: {
+      main: "#67bdc2",
     },
   },
 });
