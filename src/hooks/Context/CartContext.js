@@ -14,6 +14,7 @@ export const CartProvider = ({ children }) => {
   const [selectedOffer, setSelectedOffer] = useState("");
   const [toggleButton, setToggleButton] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [display, setDisplay] = useState("1");
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -231,6 +232,8 @@ export const CartProvider = ({ children }) => {
         setToggleButton,
         currentPage,
         setCurrentPage,
+        display,
+        setDisplay,
       }}>
       {children}
     </CartContext.Provider>

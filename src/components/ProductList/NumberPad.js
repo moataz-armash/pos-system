@@ -10,8 +10,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const NumberPad = () => {
-  const { onQuantityChange } = useCart();
-  const [display, setDisplay] = useState("1");
+  const { onQuantityChange, display, setDisplay } = useCart();
 
   const theme = useTheme();
   const green = theme.palette.green.main;

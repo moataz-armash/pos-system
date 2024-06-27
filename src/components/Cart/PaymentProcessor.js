@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
+import { useCart } from "../../hooks/Context/CartContext";
 
 const PaymentProcessor = ({
   total,
@@ -7,6 +8,7 @@ const PaymentProcessor = ({
   onPaymentComplete,
   onGoBack,
 }) => {
+  const { clearCart } = useCart();
   const [amountPaid, setAmountPaid] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -23,6 +25,7 @@ const PaymentProcessor = ({
         amountPaid: paid,
         change: changeAmount,
       });
+      clearCart();
     } else {
       alert("Insufficient amount");
     }
@@ -69,12 +72,14 @@ const PaymentProcessor = ({
           <TextField
             label="Card Number"
             value={cardNumber}
+            color="green"
             onChange={(e) => setCardNumber(e.target.value)}
             fullWidth
             sx={{ mt: 2 }}
           />
           <TextField
             label="Expiry Date"
+            color="green"
             value={expiryDate}
             onChange={(e) => setExpiryDate(e.target.value)}
             fullWidth
@@ -82,6 +87,7 @@ const PaymentProcessor = ({
           />
           <TextField
             label="CVV"
+            color="green"
             value={cvv}
             onChange={(e) => setCvv(e.target.value)}
             fullWidth
@@ -89,9 +95,9 @@ const PaymentProcessor = ({
           />
           <Button
             variant="contained"
-            color="primary"
+            color="green"
             onClick={handleCreditCardPayment}
-            sx={{ mt: 2, mr: 2 }}>
+            sx={{ mt: 2, mr: 2, color: "white" }}>
             Process Credit Card Payment
           </Button>
         </Box>

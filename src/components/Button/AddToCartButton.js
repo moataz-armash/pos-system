@@ -15,6 +15,7 @@ const AddToCartButton = ({ product }) => {
     updateQuantity,
     quantity,
     setQuantity,
+    setDisplay,
   } = useCart();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -44,6 +45,7 @@ const AddToCartButton = ({ product }) => {
     setQuantity(1);
     showSnackbar(`Added ${quantity} of ${product.name} to cart`);
     console.log(`Added ${quantity} of ${product.name} to cart`); // Debug log
+    setDisplay("1");
   };
 
   const handleRemoveFromCart = () => {
