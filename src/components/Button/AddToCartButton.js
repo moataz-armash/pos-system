@@ -41,6 +41,7 @@ const AddToCartButton = ({ product }) => {
     } else {
       updateQuantity(product.id, cartQuantity + quantity);
     }
+    setQuantity(1);
     showSnackbar(`Added ${quantity} of ${product.name} to cart`);
     console.log(`Added ${quantity} of ${product.name} to cart`); // Debug log
   };

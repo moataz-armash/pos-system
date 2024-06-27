@@ -73,8 +73,8 @@ const Cart = ({ onClose }) => {
   };
 
   const subtotal = calculateTotalPrice();
-  const totalAmount = subtotal + subtotal * TAX_RATE - discount;
-
+  const tax = subtotal * TAX_RATE;
+  const totalAmount = subtotal + tax - discount;
   return (
     <Box sx={{ width: 300, p: 2, position: "relative" }}>
       <Box
@@ -142,7 +142,12 @@ const Cart = ({ onClose }) => {
               </Button>
             </Box>
           )}
-          <CartSummary totalPrice={totalAmount} />
+          <CartSummary
+            totalPrice={totalAmount}
+            subtotal={subtotal}
+            tax={tax}
+            discount={discount}
+          />
           <CartActions onClear={clearCart} onCheckout={onClose} />
         </>
       )}
