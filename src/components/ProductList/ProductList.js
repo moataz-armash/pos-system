@@ -117,6 +117,15 @@ const ProductList = ({
               </Paper>
             </Grid>
           ))}
+        {selectedSubcategory && (
+          <Grid container justifyContent="center" style={{ marginTop: 20 }}>
+            <StyledPagination
+              count={Math.ceil(products.length / itemsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Grid>
+        )}
       </Grid>
       {noMatchingProducts && (
         <Typography variant="h6" color="error">

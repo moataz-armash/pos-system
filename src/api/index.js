@@ -15,7 +15,7 @@ export const fetchStoreInfo = async () => {
 export const fetchProducts = async () => {
   try {
     const response = await axiosInstance.get(
-      "/0f103930-8cb4-49c9-b4d5-1765df1df5f1"
+      "/de74a70b-59da-4641-b849-f3195dcc9b94"
     );
     return response.data;
   } catch (error) {
