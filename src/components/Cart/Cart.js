@@ -15,6 +15,7 @@ import { useCart } from "../../hooks/Context/CartContext";
 import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
 import CartActions from "./CartActions";
+import PaymentProcessor from "./PaymentProcessor";
 
 const TAX_RATE = 0.1;
 
@@ -35,6 +36,34 @@ const Cart = ({ onClose }) => {
     setToggleButton,
   } = useCart();
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [checkoutStep, setCheckoutStep] = useState("cart"); // "cart" or "payment"
+  const [paymentMethod, setPaymentMethod] = useState("");
+
+  const handleCheckout = (selectedPaymentMethod) => {
+    setPaymentMethod(selectedPaymentMethod);
+    setCheckoutStep("payment");
+  };
+
+  const handlePaymentComplete = (paymentDetails) => {
+    console.log("Payment completed:", paymentDetails);
+    // Here you would typically send the payment details to your backend
+    // and then clear the cart, show a confirmation, etc.
+    if (paymentDetails.method === "cash") {
+      alert(
+        `Payment processed successfully! Change: $${paymentDetails.change.toFixed(
+          2
+        )}`
+      );
+    } else {
+      alert("Payment processed successfully!");
+    }
+    setCheckoutStep("cart");
+  };
+
+  const handleGoBack = () => {
+    setCheckoutStep("cart");
+    setPaymentMethod("");
+  };
 
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -148,7 +177,20 @@ const Cart = ({ onClose }) => {
             tax={tax}
             discount={discount}
           />
-          <CartActions onClear={clearCart} onCheckout={onClose} />
+          {checkoutStep === "cart" ? (
+            <CartActions
+              onCheckout={handleCheckout}
+              total={totalAmount}
+              onClear={clearCart}
+            />
+          ) : (
+            <PaymentProcessor
+              total={totalAmount}
+              paymentMethod={paymentMethod}
+              onPaymentComplete={handlePaymentComplete}
+              onGoBack={handleGoBack}
+            />
+          )}
         </>
       )}
     </Box>
