@@ -1,6 +1,6 @@
-import { Sidebar } from "./Sidebar";
-import { Menu } from "./Menu";
-import { MenuItem } from "./MenuItem";
+import { Sidebar } from "./Sidebar/Sidebar";
+import { Menu } from "./Sidebar/Menu";
+import { MenuItem } from "./Sidebar/MenuItem";
 import { Icon } from "../../components/Icon";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -10,13 +10,13 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import CahserInfo from "./CashierInfo";
-import CashierStatus from "./CashierStatus";
+import CahserInfo from "./Cashier/CashierInfo";
+import CashierStatus from "./Cashier/CashierStatus";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
-import CashierSystem from "./CashierSystem";
+import CashierSystem from "./Cashier/CashierSystem";
 
-function Dashboard() {
+function Dashboard({ dashboard }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate(); // Use useHistory hook
 
@@ -59,7 +59,7 @@ function Dashboard() {
                 icon={<Icon name="shoppingCart" />}>
                 SATIŞ
               </MenuItem>
-              <MenuItem link="/price" icon={<Icon name="attachMoney" />}>
+              <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
                 FIYAT GÖR
               </MenuItem>
               <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
@@ -150,7 +150,7 @@ function Dashboard() {
           <CashierStatus />
         </Drawer>
       </Hidden>
-      <CashierSystem />
+      {!dashboard ? <CashierSystem /> : ""}
     </>
   );
 }

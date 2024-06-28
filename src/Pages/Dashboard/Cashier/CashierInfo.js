@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchStoreInfo } from "../../api"; // Import the API function
+import { fetchStoreInfo } from "../../../api"; // Import the API function
 import { CircularProgress } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";

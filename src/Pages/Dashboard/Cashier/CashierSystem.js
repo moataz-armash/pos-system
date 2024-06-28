@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, Grid } from "@mui/material";
-import ShoppingCart from "./ShoppingCart";
-import NumberPad from "../../components/ProductList/NumberPad"; // Make sure this path is correct
-import { CartProvider } from "../../hooks/Context/CartContext";
+import ShoppingCart from "../ShoppingCart";
+import NumberPad from "../../../components/ProductList/NumberPad"; // Make sure this path is correct
+import { CartProvider } from "../../../hooks/Context/CartContext";
 
 const CashierSystem = () => {
   return (
