@@ -9,13 +9,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { SidebarContext } from "./Sidebar";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
 import { forwardRef, useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export const MenuItem = forwardRef(
   (
     {
       children,
       icon,
-      link = "#",
+      link = "dashboard",
       badge = false,
       badgeColor = "secondary",
       badgeContent = "6",
@@ -24,10 +25,13 @@ export const MenuItem = forwardRef(
       disabled = false,
       badgeType = "filled",
       target = "",
+      selectedLink,
     },
     ref
   ) => {
     const [open, setOpen] = useState(false);
+    const location = useLocation();
+    const currentPath = location.pathname;
     const handleClick = () => {
       setOpen(!open);
     };
@@ -84,7 +88,7 @@ export const MenuItem = forwardRef(
           href={link}
           sx={{ display: "flex", gap: "15px" }}
           target={target}
-          selected={link === "/dashboard" ? true : false}>
+          selected={link === currentPath}>
           <ListItemIcon
             sx={{
               minWidth: "0px",

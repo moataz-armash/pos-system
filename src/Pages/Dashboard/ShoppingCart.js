@@ -140,7 +140,7 @@ const ShoppingCart = () => {
         <Grid item xs={12}>
           <Paper elevation={3} style={{ padding: 20 }}>
             <Grid container>
-              <Grid item xs={10}>
+              <Grid item xs={8} sm={10} md={10} lg={10}>
                 <SearchBar
                   searchQuery={searchQuery}
                   onSearchChange={handleSearchChange}

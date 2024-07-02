@@ -11,8 +11,8 @@ const BarcodeScanner = ({ onScan, onClose }) => {
   const { ref } = useZxing({
     onDecodeResult(result) {
       const scannedText = result.getText();
-      // Only process if the scanned text is numeric
-      if (/^\d+$/.test(scannedText)) {
+      // Process if the scanned text is numeric and has 12 or 13 digits
+      if (/^\d{11,12}$/.test(scannedText)) {
         setLastScanned(scannedText);
         onScan(scannedText);
       }
@@ -41,7 +41,7 @@ const BarcodeScanner = ({ onScan, onClose }) => {
         width="100%"
         height="200px"
         overflow="hidden"
-        border="2px solid #1976d2"
+        border="2px solid #02747a"
         borderRadius="4px">
         <video
           ref={ref}
@@ -56,7 +56,7 @@ const BarcodeScanner = ({ onScan, onClose }) => {
       {lastScanned && <Typography>Last scanned: {lastScanned}</Typography>}
       <Button
         variant="contained"
-        color="secondary"
+        color="error"
         onClick={onClose}
         sx={{ mt: 2 }}>
         Close Scanner

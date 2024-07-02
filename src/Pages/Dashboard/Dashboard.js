@@ -36,7 +36,8 @@ function Dashboard({ dashboard }) {
             backgroundColor: "rgb(255, 255, 255)",
             color: "rgba(0, 0, 0, 0.87)",
             boxShadow: "none",
-            overflowY: "auto",
+            // overflowY: "auto",
+            overflowX: "hidden",
             display: "flex",
             flexDirection: "column",
             height: "100%",
@@ -53,10 +54,7 @@ function Dashboard({ dashboard }) {
           }}>
           <Sidebar>
             <Menu subHeading="ANA SAYFA">
-              <MenuItem
-                link="/dashboard"
-                badge={true}
-                icon={<Icon name="shoppingCart" />}>
+              <MenuItem link="/dashboard" icon={<Icon name="shoppingCart" />}>
                 SATIŞ
               </MenuItem>
               <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
@@ -111,10 +109,10 @@ function Dashboard({ dashboard }) {
         <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
           <Sidebar>
             <Menu subHeading="ANA SAYFA">
-              <MenuItem link="/" icon={<Icon name="shoppingCart" />}>
+              <MenuItem link="/dashboard" icon={<Icon name="shoppingCart" />}>
                 SATIŞ
               </MenuItem>
-              <MenuItem link="/price" icon={<Icon name="attachMoney" />}>
+              <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
                 FIYAT GÖR
               </MenuItem>
               <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>

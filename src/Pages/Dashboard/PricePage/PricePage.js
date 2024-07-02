@@ -107,16 +107,35 @@ const PricePage = () => {
   };
 
   const findProduct = (barcode) => {
-    // Convert barcode to string and pad with leading zeros if necessary
-    const paddedBarcode = barcode.toString().padStart(12, "0");
-    const product = allProducts.find((p) => p.barcode === paddedBarcode);
+    let barcodeString = barcode.toString();
+
+    const searchProduct = (code) => {
+      const paddedBarcode = code.padStart(12, "0");
+      return allProducts.find((p) => p.barcode === paddedBarcode);
+    };
+
+    let product;
+
+    if (barcodeString.length === 12) {
+      // First try with all 12 digits
+      product = searchProduct(barcodeString);
+
+      if (!product) {
+        barcodeString = barcodeString.slice(0, -1);
+        product = searchProduct(barcodeString);
+      }
+    } else if (barcodeString.length === 11) {
+      // For 11 digits, search directly
+      product = searchProduct(barcodeString);
+    }
+
     if (product) {
       setScannedProduct(product);
       setErrorMessage("");
       setScanning(false); // Close scanner when product is found
     } else {
       setScannedProduct(null);
-      setErrorMessage(`Product with barcode ${paddedBarcode} not found`);
+      setErrorMessage(`Product with barcode ${barcodeString} not found`);
       // Don't close scanner if product is not found
     }
   };
@@ -148,20 +167,22 @@ const PricePage = () => {
               <TextField
                 label="Enter Barcode"
                 variant="outlined"
+                color="green"
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
                 size="small"
               />
               <StyledButton
                 variant="contained"
-                color="primary"
+                color="green"
+                sx={{ color: "white" }}
                 startIcon={<SearchIcon />}
                 onClick={handleManualInput}>
                 Search
               </StyledButton>
               <StyledButton
                 variant="contained"
-                color="secondary"
+                color="info"
                 startIcon={<CameraIcon />}
                 onClick={handleStartScanning}>
                 Scan Product
