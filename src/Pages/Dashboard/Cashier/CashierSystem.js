@@ -6,7 +6,16 @@ import { CartProvider } from "../../../hooks/Context/CartContext";
 
 const CashierSystem = () => {
   return (
-    <Container sx={{ marginTop: 4 }}>
+    <Container
+      sx={{
+        marginTop: 4,
+        marginLeft: {
+          xs: "0px", // mobile
+          sm: "0px", // small devices
+          md: "250px", // tablets and above
+          lg: "250px", // desktops and above
+        },
+      }}>
       <CartProvider>
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>

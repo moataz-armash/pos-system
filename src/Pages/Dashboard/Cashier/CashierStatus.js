@@ -58,7 +58,12 @@ const CashierStatus = () => {
         <Alert
           severity={isOnline ? "success" : "error"}
           icon={false}
-          sx={{ width: "80%", marginLeft: "25px", marginTop: "20px" }}>
+          sx={{
+            width: "80%",
+            marginLeft: "25px",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}>
           <StyledDot />
           <Typography variant="body1" component="span">
             Mağaza Drumu:{" "}

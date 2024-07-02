@@ -115,7 +115,7 @@ const VirtualKeyboard = () => {
           layout={keyboardLayouts[language]}
         />
       )}
-      <Box m={1}>
+      <Box mt={1}>
         <FormControl fullWidth>
           <InputLabel id="language-select-label" color="green">
             Language
@@ -137,11 +137,14 @@ const VirtualKeyboard = () => {
             <MenuItem value="turkish">Türkçe</MenuItem>
           </Select>
         </FormControl>
+        <Button
+          onClick={onButtonClick}
+          variant="outlined"
+          color="error"
+          sx={{ width: "100%", marginTop: "16px", marginBottom: "12px" }}>
+          Hide Keyboard
+        </Button>
       </Box>
-
-      <Button onClick={onButtonClick} variant="contained" color="primary">
-        Hide Keyboard
-      </Button>
     </>
   );
 };

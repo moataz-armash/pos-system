@@ -5,16 +5,23 @@ import GreenButton from "../Button/GreenButton";
 
 const CategoryList = ({ categories, selectedCategory, onCategorySelect }) => {
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      rowSpacing={2}
+      columnSpacing={0}
+      sx={{
+        justifyContent: { xs: "center", sm: "left", md: "left", lg: "left" },
+      }}>
       {categories.map((category, index) => (
         <Grid item key={index}>
           <GreenButton
+            size="lg"
             variant={
               selectedCategory === category.name ? "contained" : "outlined"
             }
             onClick={() => onCategorySelect(category.name)}
             style={{
-              marginRight: 10,
+              marginRight: 5,
             }}>
             {category.name}
           </GreenButton>
