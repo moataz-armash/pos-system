@@ -153,8 +153,8 @@ const PricePage = () => {
   }
 
   return (
-    <Container maxWidth="xl">
-      <Grid container spacing={3}>
+    <Container maxWidth="lg">
+      <Grid container spacing={3} mt={1}>
         <Grid item xs={12} md={3}>
           <Dashboard dashboard="dashboard" />
         </Grid>
