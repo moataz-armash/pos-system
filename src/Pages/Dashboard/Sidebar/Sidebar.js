@@ -1,15 +1,12 @@
 import * as React from "react";
 import { Box } from "@mui/material";
-import { useTheme } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 import { Profile } from "./UserProfile";
 
 export const SidebarContext = React.createContext({
   width: "270px",
   collapsewidth: "80px",
-  textColor: "#8D939D",
   isCollapse: false,
-  themeColor: "#029199",
 });
 
 export const Sidebar = React.forwardRef(
@@ -18,12 +15,9 @@ export const Sidebar = React.forwardRef(
       children,
       width = "260px",
       collapsewidth = "80px",
-      textColor = "#2b2b2b",
       isCollapse = false,
       themeColor = "#029199",
       themeSecondaryColor = "#02747a",
-      mode = "light",
-      direction = "ltr",
       userName = "Mathew",
       designation = "Designer",
       showProfile = true,
@@ -33,33 +27,35 @@ export const Sidebar = React.forwardRef(
   ) => {
     const [isSidebarHover, setIsSidebarHover] = React.useState(false);
     const toggleWidth = isCollapse && !isSidebarHover ? collapsewidth : width;
-    const theme = useTheme();
-    const myTheme = createTheme({
-      direction: direction,
-      palette: {
-        mode: mode,
-        primary: {
-          main: themeColor,
-        },
-        secondary: {
-          main: themeSecondaryColor,
-          contrastText: "#fff",
-        },
-      },
-    });
+    const parentTheme = useTheme();
 
-    if (mode === "dark") {
-      textColor = "rgba(255,255,255, 0.9)";
-    }
+    const sidebarTheme = React.useMemo(
+      () =>
+        createTheme({
+          ...parentTheme,
+          palette: {
+            ...parentTheme.palette,
+            primary: {
+              main: themeColor,
+            },
+            secondary: {
+              main: themeSecondaryColor,
+              contrastText: "#fff",
+            },
+          },
+        }),
+      [parentTheme, themeColor, themeSecondaryColor]
+    );
+
     return (
-      <ThemeProvider theme={myTheme}>
+      <ThemeProvider theme={sidebarTheme}>
         <Box
-          dir={direction}
           sx={{
             width: toggleWidth,
             flexShrink: 0,
             fontFamily: "inherit",
-            color: textColor,
+            color: sidebarTheme.palette.text.primary,
+            backgroundColor: sidebarTheme.palette.background.paper,
           }}>
           <Box
             sx={{
@@ -67,11 +63,9 @@ export const Sidebar = React.forwardRef(
             }}>
             <SidebarContext.Provider
               value={{
-                textColor,
                 isCollapse,
                 width,
                 collapsewidth,
-                themeColor,
               }}>
               {children}
             </SidebarContext.Provider>
@@ -83,9 +77,7 @@ export const Sidebar = React.forwardRef(
                 userimg={userimg}
                 isCollapse={isCollapse}
               />
-            ) : (
-              ""
-            )}
+            ) : null}
           </Box>
         </Box>
       </ThemeProvider>
