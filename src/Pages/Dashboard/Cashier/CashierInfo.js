@@ -4,8 +4,10 @@ import { fetchStoreInfo } from "../../../api"; // Import the API function
 import { CircularProgress } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import { useTranslation } from "react-i18next";
 
 const CashierInfo = () => {
+  const { t } = useTranslation();
   const [storeInfo, setStoreInfo] = useState(null);
   const [loading, setLoading] = useState(true); // State to manage loading state
 
@@ -31,8 +33,8 @@ const CashierInfo = () => {
         <CircularProgress size={24} /> // Show loading indicator while checking connectivity
       ) : (
         <Alert severity="info">
-          Mağaza No: {shopNo} <br /> Kasa No: {casherNo} <br /> Kasa Ip No:{" "}
-          {casherIpNo} <br /> Version: {version}
+          {t("storeNo")}: {shopNo} <br /> {t("kashierNo")}: {casherNo} <br />{" "}
+          {t("kashierIpNo")}: {casherIpNo} <br /> {t("version")}: {version}
         </Alert>
       )}
     </Stack>

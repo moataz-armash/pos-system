@@ -15,8 +15,11 @@ import CashierStatus from "./Cashier/CashierStatus";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import CashierSystem from "./Cashier/CashierSystem";
+import { useTranslation } from "react-i18next";
 
 function Dashboard({ dashboard }) {
+  const { t } = useTranslation();
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate(); // Use useHistory hook
 
@@ -53,39 +56,41 @@ function Dashboard({ dashboard }) {
             boxSizing: "border-box",
           }}>
           <Sidebar>
-            <Menu subHeading="ANA SAYFA">
+            <Menu subHeading={t("Home")}>
               <MenuItem link="/dashboard" icon={<Icon name="shoppingCart" />}>
-                SATIŞ
+                {t("sales")}
               </MenuItem>
               <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
-                FIYAT GÖR
+                {t("seePrice")}
               </MenuItem>
               <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
-                IADE İŞLEMİ
+                {t("returnProcess")}
               </MenuItem>
             </Menu>
-            <Menu subHeading="UYGULAMALAR">
+            <Menu subHeading={t("applications")}>
               <MenuItem link="/collections" icon={<Icon name="receipt" />}>
-                TAHSİLATLAR
+                {t("collections")}
               </MenuItem>
               <MenuItem link="/reports" icon={<Icon name="assessment" />}>
-                RAPORLAR
+                {t("reports")}
               </MenuItem>
             </Menu>
-            <Menu subHeading="DİĞER">
+            <Menu subHeading={t("other")}>
               <MenuItem
                 link="/other-operations"
                 icon={<Icon name="settings" />}>
-                DIĞER İŞLEMLER
+                {t("otherOperations")}
               </MenuItem>
               <MenuItem link="/direct-entry" icon={<Icon name="input" />}>
-                DİREKT ÜRÜN GİRİŞİ
+                {t("directProductEntry")}
               </MenuItem>
-              <MenuItem link="/www" icon={<Icon name="language" />}>
-                WWW
+              <MenuItem
+                link="/translation-page"
+                icon={<Icon name="language" />}>
+                {t("www")}
               </MenuItem>
               <MenuItem link="/" onClick={handleLogout} icon={<LogoutIcon />}>
-                LOGOUT
+                {t("logout")}
               </MenuItem>
             </Menu>
           </Sidebar>
@@ -108,39 +113,41 @@ function Dashboard({ dashboard }) {
         </AppBar>
         <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
           <Sidebar>
-            <Menu subHeading="ANA SAYFA">
+            <Menu subHeading={t("home")}>
               <MenuItem link="/dashboard" icon={<Icon name="shoppingCart" />}>
-                SATIŞ
+                {t("sales")}
               </MenuItem>
               <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
-                FIYAT GÖR
+                {t("seePrice")}
               </MenuItem>
               <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
-                IADE İŞLEMİ
+                {t("returnProcess")}
               </MenuItem>
             </Menu>
-            <Menu subHeading="UYGULAMALAR">
+            <Menu subHeading={t("applications")}>
               <MenuItem link="/collections" icon={<Icon name="receipt" />}>
-                TAHSİLATLAR
+                {t("collections")}
               </MenuItem>
               <MenuItem link="/reports" icon={<Icon name="assessment" />}>
-                RAPORLAR
+                {t("reports")}
               </MenuItem>
             </Menu>
-            <Menu subHeading="DİĞER">
+            <Menu subHeading={"other"}>
               <MenuItem
                 link="/other-operations"
                 icon={<Icon name="settings" />}>
-                DIĞER İŞLEMLER
+                {t("otherOperations")}
               </MenuItem>
               <MenuItem link="/direct-entry" icon={<Icon name="input" />}>
-                DİREKT ÜRÜN GİRİŞİ
+                {t("directProductEntry")}
               </MenuItem>
-              <MenuItem link="/www" icon={<Icon name="language" />}>
-                WWW
+              <MenuItem
+                link="/translation-page"
+                icon={<Icon name="language" />}>
+                {t("www")}
               </MenuItem>
               <MenuItem link="/" onClick={handleLogout} icon={<LogoutIcon />}>
-                LOGOUT
+                {t("logout")}
               </MenuItem>
             </Menu>
           </Sidebar>

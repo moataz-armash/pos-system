@@ -3,6 +3,7 @@ import { Grid, Button, Paper, TextField, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import { useCart } from "../../hooks/Context/CartContext";
+import { useTranslation } from "react-i18next";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   fontSize: "1.2rem",
@@ -10,6 +11,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const NumberPad = () => {
+  const { t } = useTranslation();
   const { onQuantityChange, display, setDisplay } = useCart();
 
   const theme = useTheme();
@@ -63,7 +65,7 @@ const NumberPad = () => {
             },
           }}
           fullWidth
-          label="Enter the quantity of product"
+          label={t("enterTheQuantityOfProduct")}
           value={display}
           onChange={handleChange}
           inputProps={{ style: { fontSize: "1.5rem", textAlign: "right" } }}

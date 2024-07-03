@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Typography, CircularProgress, Alert } from "@mui/material";
 import { green, red } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const CashierStatus = () => {
+  const { t } = useTranslation();
   const [isOnline, setIsOnline] = useState(true); // Default to true assuming online
   const [loading, setLoading] = useState(true); // State to manage loading state
 
@@ -66,9 +68,9 @@ const CashierStatus = () => {
           }}>
           <StyledDot />
           <Typography variant="body1" component="span">
-            Mağaza Drumu:{" "}
+            {t("storeStatus")}:{" "}
             <span style={{ color: isOnline ? green[500] : red[500] }}>
-              {isOnline ? "Çevrimiçi" : "Çevrimdışı"}
+              {isOnline ? t("online") : t("offline")}
             </span>
           </Typography>
         </Alert>

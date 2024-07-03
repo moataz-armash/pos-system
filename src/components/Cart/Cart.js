@@ -16,10 +16,11 @@ import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
 import CartActions from "./CartActions";
 import PaymentProcessor from "./PaymentProcessor";
-
+import { useTranslation } from "react-i18next";
 const TAX_RATE = 0.1;
 
 const Cart = ({ onClose }) => {
+  const { t } = useTranslation();
   const {
     cart,
     removeFromCart,
@@ -115,7 +116,7 @@ const Cart = ({ onClose }) => {
           <CloseIcon />
         </IconButton>
         <Typography variant="h6" gutterBottom>
-          Your Cart
+          {t("yourCart")}
         </Typography>
         {errorMessage ? (
           <Typography color="error" variant="body2">
@@ -130,7 +131,7 @@ const Cart = ({ onClose }) => {
         )}
       </Box>
       {cart.length === 0 ? (
-        <Typography>Your cart is empty</Typography>
+        <Typography>{t("YourCartIsEmpty")}</Typography>
       ) : (
         <>
           <List>

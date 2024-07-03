@@ -8,8 +8,10 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const SearchBar = ({ searchQuery, onSearchChange }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const green = theme.palette.green.main;
   return (
@@ -24,7 +26,7 @@ const SearchBar = ({ searchQuery, onSearchChange }) => {
               borderColor: green,
             },
           }}
-          label="Search by Barcode"
+          label={t("searchByBarcode")}
           fullWidth
           value={searchQuery}
           onChange={onSearchChange}

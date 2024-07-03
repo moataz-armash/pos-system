@@ -21,6 +21,7 @@ import {
   CameraAlt as CameraIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   height: "100%",
@@ -41,6 +42,7 @@ const ProductDetails = styled(CardContent)(({ theme }) => ({
 }));
 
 const PricePage = () => {
+  const { t } = useTranslation();
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -135,7 +137,9 @@ const PricePage = () => {
       setScanning(false); // Close scanner when product is found
     } else {
       setScannedProduct(null);
-      setErrorMessage(`Product with barcode ${barcodeString} not found`);
+      setErrorMessage(
+        `${t("productWithBarcode")} ${barcodeString} ${t("notFound")}`
+      );
       // Don't close scanner if product is not found
     }
   };
@@ -161,11 +165,11 @@ const PricePage = () => {
         <Grid item xs={12} md={9}>
           <StyledPaper elevation={3}>
             <Typography variant="h4" gutterBottom>
-              Price Page
+              {t("pricePage")}
             </Typography>
             <Box display="flex" alignItems="center" mb={2}>
               <TextField
-                label="Enter Barcode"
+                label={t("enterBarcode")}
                 variant="outlined"
                 color="green"
                 value={manualBarcode}
@@ -178,14 +182,14 @@ const PricePage = () => {
                 sx={{ color: "white" }}
                 startIcon={<SearchIcon />}
                 onClick={handleManualInput}>
-                Search
+                {t("search")}
               </StyledButton>
               <StyledButton
                 variant="contained"
                 color="info"
                 startIcon={<CameraIcon />}
                 onClick={handleStartScanning}>
-                Scan Product
+                {t("scanProduct")}
               </StyledButton>
             </Box>
 
@@ -200,7 +204,7 @@ const PricePage = () => {
 
             {lastScannedBarcode && (
               <Alert severity="info" sx={{ mt: 2, mb: 2 }}>
-                Last scanned barcode: {lastScannedBarcode}
+                {t("LastScannedBarcode")}: {lastScannedBarcode}
               </Alert>
             )}
 
@@ -223,7 +227,7 @@ const PricePage = () => {
                     {scannedProduct.name}
                   </Typography>
                   <Typography variant="h6" color="success.main">
-                    Price: ${scannedProduct.price.toFixed(2)}
+                    {t("price")}: ${scannedProduct.price.toFixed(2)}
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
                     Barcode: {scannedProduct.barcode}
