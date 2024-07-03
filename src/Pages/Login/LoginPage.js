@@ -25,7 +25,7 @@ const LoginPage = () => {
           {/* Info Alerts */}
           <Box width="100%" mb={2}>
             <Alert severity="info" sx={{ mb: 1 }}>
-              Username for test: Odell.Schoen@yahoo.com.
+              Username for test: Odell.Schoen@yahoo.com
             </Alert>
             <Alert severity="info">Password: xL6NhsKlz4w42sv</Alert>
           </Box>
