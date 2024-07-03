@@ -16,8 +16,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import CashierSystem from "./Cashier/CashierSystem";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@mui/material/styles";
 
 function Dashboard({ dashboard }) {
+  const theme = useTheme();
   const { t } = useTranslation();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,22 +38,25 @@ function Dashboard({ dashboard }) {
       <Hidden mdDown onClick={toggleDrawer(true)}>
         <Box
           sx={{
-            backgroundColor: "rgb(255, 255, 255)",
-            color: "rgba(0, 0, 0, 0.87)",
-            boxShadow: "none",
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            boxShadow: theme.shadows[1],
             // overflowY: "auto",
             overflowX: "hidden",
             display: "flex",
             flexDirection: "column",
             height: "100%",
             flex: "1 0 auto",
-            zIndex: 1200,
+            zIndex: theme.zIndex.drawer,
             position: "fixed",
             top: 0,
             outline: 0,
             left: 0,
-            borderRight: "1px solid rgba(0, 0, 0, 0.12)",
-            transition: "width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+            borderRight: `1px solid ${theme.palette.divider}`,
+            transition: theme.transitions.create("width", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
             width: "270px",
             boxSizing: "border-box",
           }}>
@@ -111,6 +116,7 @@ function Dashboard({ dashboard }) {
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
           <Sidebar>
             <Menu subHeading={t("home")}>
@@ -151,8 +157,15 @@ function Dashboard({ dashboard }) {
               </MenuItem>
             </Menu>
           </Sidebar>
-          <CahserInfo />
-          <CashierStatus />
+          <Box
+            sx={{
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              boxShadow: theme.shadows[1],
+            }}>
+            <CahserInfo />
+            <CashierStatus />
+          </Box>
         </Drawer>
       </Hidden>
       {!dashboard ? <CashierSystem /> : ""}

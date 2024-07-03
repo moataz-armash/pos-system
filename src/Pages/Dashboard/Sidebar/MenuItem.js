@@ -37,39 +37,40 @@ export const MenuItem = forwardRef(
     };
     const customizer = useContext(SidebarContext);
     const theme = useTheme();
-    const ListItemStyled = styled(ListItemButton)(() => ({
+
+    const ListItemStyled = styled(ListItemButton)(({ theme }) => ({
       whiteSpace: "nowrap",
       marginBottom: "2px",
       padding: "10px 12px",
       textAlign: theme.direction === "ltr" ? "left" : "right",
       borderRadius: borderRadius,
-      color: customizer.textColor,
+      color: theme.palette.text.primary,
       cursor: disabled ? "default" : "pointer",
       opacity: disabled ? "0.6" : "1",
       ".MuiListItemIcon-root": {
-        color: customizer.textColor,
+        color: theme.palette.text.primary,
       },
       "&:hover": {
-        backgroundColor: disabled ? "#fff" : customizer.themeColor + 20,
-        color: customizer.themeColor,
+        backgroundColor: disabled ? "transparent" : theme.palette.action.hover,
+        color: theme.palette.primary.main,
         ".MuiListItemIcon-root": {
-          color: customizer.themeColor,
+          color: theme.palette.primary.main,
         },
       },
       "&.Mui-selected": {
-        color: "white",
-        backgroundColor: customizer.themeColor,
+        color: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.primary.main,
         "&:hover": {
-          backgroundColor: customizer.themeColor,
-          color: "white",
+          backgroundColor: theme.palette.primary.dark,
+          color: theme.palette.primary.contrastText,
         },
         ".MuiListItemIcon-root": {
-          color: "#fff",
+          color: theme.palette.primary.contrastText,
         },
       },
     }));
 
-    const ListIConStyled = styled(ListItemIcon)(() => ({
+    const ListIConStyled = styled(ListItemIcon)(({ theme }) => ({
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -78,7 +79,7 @@ export const MenuItem = forwardRef(
       padding: "0px 0px",
       cursor: "pointer",
       marginLeft: "-10px",
-      color: open ? "inherit" : "#fff",
+      color: open ? "inherit" : theme.palette.text.primary,
     }));
 
     return (
@@ -113,13 +114,9 @@ export const MenuItem = forwardRef(
                   variant={badgeType}
                   size="small"
                 />
-              ) : (
-                ""
-              )}
+              ) : null}
             </>
-          ) : (
-            ""
-          )}
+          ) : null}
         </ListItemStyled>
       </Box>
     );
