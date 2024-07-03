@@ -3,7 +3,7 @@ import { IconButton, Typography, Box } from "@mui/material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { useCart } from "../../hooks/Context/CartContext";
 import { styled } from "@mui/material/styles";
-
+import { useTranslation } from "react-i18next";
 // Create a styled Box for the circular quantity indicator
 const QuantityCircle = styled(Box)(({ theme }) => ({
   backgroundColor: "#029199", // Custom color for the background
@@ -18,6 +18,7 @@ const QuantityCircle = styled(Box)(({ theme }) => ({
 }));
 
 const CartButton = ({ onClick }) => {
+  const { t } = useTranslation();
   const { cart } = useCart();
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -26,7 +27,7 @@ const CartButton = ({ onClick }) => {
       <ShoppingCart fontSize="large" />
 
       <Typography variant="body2" style={{ marginLeft: 5 }}>
-        My Cart
+        {t("myCart")}
       </Typography>
       {itemCount > 0 && (
         <QuantityCircle>
