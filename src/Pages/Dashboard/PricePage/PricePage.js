@@ -15,13 +15,16 @@ import {
   CircularProgress,
   TextField,
   Alert,
+  Snackbar,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import MuiAlert from "@mui/material/Alert";
 import {
   CameraAlt as CameraIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { useCart } from "../../../hooks/Context/CartContext";
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   height: "100%",
@@ -43,6 +46,8 @@ const ProductDetails = styled(CardContent)(({ theme }) => ({
 
 const PricePage = () => {
   const { t } = useTranslation();
+  const { addToCart, cart, updateQuantity, quantity, setQuantity, setDisplay } =
+    useCart();
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -52,6 +57,8 @@ const PricePage = () => {
   const [manualBarcode, setManualBarcode] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [lastScannedBarcode, setLastScannedBarcode] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   useEffect(() => {
     const getCategories = async () => {
       setLoading(true);
@@ -72,6 +79,18 @@ const PricePage = () => {
 
     getCategories();
   }, []);
+
+  const showSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
   const flattenProducts = (data) => {
     return data.flatMap((category) =>
@@ -119,15 +138,12 @@ const PricePage = () => {
     let product;
 
     if (barcodeString.length === 12) {
-      // First try with all 12 digits
       product = searchProduct(barcodeString);
-
       if (!product) {
         barcodeString = barcodeString.slice(0, -1);
         product = searchProduct(barcodeString);
       }
     } else if (barcodeString.length === 11) {
-      // For 11 digits, search directly
       product = searchProduct(barcodeString);
     }
 
@@ -135,6 +151,22 @@ const PricePage = () => {
       setScannedProduct(product);
       setErrorMessage("");
       setScanning(false); // Close scanner when product is found
+
+      // Check if the product is already in the cart
+      const cartItem = cart.find((item) => item.id === product.id);
+      const cartQuantity = cartItem ? cartItem.quantity : 0;
+
+      // Add the product to the cart or update its quantity
+      if (cartQuantity === 0) {
+        addToCart({ ...product, quantity: quantity });
+      } else {
+        updateQuantity(product.id, cartQuantity + quantity);
+      }
+
+      // Show success message
+      showSnackbar(`Added ${quantity} of ${product.name} to cart`);
+      setQuantity(1);
+      setDisplay("1");
     } else {
       setScannedProduct(null);
       setErrorMessage(
@@ -171,7 +203,6 @@ const PricePage = () => {
               <TextField
                 label={t("enterBarcode")}
                 variant="outlined"
-                color="green"
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
                 size="small"
@@ -198,6 +229,17 @@ const PricePage = () => {
                 <BarcodeScanner
                   onScan={handleScan}
                   onClose={handleCloseScanner}
+                />
+                <TextField
+                  label={t("quantity")}
+                  type="number"
+                  color="green"
+                  value={quantity}
+                  onChange={(e) =>
+                    setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+                  }
+                  inputProps={{ min: 1 }}
+                  sx={{ mb: 2 }}
                 />
               </Box>
             )}
@@ -239,6 +281,18 @@ const PricePage = () => {
               </ProductCard>
             )}
           </StyledPaper>
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={2000}
+            onClose={handleSnackbarClose}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+            <MuiAlert
+              onClose={handleSnackbarClose}
+              severity="success"
+              sx={{ width: "100%" }}>
+              {snackbarMessage}
+            </MuiAlert>
+          </Snackbar>
         </Grid>
       </Grid>
     </Container>

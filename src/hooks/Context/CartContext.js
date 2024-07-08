@@ -1,20 +1,65 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+  const [selectedProducts, setSelectedProducts] = useState(() => {
+    const savedSelectedProducts = localStorage.getItem("selectedProducts");
+    return savedSelectedProducts ? JSON.parse(savedSelectedProducts) : [];
+  });
   const [quantity, setQuantity] = useState(1);
-  const [buy3Pay2AppliedProducts, setBuy3Pay2AppliedProducts] = useState([]);
-  const [discount, setDiscount] = useState(0);
-  const [AppliedOffer, setAppliedOffer] = useState(0);
+  const [buy3Pay2AppliedProducts, setBuy3Pay2AppliedProducts] = useState(() => {
+    const savedAppliedProducts = localStorage.getItem(
+      "buy3Pay2AppliedProducts"
+    );
+    return savedAppliedProducts ? JSON.parse(savedAppliedProducts) : [];
+  });
+  const [discount, setDiscount] = useState(() => {
+    const savedDiscount = localStorage.getItem("discount");
+    return savedDiscount ? parseFloat(savedDiscount) : 0;
+  });
+  const [AppliedOffer, setAppliedOffer] = useState(() => {
+    const savedAppliedOffer = localStorage.getItem("appliedOffer");
+    return savedAppliedOffer || 0;
+  });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [selectedOffer, setSelectedOffer] = useState("");
+  const [selectedOffer, setSelectedOffer] = useState(() => {
+    const savedSelectedOffer = localStorage.getItem("selectedOffer");
+    return savedSelectedOffer || "";
+  });
   const [toggleButton, setToggleButton] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [display, setDisplay] = useState("1");
+  const [display, setDisplay] = useState(() => {
+    const savedDisplay = localStorage.getItem("display");
+    return savedDisplay || "1";
+  });
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
+    localStorage.setItem(
+      "buy3Pay2AppliedProducts",
+      JSON.stringify(buy3Pay2AppliedProducts)
+    );
+    localStorage.setItem("discount", discount.toString());
+    localStorage.setItem("appliedOffer", AppliedOffer.toString());
+    localStorage.setItem("selectedOffer", selectedOffer);
+    localStorage.setItem("display", display);
+  }, [
+    cart,
+    selectedProducts,
+    buy3Pay2AppliedProducts,
+    discount,
+    AppliedOffer,
+    selectedOffer,
+    display,
+  ]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -70,6 +115,9 @@ export const CartProvider = ({ children }) => {
     setBuy3Pay2AppliedProducts([]);
     setErrorMessage("");
     setSuccessMessage("");
+    setDiscount(0);
+    setAppliedOffer(0);
+    setSelectedOffer("");
   };
 
   const applyOffer = (offerType) => {
@@ -203,6 +251,10 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const handleCartClick = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   const onQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
@@ -234,6 +286,9 @@ export const CartProvider = ({ children }) => {
         setCurrentPage,
         display,
         setDisplay,
+        handleCartClick,
+        isCartOpen,
+        setIsCartOpen,
       }}>
       {children}
     </CartContext.Provider>

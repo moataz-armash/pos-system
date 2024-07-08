@@ -4,6 +4,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard.js";
 import NotFound from "../Pages/NotFound/NotFound.js";
 import PricePage from "../Pages/Dashboard/PricePage/PricePage.js";
 import TranslationPage from "../Pages/Dashboard/TranslationPage/TranslationPage.js";
+import { CartProvider } from "../hooks/Context/CartContext.js";
 function AppRoutes() {
   return (
     <Routes>

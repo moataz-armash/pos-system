@@ -18,14 +18,20 @@ import CartButton from "../../components/Cart/CartButton";
 import { useCart } from "../../hooks/Context/CartContext";
 
 const ShoppingCart = () => {
-  const { addToCart, quantity, setQuantity } = useCart();
+  const {
+    addToCart,
+    quantity,
+    setQuantity,
+    handleCartClick,
+    isCartOpen,
+    setIsCartOpen,
+  } = useCart();
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -66,10 +72,6 @@ const ShoppingCart = () => {
     addToCart({ ...product, quantity: quantity || 1 });
     console.log(`Adding ${quantity || 1} of ${product.name} to cart`);
     setQuantity(1); // Reset quantity to 1 after adding to cart
-  };
-
-  const handleCartClick = () => {
-    setIsCartOpen(!isCartOpen);
   };
 
   if (loading) {
