@@ -16,16 +16,14 @@ const CashierSystem = () => {
           lg: "250px", // desktops and above
         },
       }}>
-      <CartProvider>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={8}>
-            <ShoppingCart />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <NumberPad />
-          </Grid>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={8}>
+          <ShoppingCart />
         </Grid>
-      </CartProvider>
+        <Grid item xs={12} md={4}>
+          <NumberPad />
+        </Grid>
+      </Grid>
     </Container>
   );
 };
