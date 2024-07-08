@@ -7,15 +7,13 @@ import TranslationPage from "../Pages/Dashboard/TranslationPage/TranslationPage.
 import { CartProvider } from "../hooks/Context/CartContext.js";
 function AppRoutes() {
   return (
-    <CartProvider>
-      <Routes>
-        <Route path="/" element={<LoginPage />}></Route>
-        <Route path="dashboard" element={<Dashboard />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
-        <Route path="price-page" element={<PricePage />}></Route>
-        <Route path="translation-page" element={<TranslationPage />}></Route>
-      </Routes>
-    </CartProvider>
+    <Routes>
+      <Route path="/" element={<LoginPage />}></Route>
+      <Route path="dashboard" element={<Dashboard />}></Route>
+      <Route path="*" element={<NotFound />}></Route>
+      <Route path="price-page" element={<PricePage />}></Route>
+      <Route path="translation-page" element={<TranslationPage />}></Route>
+    </Routes>
   );
 }
 

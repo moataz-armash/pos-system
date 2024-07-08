@@ -7,18 +7,21 @@ import ThemeToggle from "./components/ThemeToggle";
 import { useThemeMode } from "../src/hooks/Context/useThemeMode";
 import "./i18n";
 import "./App.css";
+import { CartProvider } from "./hooks/Context/CartContext";
 
 function App() {
   const { theme, toggleColorMode } = useThemeMode();
 
   return (
-    <LanguageProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppRoutes />
-        <ThemeToggle toggleColorMode={toggleColorMode} />
-      </ThemeProvider>
-    </LanguageProvider>
+    <CartProvider>
+      <LanguageProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AppRoutes />
+          <ThemeToggle toggleColorMode={toggleColorMode} />
+        </ThemeProvider>
+      </LanguageProvider>
+    </CartProvider>
   );
 }
 
