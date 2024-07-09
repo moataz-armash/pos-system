@@ -59,6 +59,9 @@ const VirtualInvoice = ({
     .toString()
     .padStart(5, "0")}`;
 
+  const change =
+    paymentMethod === "cash" ? parseFloat(amountPaid) - totalAmount : 0;
+
   return (
     <Box
       sx={{
@@ -136,14 +139,17 @@ const VirtualInvoice = ({
             <Typography sx={{ mt: 2 }}>
               <strong>Payment Method:</strong> {paymentMethod}
             </Typography>
-            <Typography>
-              {paymentMethod === "cash" && (
-                <>
-                  <strong>Amount Paid:</strong>$
+            {paymentMethod === "cash" && (
+              <>
+                <Typography>
+                  <strong>Amount Paid:</strong> $
                   {parseFloat(amountPaid).toFixed(2)}
-                </>
-              )}
-            </Typography>
+                </Typography>
+                <Typography>
+                  <strong>Change:</strong> ${change.toFixed(2)}
+                </Typography>
+              </>
+            )}
           </Box>
         </Box>
         <Box sx={{ mt: 4 }}>

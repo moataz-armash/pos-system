@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { Box, Typography, TextField, Button, Modal, Grid } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Modal,
+  Grid,
+  Alert,
+} from "@mui/material";
 import { useCashPayment } from "../../hooks/useCashPayment";
 import { useCreditCardPayment } from "../../hooks/useCreditCardPayment";
 import { useEInvoice } from "../../hooks/useEInvoice";
@@ -26,6 +34,16 @@ const PaymentProcessor = ({
   } = useCreditCardPayment(onPaymentComplete);
   const { handleSendEInvoice } = useEInvoice(paymentMethod, amountPaid);
   const [showInvoice, setShowInvoice] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isAmountSufficient, setIsAmountSufficient] = useState(false);
+
+  useEffect(() => {
+    if (paymentMethod === "cash") {
+      setIsAmountSufficient(parseFloat(amountPaid) >= total);
+    } else {
+      setIsAmountSufficient(cardNumber && expiryDate && cvv);
+    }
+  }, [amountPaid, total, paymentMethod, cardNumber, expiryDate, cvv]);
 
   const handleShowInvoice = () => {
     setShowInvoice(true);
@@ -35,9 +53,34 @@ const PaymentProcessor = ({
     setShowInvoice(false);
   };
 
+  const handlePayment = () => {
+    if (paymentMethod === "cash") {
+      if (parseFloat(amountPaid) >= total) {
+        handleCashPayment();
+        setErrorMessage("");
+      } else {
+        setErrorMessage(
+          "The amount paid is insufficient. Please enter an amount equal to or greater than the total."
+        );
+      }
+    } else {
+      if (cardNumber && expiryDate && cvv) {
+        handleCreditCardPayment();
+        setErrorMessage("");
+      } else {
+        setErrorMessage("Please fill in all credit card details.");
+      }
+    }
+  };
+
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
+      {errorMessage && (
+        <Alert severity="error" sx={{ mt: 2 }}>
+          {errorMessage}
+        </Alert>
+      )}
       <Grid container sx={{ mt: 2 }}>
         <Grid item xs={12}>
           {paymentMethod === "cash" ? (
@@ -95,24 +138,14 @@ const PaymentProcessor = ({
           </Button>
         </Grid>
         <Grid item xs={8} sx={{ display: "flex", justifyContent: "flex-end" }}>
-          {paymentMethod === "cash" ? (
-            <Button
-              variant="contained"
-              color="green"
-              onClick={handleCashPayment}
-              sx={{ color: "white" }}
-              disabled={!amountPaid}>
-              Process Cash Payment
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="green"
-              onClick={handleCreditCardPayment}
-              sx={{ color: "white" }}>
-              Process Credit Card Payment
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            color="green"
+            onClick={handlePayment}
+            sx={{ color: "white" }}
+            disabled={!isAmountSufficient}>
+            Process {paymentMethod === "cash" ? "Cash" : "Credit Card"} Payment
+          </Button>
         </Grid>
       </Grid>
       <Grid container>
@@ -121,7 +154,8 @@ const PaymentProcessor = ({
             variant="outlined"
             color="green"
             onClick={handleSendEInvoice}
-            sx={{ mt: 2, mr: 2 }}>
+            sx={{ mt: 2, mr: 2 }}
+            disabled={!isAmountSufficient}>
             Send E-Invoice
           </Button>
         </Grid>
@@ -130,7 +164,8 @@ const PaymentProcessor = ({
             variant="outlined"
             color="green"
             onClick={handleShowInvoice}
-            sx={{ mt: 2 }}>
+            sx={{ mt: 2 }}
+            disabled={!isAmountSufficient}>
             View Invoice
           </Button>
         </Grid>

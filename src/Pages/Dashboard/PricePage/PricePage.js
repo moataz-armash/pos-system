@@ -25,6 +25,8 @@ import {
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { useCart } from "../../../hooks/Context/CartContext";
+import CartButton from "../../../components/Cart/CartButton";
+import CartDrawer from "../../../components/Cart/CartDrawer";
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   height: "100%",
@@ -46,8 +48,17 @@ const ProductDetails = styled(CardContent)(({ theme }) => ({
 
 const PricePage = () => {
   const { t } = useTranslation();
-  const { addToCart, cart, updateQuantity, quantity, setQuantity, setDisplay } =
-    useCart();
+  const {
+    addToCart,
+    cart,
+    updateQuantity,
+    quantity,
+    setQuantity,
+    setDisplay,
+    handleCartClick,
+    isCartOpen,
+    setIsCartOpen,
+  } = useCart();
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -222,6 +233,7 @@ const PricePage = () => {
                 onClick={handleStartScanning}>
                 {t("scanProduct")}
               </StyledButton>
+              <CartButton onClick={handleCartClick} />
             </Box>
 
             {scanning && (
@@ -293,6 +305,12 @@ const PricePage = () => {
               {snackbarMessage}
             </MuiAlert>
           </Snackbar>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <CartDrawer
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+          />
         </Grid>
       </Grid>
     </Container>
