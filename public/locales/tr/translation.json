@@ -73,11 +73,10 @@
   "eInvoiceSentSuccessfully": "E-fatura başarıyla gönderildi!",
   "failedToSendEInvoice": "E-fatura gönderilemedi:",
   "pleaseEnterYourEmailAdress": "Lütfen e-posta adresinizi girin:",
-  "Buy 3 Pay 2": "3 Al 2 Öde",
+  "Buy3Pay2": "3 Al 2 Öde",
   "1buy1free": "1 Alana 1 Bedava",
-  "2buy1free": "2 Alana 1 Bedava",
   "20off": "%20 İndirim",
-  "30off": "%30 İndirim",
+  "50off": "%50 İndirim",
   "dearCustomer": "Sayın müşteri",
   "bestRegards": "Saygılarımızla, Mağaza Ekibi"
 }

@@ -73,11 +73,10 @@
   "eInvoiceSentSuccessfully": "E-invoice sent successfully!",
   "failedToSendEInvoice": "Failed to send e-invoice:",
   "pleaseEnterYourEmailAdress": "Please enter your email address:",
-  "Buy 3 Pay 2": "Buy 3 Pay 2",
+  "Buy3Pay2": "Buy 3 Pay 2",
   "1buy1free": "Buy 1 Get 1 Free",
-  "2buy1free": "Buy 2 Get 1 Free",
   "20off": "20% Off",
-  "30off": "30% Off",
+  "50off": "50% Off",
   "dearCustomer": "Dear customer",
   "bestRegards": "Best regards, The Store Team"
 }
