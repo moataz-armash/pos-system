@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
+const TAX_RATE = 0.1;
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(() => {
@@ -255,9 +256,19 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(!isCartOpen);
   };
 
+  const calculateTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
   const onQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
+
+  const newTotal = calculateTotalPrice();
+  const originalTotal = calculateTotalPrice();
+
+  const subtotal = calculateTotalPrice();
+  const tax = subtotal * TAX_RATE;
+  const totalAmount = subtotal + tax - discount;
 
   return (
     <CartContext.Provider
@@ -289,6 +300,11 @@ export const CartProvider = ({ children }) => {
         handleCartClick,
         isCartOpen,
         setIsCartOpen,
+        newTotal,
+        originalTotal,
+        subtotal,
+        tax,
+        totalAmount,
       }}>
       {children}
     </CartContext.Provider>

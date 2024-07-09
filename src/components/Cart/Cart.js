@@ -17,7 +17,6 @@ import CartSummary from "./CartSummary";
 import CartActions from "./CartActions";
 import PaymentProcessor from "./PaymentProcessor";
 import { useTranslation } from "react-i18next";
-const TAX_RATE = 0.1;
 
 const Cart = ({ onClose }) => {
   const { t } = useTranslation();
@@ -34,7 +33,9 @@ const Cart = ({ onClose }) => {
     selectedOffer,
     setSelectedOffer,
     toggleButton,
-    setToggleButton,
+    subtotal,
+    tax,
+    totalAmount,
   } = useCart();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState("cart"); // "cart" or "payment"
@@ -66,10 +67,6 @@ const Cart = ({ onClose }) => {
     setPaymentMethod("");
   };
 
-  const calculateTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
-
   const handleOfferChange = (event) => {
     setSelectedOffer(event.target.value);
   };
@@ -86,10 +83,7 @@ const Cart = ({ onClose }) => {
       return;
     }
 
-    const originalTotal = calculateTotalPrice();
     applyOffer(selectedOffer);
-    const newTotal = calculateTotalPrice();
-    const savings = originalTotal - newTotal;
 
     applyOffer(selectedOffer);
     setSelectedOffer(""); // Reset the select value
@@ -102,9 +96,6 @@ const Cart = ({ onClose }) => {
     setOpenSnackbar(false);
   };
 
-  const subtotal = calculateTotalPrice();
-  const tax = subtotal * TAX_RATE;
-  const totalAmount = subtotal + tax - discount;
   return (
     <Box sx={{ width: 300, p: 2, position: "relative" }}>
       <Box
