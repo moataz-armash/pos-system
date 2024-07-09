@@ -145,13 +145,12 @@ const Cart = ({ onClose }) => {
                 color="lightGreen"
                 sx={{ mb: 1 }}>
                 <MenuItem value="" disabled>
-                  Select an offer
+                  {t("selectAnOffer")}
                 </MenuItem>
-                <MenuItem value="buy3pay2">Buy 3 Pay 2</MenuItem>
-                <MenuItem value="buy1get1free">Buy 1 Get 1 Free</MenuItem>
-                <MenuItem value="buy2get1free">Buy 2 Get 1 Free</MenuItem>
-                <MenuItem value="20percentoff">20% Off</MenuItem>
-                <MenuItem value="50percentoff">50% Off</MenuItem>
+                <MenuItem value="buy3pay2">{t("Buy3Pay2")}</MenuItem>
+                <MenuItem value="buy1get1free">{t("1buy1free")}</MenuItem>
+                <MenuItem value="20percentoff">{t("20off")}</MenuItem>
+                <MenuItem value="50percentoff">{t("50off")}</MenuItem>
               </Select>
               <Button
                 variant="outlined"
@@ -159,7 +158,7 @@ const Cart = ({ onClose }) => {
                 sx={{ color: "green" }}
                 fullWidth
                 onClick={handleApplyOffer}>
-                Apply Offer
+                {t("applyOffer")}
               </Button>
             </Box>
           )}

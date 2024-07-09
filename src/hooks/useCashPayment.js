@@ -1,8 +1,10 @@
 // hooks/useCashPayment.js
 import { useState } from "react";
 import { useCart } from "./Context/CartContext";
+import { useTranslation } from "react-i18next";
 
 export const useCashPayment = (total, onPaymentComplete) => {
+  const { t } = useTranslation();
   const [amountPaid, setAmountPaid] = useState("");
   const [change, setChange] = useState(null);
   const { clearCart } = useCart();
@@ -19,7 +21,7 @@ export const useCashPayment = (total, onPaymentComplete) => {
       });
       clearCart();
     } else {
-      alert("Insufficient amount");
+      alert(t("inceffientAmount"));
     }
   };
 

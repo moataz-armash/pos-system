@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useReactToPrint } from "react-to-print";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   "&.MuiTableCell-head": {
@@ -45,6 +46,7 @@ const VirtualInvoice = ({
   amountPaid,
   onClose,
 }) => {
+  const { t } = useTranslation();
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -58,6 +60,9 @@ const VirtualInvoice = ({
   const invoiceNumber = `INV-${Math.floor(Math.random() * 100000)
     .toString()
     .padStart(5, "0")}`;
+
+  const change =
+    paymentMethod === "cash" ? parseFloat(amountPaid) - totalAmount : 0;
 
   return (
     <Box
@@ -76,14 +81,14 @@ const VirtualInvoice = ({
             mb: 4,
           }}>
           <Typography variant="h4" gutterBottom>
-            Invoice
+            {t("invoice")}
           </Typography>
           <Box>
             <Typography variant="body1">
-              <strong>Date:</strong> {currentDate}
+              <strong>{t("date")}:</strong> {currentDate}
             </Typography>
             <Typography variant="body1">
-              <strong>Invoice No:</strong> {invoiceNumber}
+              <strong>{t("invoiceNo")}:</strong> {invoiceNumber}
             </Typography>
           </Box>
         </Box>
@@ -92,10 +97,10 @@ const VirtualInvoice = ({
           <Table>
             <TableHead>
               <TableRow>
-                <StyledTableCell>Product</StyledTableCell>
-                <StyledTableCell align="right">Quantity</StyledTableCell>
-                <StyledTableCell align="right">Price</StyledTableCell>
-                <StyledTableCell align="right">Total</StyledTableCell>
+                <StyledTableCell>{t("product")}</StyledTableCell>
+                <StyledTableCell align="right">{t("quantity")}</StyledTableCell>
+                <StyledTableCell align="right">{t("price")}</StyledTableCell>
+                <StyledTableCell align="right">{t("total")}</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -121,34 +126,37 @@ const VirtualInvoice = ({
         <Box sx={{ mt: 4, display: "flex", justifyContent: "flex" }}>
           <Box sx={{ width: "50%" }}>
             <Typography sx={{ mb: 1 }}>
-              <strong>Subtotal:</strong> ${subtotal.toFixed(2)}
+              <strong>{t("subTotal")}:</strong> ${subtotal.toFixed(2)}
             </Typography>
             <Typography sx={{ mb: 1 }}>
-              <strong>Tax:</strong> ${tax.toFixed(2)}
+              <strong>{t("tax")}:</strong> ${tax.toFixed(2)}
             </Typography>
             <Typography sx={{ mb: 1 }}>
-              <strong>Discount:</strong> ${discount.toFixed(2)}
+              <strong>{t("discount")}:</strong> ${discount.toFixed(2)}
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Typography variant="h6">
-              <strong>Total:</strong> ${totalAmount.toFixed(2)}
+              <strong>{t("total")}:</strong> ${totalAmount.toFixed(2)}
             </Typography>
             <Typography sx={{ mt: 2 }}>
-              <strong>Payment Method:</strong> {paymentMethod}
+              <strong>{t("paymentMethod")}:</strong> {paymentMethod}
             </Typography>
-            <Typography>
-              {paymentMethod === "cash" && (
-                <>
-                  <strong>Amount Paid:</strong>$
+            {paymentMethod === "cash" && (
+              <>
+                <Typography>
+                  <strong>{t("amountPaid")}:</strong> $
                   {parseFloat(amountPaid).toFixed(2)}
-                </>
-              )}
-            </Typography>
+                </Typography>
+                <Typography>
+                  <strong>{t("change")}:</strong> ${change.toFixed(2)}
+                </Typography>
+              </>
+            )}
           </Box>
         </Box>
         <Box sx={{ mt: 4 }}>
           <Typography variant="body2" align="center">
-            Thank you for your business!
+            {t("thankYou")}
           </Typography>
         </Box>
       </Box>
@@ -158,10 +166,10 @@ const VirtualInvoice = ({
           color="green"
           sx={{ color: "white" }}
           onClick={handlePrint}>
-          Print Invoice
+          {t("printInvoice")}
         </Button>
         <Button variant="outlined" color="error" onClick={onClose}>
-          Close
+          {t("close")}
         </Button>
       </Box>
     </Box>

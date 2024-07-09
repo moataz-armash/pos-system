@@ -1,7 +1,9 @@
 // hooks/useCreditCardPayment.js
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const useCreditCardPayment = (onPaymentComplete) => {
+  const { t } = useTranslation();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
@@ -13,7 +15,7 @@ export const useCreditCardPayment = (onPaymentComplete) => {
         cardNumber: cardNumber.slice(-4),
       });
     } else {
-      alert("Please fill in all credit card details");
+      alert(t("pleaseFill"));
     }
   };
 
