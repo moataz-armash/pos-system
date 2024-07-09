@@ -7,8 +7,10 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const CartActions = ({ onClear, onCheckout, total }) => {
+  const { t } = useTranslation();
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const handlePaymentMethodChange = (event) => {
@@ -26,18 +28,18 @@ const CartActions = ({ onClear, onCheckout, total }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <FormControl fullWidth sx={{ mb: 2 }} color="green">
-        <InputLabel>Payment Method</InputLabel>
+        <InputLabel>{t("paymentMethod")}</InputLabel>
         <Select
           value={paymentMethod}
           label="Payment Method"
           onChange={handlePaymentMethodChange}>
-          <MenuItem value="cash">Cash</MenuItem>
-          <MenuItem value="creditCard">Credit Card</MenuItem>
+          <MenuItem value="cash">{t("cash")}</MenuItem>
+          <MenuItem value="creditCard">{t("creditCard")}</MenuItem>
         </Select>
       </FormControl>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button variant="outlined" color="error" onClick={onClear}>
-          Clear Cart
+          {t("clearCart")}
         </Button>
         <Button
           variant="contained"
@@ -45,7 +47,7 @@ const CartActions = ({ onClear, onCheckout, total }) => {
           sx={{ color: "white" }}
           onClick={handleCheckout}
           disabled={!paymentMethod}>
-          Checkout (${total.toFixed(2)})
+          {t("checkout")} (${total.toFixed(2)})
         </Button>
       </Box>
     </Box>

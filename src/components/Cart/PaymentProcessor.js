@@ -13,6 +13,7 @@ import { useCreditCardPayment } from "../../hooks/useCreditCardPayment";
 import { useEInvoice } from "../../hooks/useEInvoice";
 import VirtualInvoice from "./VirtualInvoice";
 import { useCart } from "../../hooks/Context/CartContext";
+import { useTranslation } from "react-i18next";
 
 const PaymentProcessor = ({
   total,
@@ -20,6 +21,7 @@ const PaymentProcessor = ({
   onPaymentComplete,
   onGoBack,
 }) => {
+  const { t } = useTranslation();
   const { cart, subtotal, tax, totalAmount, discount } = useCart();
   const { amountPaid, setAmountPaid, change, handleCashPayment } =
     useCashPayment(total, onPaymentComplete);
@@ -75,7 +77,9 @@ const PaymentProcessor = ({
 
   return (
     <Box sx={{ mt: 2 }}>
-      <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
+      <Typography variant="h6">
+        {t("total")}: ${total.toFixed(2)}
+      </Typography>
       {errorMessage && (
         <Alert severity="error" sx={{ mt: 2 }}>
           {errorMessage}
@@ -86,7 +90,7 @@ const PaymentProcessor = ({
           {paymentMethod === "cash" ? (
             <Box>
               <TextField
-                label="Amount Paid"
+                label={t("amountPaid")}
                 type="number"
                 value={amountPaid}
                 color="green"
@@ -96,14 +100,14 @@ const PaymentProcessor = ({
               />
               {change !== null && (
                 <Typography sx={{ mb: 2 }}>
-                  Change: ${change.toFixed(2)}
+                  {t("change")}: ${change.toFixed(2)}
                 </Typography>
               )}
             </Box>
           ) : (
             <Box>
               <TextField
-                label="Card Number"
+                label={t("cardNumber")}
                 value={cardNumber}
                 color="green"
                 onChange={(e) => setCardNumber(e.target.value)}
@@ -111,7 +115,7 @@ const PaymentProcessor = ({
                 sx={{ mb: 2 }}
               />
               <TextField
-                label="Expiry Date"
+                label={t("expiredDate")}
                 color="green"
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
@@ -134,7 +138,7 @@ const PaymentProcessor = ({
           xs={4}
           sx={{ display: "flex", justifyContent: "flex-start" }}>
           <Button variant="outlined" color="error" onClick={onGoBack}>
-            Go Back
+            {t("goBack")}
           </Button>
         </Grid>
         <Grid item xs={8} sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -144,7 +148,9 @@ const PaymentProcessor = ({
             onClick={handlePayment}
             sx={{ color: "white" }}
             disabled={!isAmountSufficient}>
-            Process {paymentMethod === "cash" ? "Cash" : "Credit Card"} Payment
+            {t("process")}{" "}
+            {paymentMethod === "cash" ? t("cash") : t("creditCard")}
+            {t("payment")}
           </Button>
         </Grid>
       </Grid>
@@ -156,7 +162,7 @@ const PaymentProcessor = ({
             onClick={handleSendEInvoice}
             sx={{ mt: 2, mr: 2 }}
             disabled={!isAmountSufficient}>
-            Send E-Invoice
+            {t("sendEInvoice")}
           </Button>
         </Grid>
         <Grid item xs={6}>
@@ -166,7 +172,7 @@ const PaymentProcessor = ({
             onClick={handleShowInvoice}
             sx={{ mt: 2 }}
             disabled={!isAmountSufficient}>
-            View Invoice
+            {t("viewInvoice")}
           </Button>
         </Grid>
       </Grid>

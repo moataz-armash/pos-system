@@ -127,7 +127,6 @@ export const CartProvider = ({ children }) => {
     const validOffers = [
       "buy3pay2",
       "buy1get1free",
-      "buy2get1free",
       "20percentoff",
       "50percentoff",
     ];
@@ -169,16 +168,6 @@ export const CartProvider = ({ children }) => {
         case "buy1get1free":
           if (product.quantity >= 2) {
             const freeItems = Math.floor(product.quantity / 2);
-            discountedQuantity = product.quantity - freeItems;
-            appliedDiscount = product.price * freeItems;
-          } else {
-            return product;
-          }
-          break;
-
-        case "buy2get1free":
-          if (product.quantity >= 3) {
-            const freeItems = Math.floor(product.quantity / 3);
             discountedQuantity = product.quantity - freeItems;
             appliedDiscount = product.price * freeItems;
           } else {
