@@ -26,61 +26,37 @@ const ShoppingCart = () => {
     isCartOpen,
     setIsCartOpen,
   } = useCart();
-  const [categories, setCategories] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
+  const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const getCategories = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await fetchProducts();
-        setCategories(data);
-        const products = flattenProducts(data);
-        setAllProducts(products);
-        if (data.length > 0) {
-          setSelectedCategory(data[0].name);
+        const fetchedData = await fetchProducts();
+        console.log("Fetched data:", fetchedData); // Log the fetched data
+        setData(fetchedData);
+        if (fetchedData.length > 0) {
+          setSelectedCategory(fetchedData[0].name);
         }
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    getCategories();
+    fetchData();
   }, []);
-
-  const flattenProducts = (data) => {
-    return data.flatMap((category) =>
-      category.subcategories.flatMap((subcategory) =>
-        subcategory.products
-          ? subcategory.products.map((product) => ({
-              ...product,
-              category: category.name,
-              subcategory: subcategory.name,
-            }))
-          : []
-      )
-    );
-  };
 
   const handleProductSelect = (product) => {
     addToCart({ ...product, quantity: quantity || 1 });
     console.log(`Adding ${quantity || 1} of ${product.name} to cart`);
-    setQuantity(1); // Reset quantity to 1 after adding to cart
+    setQuantity(1);
   };
-
-  if (loading) {
-    return (
-      <Backdrop open={true} style={{ zIndex: 9999 }}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  }
 
   const handleCategorySelect = (categoryName) => {
     setSelectedCategory(categoryName);
@@ -96,7 +72,7 @@ const ShoppingCart = () => {
     if (selectedSubcategory) {
       setSelectedSubcategory("");
     } else {
-      setSelectedCategory(categories[0]?.name || "");
+      setSelectedCategory(data[0]?.name || "");
     }
   };
 
@@ -104,29 +80,16 @@ const ShoppingCart = () => {
     setSearchQuery(event.target.value);
   };
 
+  const getCategories = () => {
+    return data.filter((category) => category.name !== "All Products");
+  };
+
   const getSubcategories = () => {
     if (!selectedCategory) return [];
     return (
-      categories.find((cat) => cat.name === selectedCategory)?.subcategories ||
-      []
+      data.find((cat) => cat.name === selectedCategory)?.subcategories || []
     );
   };
-
-  const getProducts = () => {
-    if (!selectedSubcategory) return [];
-    const subcategory = getSubcategories().find(
-      (subcat) => subcat.name === selectedSubcategory
-    );
-    return subcategory?.products || [];
-  };
-
-  const filteredSubProducts = getProducts().filter((product) =>
-    product.barcode.includes(searchQuery)
-  );
-
-  const filteredProducts = allProducts.filter((product) =>
-    product.barcode.includes(searchQuery)
-  );
 
   if (loading) {
     return (
@@ -136,8 +99,18 @@ const ShoppingCart = () => {
     );
   }
 
+  if (data.length === 0) {
+    return (
+      <Container maxWidth="lg" style={{ marginTop: 20 }}>
+        <Typography variant="h5">
+          No data available. Please check your API connection.
+        </Typography>
+      </Container>
+    );
+  }
+
   return (
-    <Container maxWidth="md" style={{ marginTop: 20 }}>
+    <Container maxWidth="lg" style={{ marginTop: 20 }}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={3} style={{ padding: 20 }}>
@@ -148,7 +121,7 @@ const ShoppingCart = () => {
                   onSearchChange={handleSearchChange}
                 />
               </Grid>
-              <Grid item>
+              <Grid item xs={2} sm={1}>
                 <CartButton onClick={handleCartClick} />
               </Grid>
             </Grid>
@@ -159,9 +132,9 @@ const ShoppingCart = () => {
               onCategorySelect={handleCategorySelect}
               onSubcategorySelect={handleSubcategorySelect}
             />
-            {!selectedSubcategory && (
+            {!selectedSubcategory && !searchQuery && (
               <CategoryList
-                categories={categories}
+                categories={getCategories()}
                 selectedCategory={selectedCategory}
                 onCategorySelect={handleCategorySelect}
               />
@@ -173,24 +146,16 @@ const ShoppingCart = () => {
               />
             )}
             <ProductList
-              products={
-                selectedSubcategory ? filteredSubProducts : filteredProducts
-              }
+              data={data}
               searchQuery={searchQuery}
+              selectedCategory={selectedCategory}
               selectedSubcategory={selectedSubcategory}
               onProductSelect={handleProductSelect}
-              quantity={quantity}
-              setQuantity={setQuantity}
             />
           </Paper>
-          <Grid item xs={12} md={4}>
-            <CartDrawer
-              isOpen={isCartOpen}
-              onClose={() => setIsCartOpen(false)}
-            />
-          </Grid>
         </Grid>
       </Grid>
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </Container>
   );
 };

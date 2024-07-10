@@ -30,7 +30,7 @@ const CartButton = ({ onClick }) => {
         {t("myCart")}
       </Typography>
       {itemCount > 0 && (
-        <QuantityCircle>
+        <QuantityCircle padding={1}>
           <Typography variant="body2">{itemCount}</Typography>
         </QuantityCircle>
       )}
