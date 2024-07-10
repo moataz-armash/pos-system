@@ -11,11 +11,11 @@ export const fetchStoreInfo = async () => {
     throw error;
   }
 };
-
+// de74a70b-59da-4641-b849-f3195dcc9b94
 export const fetchProducts = async () => {
   try {
     const response = await axiosInstance.get(
-      "/de74a70b-59da-4641-b849-f3195dcc9b94"
+      "/ed073d03-0c52-40cd-b1ea-fc2a0a8bdd61"
     );
     return response.data;
   } catch (error) {
