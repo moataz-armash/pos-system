@@ -7,6 +7,8 @@ import {
   FormControlLabel,
   Checkbox,
   Switch,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useProductList } from "../../hooks/useProductList";
@@ -31,6 +33,7 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
 
 const SliderContainer = styled(Box)(({ theme }) => ({
   height: "calc(100vh - 200px)",
+  width: "100%",
   overflowY: "auto",
   overflowX: "hidden",
   "&::-webkit-scrollbar": {
@@ -54,6 +57,11 @@ const ProductList = ({
   selectedCategory,
   selectedSubcategory,
 }) => {
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
+  const isSm = useMediaQuery(theme.breakpoints.only("sm"));
+  const isMd = useMediaQuery(theme.breakpoints.only("md"));
+
   const {
     currentPage,
     favorites,
@@ -85,6 +93,20 @@ const ProductList = ({
     "V-Z",
   ];
 
+  const getGridColumns = () => {
+    if (isXs) return 1;
+    if (isSm) return 2;
+    if (isMd) return 3;
+    return 4;
+  };
+
+  const getItemSize = (width) => {
+    const columns = getGridColumns();
+    const cardWidth = width / columns;
+    // Assuming a 3:4 aspect ratio for the card, plus some padding
+    return (cardWidth * 4) / 3 + 75; // 32px for Grid spacing
+  };
+
   const productGrid = (products) => (
     <Grid container spacing={3}>
       {products.map((product) => (
@@ -101,46 +123,48 @@ const ProductList = ({
     </Grid>
   );
 
-  const VirtualizedProductGrid = ({ height, width }) => {
-    const rowHeight = 350; // Adjust based on your ProductCard height
-    const columnWidth = width / 4; // Assuming 4 columns, adjust if needed
-    const rowCount = Math.ceil(filteredProducts.length / 4);
+  const Row = ({ index, style }) => {
+    const columns = getGridColumns();
+    const startIndex = index * columns;
+    const rowProducts = filteredProducts.slice(
+      startIndex,
+      startIndex + columns
+    );
 
     return (
-      <List
-        height={height}
-        itemCount={rowCount}
-        itemSize={rowHeight}
-        width={width}>
-        {({ index, style }) => (
-          <div style={style}>
-            <Grid container spacing={3}>
-              {filteredProducts
-                .slice(index * 4, (index + 1) * 4)
-                .map((product) => (
-                  <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                    <ProductCard
-                      product={product}
-                      isFavorite={favorites.includes(product.id)}
-                      onToggleFavorite={toggleFavorite}
-                      onCopyBarcode={handleCopyBarcode}
-                      onAddToCart={handleAddToCart}
-                    />
-                  </Grid>
-                ))}
+      <div style={style}>
+        <Grid container spacing={3}>
+          {rowProducts.map((product) => (
+            <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+              <ProductCard
+                product={product}
+                isFavorite={favorites.includes(product.id)}
+                onToggleFavorite={toggleFavorite}
+                onCopyBarcode={handleCopyBarcode}
+                onAddToCart={handleAddToCart}
+              />
             </Grid>
-          </div>
-        )}
-      </List>
+          ))}
+        </Grid>
+      </div>
     );
   };
 
   const productDisplay = useSlider ? (
     <SliderContainer>
       <AutoSizer>
-        {({ height, width }) => (
-          <VirtualizedProductGrid height={height} width={width} />
-        )}
+        {({ height, width }) => {
+          const itemSize = getItemSize(width);
+          return (
+            <List
+              height={height}
+              itemCount={Math.ceil(filteredProducts.length / getGridColumns())}
+              itemSize={itemSize}
+              width={width}>
+              {Row}
+            </List>
+          );
+        }}
       </AutoSizer>
     </SliderContainer>
   ) : (
@@ -175,15 +199,16 @@ const ProductList = ({
       {(selectedCategory === "Products" || selectedSubcategory) && (
         <Box
           display="flex"
+          flexDirection={isXs ? "column" : "row"}
           justifyContent="space-between"
-          alignItems="center"
+          alignItems={isXs ? "flex-start" : "center"}
           mb={2}>
           <Typography variant="h4" gutterBottom>
             {selectedSubcategory || selectedCategory || "All Products"}
           </Typography>
 
           {hasProducts && (
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" mt={isXs ? 2 : 0}>
               <FormControlLabel
                 control={
                   <Checkbox
