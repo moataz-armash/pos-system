@@ -27,6 +27,7 @@ import { useTranslation } from "react-i18next";
 import { useCart } from "../../../hooks/Context/CartContext";
 import CartButton from "../../../components/Cart/CartButton";
 import CartDrawer from "../../../components/Cart/CartDrawer";
+
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   height: "100%",
@@ -60,7 +61,7 @@ const PricePage = () => {
     setIsCartOpen,
   } = useCart();
   const [categories, setCategories] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [scanning, setScanning] = useState(false);
@@ -70,14 +71,20 @@ const PricePage = () => {
   const [lastScannedBarcode, setLastScannedBarcode] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+
   useEffect(() => {
     const getCategories = async () => {
       setLoading(true);
       try {
         const data = await fetchProducts();
         setCategories(data);
-        const products = flattenProducts(data);
-        setAllProducts(products);
+        // Find the "Products" category and set its products
+        const productsCategory = data.find(
+          (category) => category.name === "Products"
+        );
+        if (productsCategory && productsCategory.products) {
+          setProducts(productsCategory.products);
+        }
         if (data.length > 0) {
           setSelectedCategory(data[0].name);
         }
@@ -103,20 +110,6 @@ const PricePage = () => {
     setSnackbarOpen(false);
   };
 
-  const flattenProducts = (data) => {
-    return data.flatMap((category) =>
-      category.subcategories.flatMap((subcategory) =>
-        subcategory.products
-          ? subcategory.products.map((product) => ({
-              ...product,
-              category: category.name,
-              subcategory: subcategory.name,
-            }))
-          : []
-      )
-    );
-  };
-
   const handleStartScanning = () => {
     setScanning(true);
     setErrorMessage("");
@@ -139,24 +132,7 @@ const PricePage = () => {
   };
 
   const findProduct = (barcode) => {
-    let barcodeString = barcode.toString();
-
-    const searchProduct = (code) => {
-      const paddedBarcode = code.padStart(12, "0");
-      return allProducts.find((p) => p.barcode === paddedBarcode);
-    };
-
-    let product;
-
-    if (barcodeString.length === 12) {
-      product = searchProduct(barcodeString);
-      if (!product) {
-        barcodeString = barcodeString.slice(0, -1);
-        product = searchProduct(barcodeString);
-      }
-    } else if (barcodeString.length === 11) {
-      product = searchProduct(barcodeString);
-    }
+    const product = products.find((p) => p.barcode === barcode);
 
     if (product) {
       setScannedProduct(product);
@@ -180,9 +156,7 @@ const PricePage = () => {
       setDisplay("1");
     } else {
       setScannedProduct(null);
-      setErrorMessage(
-        `${t("productWithBarcode")} ${barcodeString} ${t("notFound")}`
-      );
+      setErrorMessage(`${t("productWithBarcode")} ${barcode} ${t("notFound")}`);
       // Don't close scanner if product is not found
     }
   };
@@ -287,7 +261,7 @@ const PricePage = () => {
                     Barcode: {scannedProduct.barcode}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Subcategory: {scannedProduct.subcategory}
+                    ID: {scannedProduct.id}
                   </Typography>
                 </ProductDetails>
               </ProductCard>
