@@ -11,11 +11,9 @@ const BarcodeScanner = ({ onScan, onClose }) => {
   const { ref } = useZxing({
     onDecodeResult(result) {
       const scannedText = result.getText();
-      // Process if the scanned text is numeric and has 12 or 13 digits
-      if (/^\d{11,12}$/.test(scannedText)) {
-        setLastScanned(scannedText);
-        onScan(scannedText);
-      }
+      // Process the scanned barcode without any length restrictions
+      setLastScanned(scannedText);
+      onScan(scannedText);
     },
     onError(error) {
       setError(error.message);
@@ -27,7 +25,12 @@ const BarcodeScanner = ({ onScan, onClose }) => {
         height: { ideal: 720 },
       },
     },
-    formats: [BarcodeFormat.UPC_A, BarcodeFormat.EAN_13], // Include EAN_13 for better compatibility
+    formats: [
+      BarcodeFormat.UPC_A,
+      BarcodeFormat.EAN_13,
+      BarcodeFormat.UPC_E,
+      BarcodeFormat.CODE_128,
+    ],
   });
 
   useEffect(() => {

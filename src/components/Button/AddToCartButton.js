@@ -1,11 +1,9 @@
-import { React, useState } from "react";
+import React from "react";
 import { Button, Typography, Grid, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useCart } from "../../hooks/Context/CartContext";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
 const AddToCartButton = ({ product }) => {
   const {
@@ -18,33 +16,12 @@ const AddToCartButton = ({ product }) => {
     setDisplay,
   } = useCart();
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-
-  const showSnackbar = (message) => {
-    setSnackbarMessage(message);
-    setSnackbarOpen(true);
-  };
-
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSnackbarOpen(false);
-  };
-
   const cartItem = cart.find((item) => item.id === product.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   const handleAddToCart = () => {
-    if (cartQuantity === 0) {
-      addToCart({ ...product, quantity: quantity });
-    } else {
-      updateQuantity(product.id, cartQuantity + quantity);
-    }
+    addToCart({ ...product, quantity: quantity });
     setQuantity(1);
-    showSnackbar(`Added ${quantity} of ${product.name} to cart`);
-    console.log(`Added ${quantity} of ${product.name} to cart`); // Debug log
     setDisplay("1");
   };
 
@@ -119,18 +96,6 @@ const AddToCartButton = ({ product }) => {
           </Grid>
         </Grid>
       )}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={2000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-        <MuiAlert
-          onClose={handleSnackbarClose}
-          severity="success"
-          sx={{ width: "100%" }}>
-          {snackbarMessage}
-        </MuiAlert>
-      </Snackbar>
     </Grid>
   );
 };

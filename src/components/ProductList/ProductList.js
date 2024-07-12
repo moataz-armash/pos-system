@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Typography,
@@ -9,7 +9,9 @@ import {
   Switch,
   useTheme,
   useMediaQuery,
+  Snackbar,
 } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 import { useProductList } from "../../hooks/useProductList";
 import AlphabetFilter from "./AlphabetFilter";
@@ -70,7 +72,7 @@ const ProductList = ({
     useSlider,
     filteredProducts,
     hasProducts,
-    handleAddToCart,
+    // handleAddToCart,
     handlePageChange,
     handleCopyBarcode,
     toggleFavorite,
@@ -103,8 +105,7 @@ const ProductList = ({
   const getItemSize = (width) => {
     const columns = getGridColumns();
     const cardWidth = width / columns;
-    // Assuming a 3:4 aspect ratio for the card, plus some padding
-    return (cardWidth * 4) / 3 + 75; // 32px for Grid spacing
+    return (cardWidth * 4) / 3 + 75;
   };
 
   const productGrid = (products) => (
@@ -116,7 +117,6 @@ const ProductList = ({
             isFavorite={favorites.includes(product.id)}
             onToggleFavorite={toggleFavorite}
             onCopyBarcode={handleCopyBarcode}
-            onAddToCart={handleAddToCart}
           />
         </Grid>
       ))}
@@ -141,7 +141,6 @@ const ProductList = ({
                 isFavorite={favorites.includes(product.id)}
                 onToggleFavorite={toggleFavorite}
                 onCopyBarcode={handleCopyBarcode}
-                onAddToCart={handleAddToCart}
               />
             </Grid>
           ))}
@@ -245,6 +244,19 @@ const ProductList = ({
           </Typography>
         </Box>
       )}
+      {/* 
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+        <MuiAlert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar> */}
     </>
   );
 };

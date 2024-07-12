@@ -13,6 +13,8 @@ export const CartProvider = ({ children }) => {
     return savedSelectedProducts ? JSON.parse(savedSelectedProducts) : [];
   });
   const [quantity, setQuantity] = useState(1);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [buy3Pay2AppliedProducts, setBuy3Pay2AppliedProducts] = useState(() => {
     const savedAppliedProducts = localStorage.getItem(
       "buy3Pay2AppliedProducts"
@@ -77,6 +79,9 @@ export const CartProvider = ({ children }) => {
     console.log("Cart after adding:", cart); // Debug log
     setErrorMessage("");
     setSuccessMessage("");
+
+    setSnackbarMessage(`Added ${product.quantity} of ${product.name} to cart`);
+    setSnackbarOpen(true);
   };
 
   const removeFromCart = (productId) => {
@@ -252,6 +257,13 @@ export const CartProvider = ({ children }) => {
     setQuantity(newQuantity);
   };
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const newTotal = calculateTotalPrice();
   const originalTotal = calculateTotalPrice();
 
@@ -294,6 +306,9 @@ export const CartProvider = ({ children }) => {
         subtotal,
         tax,
         totalAmount,
+        handleSnackbarClose,
+        snackbarOpen,
+        snackbarMessage,
       }}>
       {children}
     </CartContext.Provider>

@@ -1,4 +1,3 @@
-// ProductCard.jsx
 import React from "react";
 import { Box, Typography, IconButton, Tooltip, Paper } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -21,12 +20,12 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   },
 }));
 
+// The only change in this component is passing onAddToCart to AddToCartButton
 const ProductCard = ({
   product,
   isFavorite,
   onToggleFavorite,
   onCopyBarcode,
-  onAddToCart,
 }) => (
   <StyledPaper>
     <Box display="flex" justifyContent="flex-end">
@@ -67,7 +66,7 @@ const ProductCard = ({
         </IconButton>
       </Tooltip>
     </Box>
-    <AddToCartButton product={product} addToCart={() => onAddToCart(product)} />
+    <AddToCartButton product={product} />
   </StyledPaper>
 );
 
