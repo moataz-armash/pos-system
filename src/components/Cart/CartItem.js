@@ -22,20 +22,32 @@ const CartItem = ({ item }) => {
     removeFromCart,
     handleToggleProduct,
   } = useCart();
+
+  // Add null checks and default values
+  const name = item?.name || "Unknown Item";
+  const image = item?.image || "";
+  const price = item?.price || 0;
+  const quantity = item?.quantity || 0;
+  const id = item?.id;
+
+  if (!id) {
+    return null; // Don't render anything if the item is invalid
+  }
+
   return (
     <>
       <ListItem>
         <ListItemAvatar>
-          <Avatar alt={item.name} src={item.image} variant="square" />
+          <Avatar alt={name} src={image} variant="square" />
         </ListItemAvatar>
         <ListItemText
-          primary={item.name}
+          primary={name}
           secondary={
             <>
               <Typography component="span" variant="body2" color="text.primary">
-                ${item.price.toFixed(2)}
+                ${price.toFixed(2)}
               </Typography>
-              {` x ${item.quantity}`}
+              {` x ${quantity}`}
             </>
           }
         />
@@ -43,30 +55,30 @@ const CartItem = ({ item }) => {
           <IconButton
             edge="end"
             aria-label="decrease"
-            onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+            onClick={() => updateQuantity(id, quantity - 1)}>
             <RemoveIcon />
           </IconButton>
           <IconButton
             edge="end"
             aria-label="increase"
-            onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+            onClick={() => updateQuantity(id, quantity + 1)}>
             <AddIcon />
           </IconButton>
           <IconButton
             edge="end"
             aria-label="delete"
-            onClick={() => removeFromCart(item.id)}>
+            onClick={() => removeFromCart(id)}>
             <DeleteIcon />
           </IconButton>
           <Checkbox
-            checked={selectedProducts.includes(item.id)}
-            onChange={() => handleToggleProduct(item.id)}
+            checked={selectedProducts.includes(id)}
+            onChange={() => handleToggleProduct(id)}
             color="green"
           />
         </ListItemSecondaryAction>
       </ListItem>
       <Typography variant="body1" align="right" sx={{ pr: 2, pb: 1 }}>
-        Subtotal: ${(item.price * item.quantity).toFixed(2)}
+        Subtotal: ${(price * quantity).toFixed(2)}
       </Typography>
       <Divider />
     </>

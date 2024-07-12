@@ -186,6 +186,7 @@ const PricePage = () => {
             </Typography>
             <Box display="flex" alignItems="center" mb={2}>
               <TextField
+                color="green"
                 label={t("enterBarcode")}
                 variant="outlined"
                 value={manualBarcode}
