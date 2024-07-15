@@ -8,6 +8,7 @@ import Assessment from "@mui/icons-material/Assessment";
 import Settings from "@mui/icons-material/Settings";
 import Input from "@mui/icons-material/Input";
 import Language from "@mui/icons-material/Language";
+import PrintIcon from "@mui/icons-material/Print";
 // import other icons as needed
 
 export const ShoppingCartIcon = (props) => <ShoppingCart {...props} />;
@@ -18,4 +19,5 @@ export const AssessmentIcon = (props) => <Assessment {...props} />;
 export const SettingsIcon = (props) => <Settings {...props} />;
 export const InputIcon = (props) => <Input {...props} />;
 export const LanguageIcon = (props) => <Language {...props} />;
+export const PrinterIcon = (props) => <PrintIcon {...props} />;
 // export other icons similarly
