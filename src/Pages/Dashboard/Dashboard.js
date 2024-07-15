@@ -68,27 +68,30 @@ function Dashboard({ dashboard }) {
               <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
                 {t("seePrice")}
               </MenuItem>
-              <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
-                {t("returnProcess")}
+              <MenuItem link="/printer-test" icon={<Icon name="printer" />}>
+                {t("printerTest")}
               </MenuItem>
+              {/* <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
+                {t("returnProcess")}
+              </MenuItem> */}
             </Menu>
-            <Menu subHeading={t("applications")}>
+            {/* <Menu subHeading={t("applications")}>
               <MenuItem link="/collections" icon={<Icon name="receipt" />}>
                 {t("collections")}
               </MenuItem>
               <MenuItem link="/reports" icon={<Icon name="assessment" />}>
                 {t("reports")}
               </MenuItem>
-            </Menu>
+            </Menu> */}
             <Menu subHeading={t("other")}>
-              <MenuItem
+              {/* <MenuItem
                 link="/other-operations"
                 icon={<Icon name="settings" />}>
                 {t("otherOperations")}
               </MenuItem>
               <MenuItem link="/direct-entry" icon={<Icon name="input" />}>
                 {t("directProductEntry")}
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 link="/translation-page"
                 icon={<Icon name="language" />}>
@@ -126,27 +129,30 @@ function Dashboard({ dashboard }) {
               <MenuItem link="/price-page" icon={<Icon name="attachMoney" />}>
                 {t("seePrice")}
               </MenuItem>
-              <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
-                {t("returnProcess")}
+              <MenuItem link="/printer-test" icon={<Icon name="printer" />}>
+                {t("printerTest")}
               </MenuItem>
+              {/* <MenuItem link="/return" icon={<Icon name="assignmentReturn" />}>
+                {t("returnProcess")}
+              </MenuItem> */}
             </Menu>
-            <Menu subHeading={t("applications")}>
+            {/* <Menu subHeading={t("applications")}>
               <MenuItem link="/collections" icon={<Icon name="receipt" />}>
                 {t("collections")}
               </MenuItem>
               <MenuItem link="/reports" icon={<Icon name="assessment" />}>
                 {t("reports")}
               </MenuItem>
-            </Menu>
+            </Menu> */}
             <Menu subHeading={"other"}>
-              <MenuItem
+              {/* <MenuItem
                 link="/other-operations"
                 icon={<Icon name="settings" />}>
                 {t("otherOperations")}
               </MenuItem>
               <MenuItem link="/direct-entry" icon={<Icon name="input" />}>
                 {t("directProductEntry")}
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 link="/translation-page"
                 icon={<Icon name="language" />}>

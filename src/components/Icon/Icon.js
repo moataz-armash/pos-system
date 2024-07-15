@@ -9,6 +9,7 @@ import {
   SettingsIcon,
   InputIcon,
   LanguageIcon,
+  PrinterIcon,
 } from "./icons";
 // import other icons as needed
 
@@ -30,6 +31,8 @@ const Icon = ({ name, ...props }) => {
       return <InputIcon {...props} />;
     case "language":
       return <LanguageIcon {...props} />;
+    case "printer":
+      return <PrinterIcon {...props} />;
     // add other cases for different icons
     default:
       return null; // or a default icon
