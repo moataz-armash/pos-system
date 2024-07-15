@@ -10,6 +10,7 @@ import "./App.css";
 import { CartProvider, useCart } from "./hooks/Context/CartContext";
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import LanguageToggle from "./components/LanguageToggle";
 
 const AlertSnackbar = () => {
   const { snackbarOpen, snackbarMessage, handleSnackbarClose } = useCart();
@@ -40,6 +41,7 @@ function App() {
           <CssBaseline />
           <AppRoutes />
           <ThemeToggle toggleColorMode={toggleColorMode} />
+          <LanguageToggle />
         </ThemeProvider>
       </LanguageProvider>
       <AlertSnackbar />
