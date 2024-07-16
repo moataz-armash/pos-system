@@ -2,7 +2,9 @@ import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 const ButtonField = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const api = "https://65f23ca7034bdbecc7647fef.mockapi.io/projects/1/projects";
 
@@ -37,7 +39,7 @@ const ButtonField = () => {
             backgroundColor: "lightseagreen",
           },
         }}>
-        Giriş Yap
+        {t("login")}
       </Button>
       {/* {users.map((user) => {
         return (

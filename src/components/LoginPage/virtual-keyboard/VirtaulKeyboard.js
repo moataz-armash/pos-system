@@ -9,10 +9,12 @@ import { FormControl } from "@mui/material";
 import { Box } from "@mui/system";
 import Select from "@mui/material/Select";
 import keyboardLayouts from "./keyboardLayouts.js";
+import { useTranslation } from "react-i18next";
 
 import "react-simple-keyboard/build/css/index.css";
 
 const VirtualKeyboard = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const green = theme.palette.green.main;
 
@@ -79,19 +81,19 @@ const VirtualKeyboard = () => {
     <>
       <InputField
         type="text"
-        label="Kullanıcı Adı"
+        label={t("userName")}
         icon="PersonIcon"
-        placeholder={"Kullanıcı Adı Giriniz"}
+        placeholder={t("enterUserName")}
         input={inputUserName}
         onChangeInput={onChangeInputUserName}
         onFocus={onInputFocus1}
       />
 
       <InputField
-        label="Şifre"
+        label={t("pass")}
         type="password"
         icon="LockIcon"
-        placeholder={"Şifre Giriniz"}
+        placeholder={t("enterPass")}
         input={inputPass}
         onChangeInput={onChangeInputPass}
         onFocus={onInputFocus2}
@@ -118,7 +120,7 @@ const VirtualKeyboard = () => {
       <Box mt={1}>
         <FormControl fullWidth>
           <InputLabel id="language-select-label" color="green">
-            Language
+            {t("language")}
           </InputLabel>
           <Select
             labelId="language-select-label"
@@ -133,8 +135,8 @@ const VirtualKeyboard = () => {
               },
             }}
             onChange={handleChangeLanguage}>
-            <MenuItem value="english">English</MenuItem>
-            <MenuItem value="turkish">Türkçe</MenuItem>
+            <MenuItem value="english">{t("english")}</MenuItem>
+            <MenuItem value="turkish">{t("turkish")}</MenuItem>
           </Select>
         </FormControl>
         <Button
@@ -142,7 +144,7 @@ const VirtualKeyboard = () => {
           variant="outlined"
           color="error"
           sx={{ width: "100%", marginTop: "16px", marginBottom: "12px" }}>
-          Hide Keyboard
+          {t("hideKeyboard")}
         </Button>
       </Box>
     </>

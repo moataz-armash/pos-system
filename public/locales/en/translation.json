@@ -11,6 +11,7 @@
   "directProductEntry": "DIRECT PRODUCT ENTRY",
   "www": "WWW",
   "logout": "LOGOUT",
+  "login": "Login",
   "storeNo": "Store No",
   "kashierNo": "Cashier No",
   "kashierIpNo": "Cashier Ip No",
@@ -79,5 +80,13 @@
   "50off": "50% Off",
   "dearCustomer": "Dear customer",
   "bestRegards": "Best regards, The Store Team",
-  "printerTest": "PRINTER TEST"
+  "printerTest": "PRINTER TEST",
+  "usernameForTest": "Username for test",
+  "pass": "Password",
+  "invalidCredentails": "Invalid credentials",
+  "userName": "Username",
+  "enterUserName": "Enter Username",
+  "enterPass": "Enter Password",
+  "hideKeyboard": "Hide Keyboard",
+  "language": "Language"
 }
