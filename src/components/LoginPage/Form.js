@@ -7,8 +7,10 @@ import { useForm } from "react-hook-form";
 import FormContext from "../../hooks/Context/FormContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Form = () => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -39,7 +41,7 @@ const Form = () => {
       if (isValidUser) {
         navigate("dashboard");
       } else {
-        setLoginError("Invalid credentials");
+        setLoginError(t("invalidcredentials"));
       }
     } catch (error) {
       console.error(error);

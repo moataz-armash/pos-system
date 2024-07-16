@@ -6,8 +6,10 @@ import posPhoto from "../../assets/pos.jpg";
 import logo from "../../assets/logo.png";
 import Image from "../../components/LoginPage/Image.js";
 import Form from "../../components/LoginPage/Form.js";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   return (
     <Grid container py="0.4rem" my={8}>
       <Grid item lg={3} md={3}></Grid>
@@ -22,9 +24,9 @@ const LoginPage = () => {
         {/* Info Alerts */}
         <Box width="100%" mb={2}>
           <Alert severity="info" sx={{ mb: 1 }}>
-            Username for test: Odell.Schoen@yahoo.com
+            {t("usernameForTest")}: Odell.Schoen@yahoo.com
           </Alert>
-          <Alert severity="info">Password: xL6NhsKlz4w42sv</Alert>
+          <Alert severity="info">{t("pass")}: xL6NhsKlz4w42sv</Alert>
         </Box>
 
         {/* Main content */}

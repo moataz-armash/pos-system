@@ -11,6 +11,7 @@
   "directProductEntry": "DOĞRUDAN ÜRÜN GİRİŞİ",
   "www": "WWW",
   "logout": "ÇIKIŞ YAP",
+  "login": "Giriş Yap",
   "storeNo": "Mağaza No",
   "kashierNo": "Kasiyer No",
   "kashierIpNo": "Kasiyer Ip No",
@@ -79,5 +80,13 @@
   "50off": "%50 İndirim",
   "dearCustomer": "Sayın müşteri",
   "bestRegards": "Saygılarımızla, Mağaza Ekibi",
-  "printerTest": "YAZICI TESTİ"
+  "printerTest": "YAZICI TESTİ",
+  "usernameForTest": "Kullanıcı adı test için",
+  "pass": "Şifre",
+  "invalidCredentails": "Geçersiz kimlik bilgileri",
+  "userName": "Kullanıcı Adı",
+  "enterUserName": "Kullanıcı Adı Giriniz",
+  "enterPass": "Şifre Giriniz",
+  "hideKeyboard": "Klavyeyi Gizle",
+  "language": "Dil"
 }
