@@ -1,76 +1,280 @@
-<<<<<<< HEAD
+# POS System
 
-# pos-system
+![POS System Login Page](https://res.cloudinary.com/dyiccuwin/image/upload/v1721082064/Screenshot_2024-07-16_011949_cpfkui.png)
+![POS System Dashboard Page](https://res.cloudinary.com/dyiccuwin/image/upload/v1721082064/Screenshot_2024-07-16_012028_m5ifkm.png)
 
-=======
+A modern, feature-rich Point of Sale (POS) system built with React and Material-UI.
 
-# Getting Started with Create React App
+## Table of Contents
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Features](#features)
+- [Demo](#demo)
+- [Getting Started](#getting-started)
+ - [Prerequisites](#prerequisites)
+ - [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Key Components](#key-components)
+- [State Management](#state-management)
+- [API Integration](#api-integration)
+- [Internationalization](#internationalization)
+- [Styling](#styling)
+- [Deployment](#deployment)
+- [Authors](#authors)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication**: Secure login and role-based access control
+- **Product Management**: Add, edit, delete products with image support
+- **Inventory Tracking**: Real-time stock updates and low stock alerts
+- **Barcode Scanning**: Fast product lookup using integrated ZXing library
+- **Multi-language Support**: Internationalization with i18next
+- **Virtual Keyboard**: Touch-friendly input for tablet/mobile use
+- **Cart Management**: Flexible cart system with discounts and tax calculation
+- **Payment Processing**: Integration with popular payment gateways
+- **Invoicing**: Generate and email PDF invoices using jsPDF
+- **Reporting**: Sales, inventory, and employee performance reports
+- **Offline Mode**: Basic functionality without internet connection
+- **Responsive Design**: Optimized for various devices and screen sizes
 
-### `npm start`
+## Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Add a GIF or video demonstrating key features](https://res.cloudinary.com/dyiccuwin/image/upload/v1721083471/ScreenRecording2024-07-16013927-ezgif.com-video-to-gif-converter_th2coz.gif)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Demo credentials:
+- Username:
+```bash
+Odell.Schoen@yahoo.com
+```
+- Password:
+```bash
+xL6NhsKlz4w42sv
+```
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later)
+- Git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
+```bash
+git clone https://github.com/moataz-armash/pos-system.git
+```
+2. Navigate to the project directory:
+```bash
+cd pos-system
+```
+3. Install dependencies:
+```bash
+npm install
+```
+2. Open `http://localhost:3000` in your browser
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Log in with default admin credentials:
+- Username:
+ ```bash
+Odell.Schoen@yahoo.com
+```
+- Password:
+```bash
+xL6NhsKlz4w42sv
+```
 
-### `npm run eject`
+## Project Structure
+```bash
+pos-system/
+├── public/
+│   ├── locales/
+│   │   ├── en/
+│   │   │   ├── translation.json
+│   │   └── tr/
+│   │   │   ├── translation.json
+│   ├── index.html
+│   └── manifest.json
+├── src/
+│   ├── api/
+│   │   ├── index.js
+│   ├── assets/
+│   │   ├── logo.png
+│   │   └── pos.jpg
+│   ├── components/
+│   │   ├── Button/
+│   │   │   ├── AddToCartButton.js
+│   │   │   └── GreenButton.js
+│   │   ├── Cart/
+│   │   │   ├── BreadcrumbNavigation.js
+│   │   │   ├── Cart.js
+│   │   │   ├── CartActions.js
+│   │   │   ├── CartButton.js
+│   │   │   ├── CartDrawer.js
+│   │   │   ├── CartItem.js
+│   │   │   ├── CartSummary.js
+│   │   │   ├── OfferSelector.js 
+│   │   │   ├── PaymentProcessor.js
+│   │   │   ├── ProductsWithOffers.js
+│   │   │   └── VirtualInvoice.js
+│   │   ├── Icon/
+│   │   │   ├── Icon.js
+│   │   │   ├── icons.js
+│   │   │   └── index.js
+│   │   ├── LoginPage/
+│   │   │   ├── virtual-keyboard/
+│   │   │   │   ├── keyboardLayouts.js
+│   │   │   │   └── VirtaulKeyboard.js
+│   │   │   ├── ButtonField.js
+│   │   │   ├── Form.js
+│   │   │   ├── Image.js
+│   │   │   └── InputField.js
+│   │   ├── ProductList/
+│   │   │   ├── AlphabetFilter.jsx
+│   │   │   ├── CategoryList.js
+│   │   │   ├── NumberPad.js
+│   │   │   ├── ProductCard.js
+│   │   │   ├── ProductList.js
+│   │   │   ├── SearchBar.js
+│   │   │   ├── SubcategoryList.js
+│   │   │   └── ProductCard.jsx
+│   │   ├── LanguageToggle.js
+│   │   ├── ThemeToggle.js
+│   ├── hooks/
+│   │   ├── Context/
+│   │   │   ├── CartContext.js
+│   │   │   ├── FormContext.js
+│   │   │   ├── LanguageProvider.js
+│   │   │   └── useThemeMode.js
+│   │   ├── useCashPayment.js
+│   │   ├── useCreditCardPayment.js
+│   │   ├── useEInvoice.js.js
+│   │   └── useProductList.js
+│   ├── pages/
+│   │   ├── Dashboard.js
+│   │   │   ├── Cashier/
+│   │   │   │   ├── CashierInfo.js
+│   │   │   │   ├── CashierStatus.js
+│   │   │   │   └── CashierSystem.js
+│   │   │   ├── PricePage/
+│   │   │   │   ├── BarcodeScanner.js
+│   │   │   │   └── PricePage.js
+│   │   │   ├── PrinterTest/
+│   │   │   │   ├── PritnerTest.js
+│   │   │   ├── SideBar/
+│   │   │   │   ├── Logo.js
+│   │   │   │   ├── Menu.js
+│   │   │   │   ├── MenuItem.js
+│   │   │   │   ├── Sidebar.js
+│   │   │   │   ├── Submenu.js
+│   │   │   │   └── UserProfile.js
+│   │   │   ├── TranslationPage/
+│   │   │   │   ├── TranslationPage.js
+│   │   │   ├── Dashboard.js
+│   │   │   └── ShoppingCart.js
+│   │   ├── Login/
+│   │   │   ├── LoginPage.js
+│   │   └── NotFound/
+│   │      ├── NotFound.js
+│   ├── routes/
+│   │   │   ├── AppRoutes.js
+│   ├── utils/
+│   │   ├── axiosInstance.js
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── i18n.js
+│   ├── index.css
+│   ├── index.js
+│   ├── muiTheme.js
+│   ├── ReportWebVitals.js
+│   └── setupTests.js
+├── .env.example
+├── .gitignore
+├── package-lock  .json
+├── package.json
+└── README.md
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Key Components
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `LoginForm`: Handles user authentication
+- `ProductList`: Displays and manages product inventory
+- `Cart`: Manages selected items and checkout process
+- `Dashboard`: Provides overview of sales and key metrics
+- `BarcodeScanner`: Integrates ZXing for product scanning
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## State Management
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+I use React Context API for global state management:
+- `FormContext`: Handles form state
+- `CartContext`: Handles shopping cart state
 
-## Learn More
+## API Integration
+I use Axios for API requests. API functions are centralized in the api directory.
+Example:
+```bash
+// src/api/index.js
+import api from '../utils/api';
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+export const fetchStoreInfo = () => api.get('/storeInfo');
+export const fetchProducts = (product) => api.get('/products');
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Internationalization
+I use i18next for multi-language support. Language files are stored in public/locales/.
+Example usage:
+```bash
+import { useTranslation } from 'react-i18next';
 
-### Code Splitting
+function Welcome() {
+  const { t } = useTranslation();
+  return <h1>{t('welcome.title')}</h1>;
+}
+```
+## Styling
+I use Material-UI for consistent styling. Custom theme is defined in src/theme.js.
+Example:
+```bash
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      {/* Your app components */}
+    </ThemeProvider>
+  );
+}
+```
+## Deployment
 
-### Analyzing the Bundle Size
+1. Build the project:
+```bash
+npm run build
+```
+2. Deploy the build folder to your hosting service
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Authors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Moataz Armash - Initial work - moataz-armash
+See also the list of contributors who participated in this project.
 
-### Advanced Configuration
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Acknowledgments
 
-### Deployment
+Hat tip to anyone whose code was used
+Inspiration
+etc
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+Developed with ❤️ by Moataz Armash
+https://github.com/moataz-armash/pos-system | Report an Issue
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+For more information, please contact moatazarmash@gmail.com
