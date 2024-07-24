@@ -1,10 +1,10 @@
 import React from "react";
+import { LanguageProvider } from "../src/hooks/Context/LanguageProvider";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { LanguageProvider } from "../src/hooks/Context/LanguageProvider";
-import AppRoutes from "./routes/AppRoutes";
-import ThemeToggle from "./components/ThemeToggle";
 import { useThemeMode } from "../src/hooks/Context/useThemeMode";
+import ThemeToggle from "./components/ThemeToggle";
+import AppRoutes from "./routes/AppRoutes";
 import "./i18n";
 import "./App.css";
 import { CartProvider, useCart } from "./hooks/Context/CartContext";

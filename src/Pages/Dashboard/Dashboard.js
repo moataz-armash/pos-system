@@ -35,6 +35,7 @@ function Dashboard({ dashboard }) {
   };
   return (
     <>
+      {/* for desktop and large screens */}
       <Hidden mdDown onClick={toggleDrawer(true)}>
         <Box
           sx={{
@@ -106,6 +107,8 @@ function Dashboard({ dashboard }) {
           <CashierStatus />
         </Box>
       </Hidden>
+
+      {/* for mobile, tablet and small screens */}
       <Hidden mdUp>
         <AppBar position="sticky" color="green">
           <Toolbar>

@@ -83,7 +83,7 @@
   "printerTest": "PRINTER TEST",
   "usernameForTest": "Username for test",
   "pass": "Password",
-  "invalidCredentails": "Invalid credentials",
+  "invalidCredentials": "Invalid credentials",
   "userName": "Username",
   "enterUserName": "Enter Username",
   "enterPass": "Enter Password",

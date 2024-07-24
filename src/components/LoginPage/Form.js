@@ -41,7 +41,7 @@ const Form = () => {
       if (isValidUser) {
         navigate("dashboard");
       } else {
-        setLoginError(t("invalidcredentials"));
+        setLoginError(t("invalidCredentials"));
       }
     } catch (error) {
       console.error(error);
