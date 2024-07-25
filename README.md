@@ -25,17 +25,17 @@ A modern, feature-rich Point of Sale (POS) system built with React and Material-
 
 ## Features
 
-- **User Authentication**: Secure login and role-based access control
+- **User Authentication**: Validates API data for login and access control.
 - **Product Management**: Add, edit, delete products with image support
 - **Inventory Tracking**: Real-time stock updates and low stock alerts
-- **Barcode Scanning**: Fast product lookup using integrated ZXing library
+- **Barcode Scanning**: Scan products and add them to the cart instantly using the integrated ZXing library.
 - **Multi-language Support**: Internationalization with i18next
-- **Virtual Keyboard**: Touch-friendly input for tablet/mobile use
+- **Virtual Keyboard**: Touch-friendly, multi-language input for tablet and mobile use.
 - **Cart Management**: Flexible cart system with discounts and tax calculation
 - **Payment Processing**: Integration with popular payment gateways
-- **Invoicing**: Generate and email PDF invoices using jsPDF
-- **Reporting**: Sales, inventory, and employee performance reports
-- **Offline Mode**: Basic functionality without internet connection
+- **Email Invoicing**: Send invoices directly to customers using emailjs
+- **Invoicing**: Generate and display invoices virtually
+- **Dark Theme Mode Support**: Offers a dark mode for enhanced readability and reduced eye strain.
 - **Responsive Design**: Optimized for various devices and screen sizes
 
 ## Demo
