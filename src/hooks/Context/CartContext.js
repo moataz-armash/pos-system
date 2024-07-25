@@ -6,12 +6,20 @@ const TAX_RATE = 0.1;
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
-    return savedCart ? JSON.parse(savedCart) : [];
+    const savedExpiration = localStorage.getItem("cartExpiration");
+    const now = new Date().getTime();
+
+    if (savedCart && savedExpiration && now <= parseInt(savedExpiration)) {
+      return JSON.parse(savedCart);
+    }
+    return [];
   });
+
   const [selectedProducts, setSelectedProducts] = useState(() => {
     const savedSelectedProducts = localStorage.getItem("selectedProducts");
     return savedSelectedProducts ? JSON.parse(savedSelectedProducts) : [];
   });
+
   const [quantity, setQuantity] = useState(1);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -21,39 +29,67 @@ export const CartProvider = ({ children }) => {
     );
     return savedAppliedProducts ? JSON.parse(savedAppliedProducts) : [];
   });
+
   const [discount, setDiscount] = useState(() => {
     const savedDiscount = localStorage.getItem("discount");
     return savedDiscount ? parseFloat(savedDiscount) : 0;
   });
+
   const [AppliedOffer, setAppliedOffer] = useState(() => {
     const savedAppliedOffer = localStorage.getItem("appliedOffer");
     return savedAppliedOffer || 0;
   });
+
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [selectedOffer, setSelectedOffer] = useState(() => {
     const savedSelectedOffer = localStorage.getItem("selectedOffer");
     return savedSelectedOffer || "";
   });
+
   const [toggleButton, setToggleButton] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [display, setDisplay] = useState(() => {
     const savedDisplay = localStorage.getItem("display");
     return savedDisplay || "1";
   });
+
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [cartExpiration, setCartExpiration] = useState(() => {
+    const savedExpiration = localStorage.getItem("cartExpiration");
+    return savedExpiration ? parseInt(savedExpiration) : null;
+  });
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
-    localStorage.setItem(
-      "buy3Pay2AppliedProducts",
-      JSON.stringify(buy3Pay2AppliedProducts)
-    );
-    localStorage.setItem("discount", discount.toString());
-    localStorage.setItem("appliedOffer", AppliedOffer.toString());
-    localStorage.setItem("selectedOffer", selectedOffer);
-    localStorage.setItem("display", display);
+    const now = new Date().getTime();
+
+    if (cartExpiration && now > cartExpiration) {
+      // Cart has expired, clear it
+      clearCart();
+      localStorage.removeItem("cartExpiration");
+    } else {
+      // Save cart data and set new expiration
+      localStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem(
+        "selectedProducts",
+        JSON.stringify(selectedProducts)
+      );
+      localStorage.setItem(
+        "buy3Pay2AppliedProducts",
+        JSON.stringify(buy3Pay2AppliedProducts)
+      );
+      localStorage.setItem("discount", discount.toString());
+      localStorage.setItem("appliedOffer", AppliedOffer.toString());
+      localStorage.setItem("selectedOffer", selectedOffer);
+      localStorage.setItem("display", display);
+
+      // Set expiration to 24 hours from now
+      const newExpiration = now + 24 * 60 * 60 * 1000;
+      setCartExpiration(newExpiration);
+      localStorage.setItem("cartExpiration", newExpiration.toString());
+    }
   }, [
     cart,
     selectedProducts,
@@ -62,6 +98,7 @@ export const CartProvider = ({ children }) => {
     AppliedOffer,
     selectedOffer,
     display,
+    cartExpiration,
   ]);
 
   const addToCart = (product) => {
@@ -124,6 +161,8 @@ export const CartProvider = ({ children }) => {
     setDiscount(0);
     setAppliedOffer(0);
     setSelectedOffer("");
+    setCartExpiration(null);
+    localStorage.removeItem("cartExpiration");
   };
 
   const applyOffer = (offerType) => {
@@ -253,6 +292,7 @@ export const CartProvider = ({ children }) => {
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
+
   const onQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
@@ -262,6 +302,34 @@ export const CartProvider = ({ children }) => {
       return;
     }
     setSnackbarOpen(false);
+  };
+
+  const checkout = () => {
+    // Simulate an API call
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (Math.random() > 0.1) {
+          // 90% success rate
+          clearCart();
+          resolve("Order placed successfully!");
+        } else {
+          reject("An error occurred during checkout. Please try again.");
+        }
+      }, 2000); // Simulate network delay
+    });
+  };
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    try {
+      setSuccessMessage("Processing your order...");
+      const result = await checkout();
+      setSuccessMessage(result);
+    } catch (error) {
+      setErrorMessage(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const newTotal = calculateTotalPrice();
@@ -309,6 +377,10 @@ export const CartProvider = ({ children }) => {
         handleSnackbarClose,
         snackbarOpen,
         snackbarMessage,
+        cartExpiration,
+        checkout,
+        handleCheckout,
+        isLoading,
       }}>
       {children}
     </CartContext.Provider>
