@@ -69,7 +69,7 @@ POS SYSTEM
   - Integrated a virtual keyboard component using `react-simple-keyboard`.
   - Configured the keyboard to switch layouts based on the selected language.
 
-  ### Package Used
+  ### 📦 Package Used
 
   - **[react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard)**: The library used for the virtual keyboard.
 
@@ -92,7 +92,7 @@ POS SYSTEM
   - **[i18next](https://www.npmjs.com/package/i18next)**: The library used for comprehensive internationalization management.
 
 
-  ### Package Used
+  ### 📦 Package Used
   - **Internationalization Library**: Utilizes **[i18next](https://www.npmjs.com/package/i18next)** for comprehensive internationalization management.
 
 ### 🌙 Dark and Light Theme Support
@@ -103,7 +103,7 @@ POS SYSTEM
   - **Theme Toggle**: Integrated through a custom `ThemeToggle` component that interacts with a custom `useThemeMode` hook to switch themes.
   - **Persistent Styling**: Utilizes `CssBaseline` from Material-UI to ensure consistent styling across themes.
 - **Integration**: Theme management is incorporated into the main `App` component, alongside other global settings such as language preferences and cart notifications.
-  ### Package Used
+  ### 📦 Package Used
   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides the `ThemeProvider` and `CssBaseline` components for theme management.
   
 ### ✅ Form Validation with React Hook Form
@@ -121,7 +121,7 @@ POS SYSTEM
 - **Implementation**:
   - **Material-UI**: Uses Material-UI components which are inherently responsive and adapt to various screen sizes.
 - **User Experience**: Ensures that the interface is intuitive and accessible, providing a consistent user experience whether on mobile, tablet, or desktop.
-   ### Package Used 
+   ### 📦 Package Used 
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides responsive UI components and styling tools.
 
 ### 🚧 UI Blocking
@@ -130,7 +130,7 @@ POS SYSTEM
 - **Implementation**:
   - **MUI Spinners**: Utilizes Material-UI spinner components to display loading indicators, signaling to users that a process is ongoing.
 - **User Experience**: Provides visual feedback during data fetching, ensuring users are aware that the application is processing their request.
-   ### Package Used
+   ### 📦 Package Used
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Supplies the spinner components used for indicating loading states.
 ### ⚙️ React Hooks
 
@@ -144,7 +144,7 @@ POS SYSTEM
   - `useContext`: Utilized to access and manipulate global state provided by context providers.
   - Custom Hooks: Created custom hooks like `useThemeMode` for managing theme-related logic and `useCart` for handling cart operations.
 
-  ### Packages Used
+  ### 📦 Packages Used
 
   - **React**: Provides the core hooks for managing state and side effects.
   
@@ -176,7 +176,7 @@ POS SYSTEM
     }, []);
     ```
 
-  ### Packages Used
+  ### 📦 Packages Used
 
   - **React**: Utilized for building the sorting, filtering, and favorite functionality within the application.
 
@@ -214,7 +214,7 @@ POS SYSTEM
     );
     ```
 
-  ### Packages Used
+  ### 📦 Packages Used
 
   - **[react-window](https://www.npmjs.com/package/react-window)**: For creating virtualized lists that efficiently render large sets of items.
   - **[react-virtualized-auto-sizer](https://www.npmjs.com/package/react-virtualized-auto-sizer)**: To automatically calculate and adjust the size of the virtualized list based on available space.
@@ -253,7 +253,7 @@ POS SYSTEM
     export default ProductPage;
     ```
     
-    ### Package Used
+    ### 📦 Package Used
     - **Custom Component**: Utilizes a custom number pad component to handle numeric input for quantities.
 ### 🔔 Success Alert for Adding to Cart
 
@@ -302,7 +302,7 @@ POS SYSTEM
   
   export default ProductPage;
   ```
-   ### Package Used
+   ### 📦 Package Used
     - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Utilizes Snackbar and Alert components from Material-UI for displaying the success alert.
 
 ### 🎁 Offers for Products
@@ -375,8 +375,189 @@ POS SYSTEM
     };
     ```
 
-      ### Package Used
+      ### 📦 Package Used
+    
         - **API Context**: Uses context API within the cart context to manage and apply offers to products.
+    
+### 📃 Invoicing
+
+
+- **Email Invoice**: Provides functionality to email the invoice to the customer after payment.
+- **Virtual Invoice Preview**: Allows users to view the invoice virtually before printing.
+- **Print Invoice**: Enables the printing of the invoice directly from the application.
+- **Printer Test**: Includes a sidebar feature allowing users to test the printer with dummy data in the invoice.
+- **Implementation**:
+  - Utilizes `emailjs-com` to send the invoice via email.
+  - Uses `react-to-print` to provide print functionality for invoices.
+  - Implements a sidebar option to test the printer with dummy invoice data.
+  
+  ```javascript
+  import React, { useRef } from 'react';
+  import emailjs from 'emailjs-com';
+  import ReactToPrint from 'react-to-print';
+
+  // Function to send invoice email
+  const sendInvoiceEmail = (templateParams) => {
+    emailjs.send('your_service_id', 'your_template_id', templateParams, 'your_user_id')
+      .then(response => {
+        console.log('SUCCESS!', response.status, response.text);
+      }, err => {
+        console.error('FAILED...', err);
+      });
+  };
+
+  const templateParams = {
+    customer_name: 'Moataz Mohamed',
+    customer_email: 'moataz.doe@example.com',
+    invoice_number: '123456',
+    amount: '100.00'
+  };
+
+  sendInvoiceEmail(templateParams);
+
+  // Component to print invoice
+  const InvoiceComponent = React.forwardRef((props, ref) => (
+    <div ref={ref}>
+      {/* Replace with your actual invoice content */}
+      <h1>Invoice</h1>
+      <p>Invoice details go here</p>
+    </div>
+  ));
+
+  const PrintInvoice = () => {
+    const componentRef = useRef();
+
+    return (
+      <>
+        <ReactToPrint
+          trigger={() => <button>Print Invoice</button>}
+          content={() => componentRef.current}
+        />
+        <InvoiceComponent ref={componentRef} />
+      </>
+    );
+  };
+
+  // Sidebar printer test component
+  const PrinterTest = () => {
+    const componentRef = useRef();
+
+    return (
+      <div>
+        <button onClick={() => {
+          const dummyData = {
+            customer_name: 'Dummy User',
+            invoice_number: '000000',
+            amount: '0.00'
+          };
+          sendInvoiceEmail(dummyData);
+        }}>Test Printer with Dummy Data</button>
+        <ReactToPrint
+          trigger={() => <button>Test Print</button>}
+          content={() => componentRef.current}
+        />
+        <InvoiceComponent ref={componentRef} />
+      </div>
+    );
+  };
+  ```
+   ### 📦 Package Used
+        - **emailjs-com**:  For emailing invoices.
+        - **react-to-print**: For printing invoices.
+
+## 🔍 See Price Option
+
+  - **UPC-A Scanning**: Allows users to scan products with UPC-A code using `react-zxing`.
+  - **Display Product Info**: Shows detailed product information after scanning.
+  - **Add to Cart**: Enables adding scanned products to the cart.
+  - **Quantity Input**: Users can specify the quantity before scanning to add large amounts of products at once.
+  - **LocalStorage Integration**: Uses localStorage to maintain cart products even when switching between pages.
+  
+    ### Implementation
+    
+    - Integrates UPC-A code scanning for product lookup using `react-zxing`.
+    - Displays product details and allows adding products to the cart.
+    - Includes a quantity input feature for batch addition of products.
+    - Utilizes localStorage to preserve cart items across page navigations.
+    
+    ```javascript
+    import React, { useState, useEffect } from 'react';
+    import { BarcodeReader } from 'react-zxing';
+    
+    // Helper functions to manage cart in localStorage
+    const getCartFromLocalStorage = () => {
+      const cart = localStorage.getItem('cart');
+      return cart ? JSON.parse(cart) : [];
+    };
+    
+    const saveCartToLocalStorage = (cart) => {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    };
+    
+    const SeePriceOption = () => {
+      const [upcCode, setUpcCode] = useState('');
+      const [quantity, setQuantity] = useState(1);
+      const [productInfo, setProductInfo] = useState(null);
+      const [cart, setCart] = useState(getCartFromLocalStorage());
+    
+      useEffect(() => {
+        saveCartToLocalStorage(cart);
+      }, [cart]);
+    
+      const handleScan = (result) => {
+        setUpcCode(result.text);
+        fetchProductInfoByUPC(result.text).then(info => {
+          setProductInfo(info);
+        });
+      };
+    
+      const handleAddToCart = () => {
+        if (productInfo) {
+          const updatedCart = [...cart, { ...productInfo, quantity }];
+          setCart(updatedCart);
+        }
+      };
+    
+      return (
+        <div>
+          <BarcodeReader
+            onResult={handleScan}
+            constraints={{ facingMode: 'environment' }}
+          />
+          <input
+            type="text"
+            value={upcCode}
+            onChange={(e) => setUpcCode(e.target.value)}
+            placeholder="Scan UPC Code"
+          />
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+            min="1"
+            placeholder="Quantity"
+          />
+          <button onClick={() => handleScan({ text: upcCode })}>Scan</button>
+          <button onClick={handleAddToCart}>Add to Cart</button>
+          {productInfo && (
+            <div>
+              <h2>Product Information</h2>
+              <p>{productInfo.name}</p>
+              <p>{productInfo.price}</p>
+            </div>
+          )}
+        </div>
+      );
+    };
+    
+    // Mock functions
+    const fetchProductInfoByUPC = async (code) => {
+      // Replace with actual API call
+      return { name: 'Product Name', price: 'Product Price' };
+    };
+  ```
+       ### 📦 Package Used
+          - **react-zxing**: For UPC-A code scanning.
 
 
 
