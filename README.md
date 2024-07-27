@@ -65,6 +65,9 @@ POS SYSTEM
 
 - **Supports English and Turkish**: The virtual keyboard is pre-configured for these languages.
 - **Expandable for Additional Languages**: It can be customized to support more languages.
+- **Implementation**: 
+  - Integrated a virtual keyboard component using `react-simple-keyboard`.
+  - Configured the keyboard to switch layouts based on the selected language.
 
   ### Package Used
 
@@ -78,6 +81,16 @@ POS SYSTEM
 - **Dashboard Integration**: Language selection can also be managed through the "WWW" option available in the dashboard sidebar.
 - **Context API Integration**: Implements Context API to propagate language settings throughout the entire application seamlessly.
 - **Scalability**: Designed to be extensible, allowing for the addition of further languages as needed.
+- **Implementation**:
+  - Utilized `i18next` for managing translations and language settings.
+  - Integrated language detection and persistence with `i18next-browser-languagedetector`.
+  - Configured language switching functionality within the application interface.
+  - Applied language changes globally using the Context API.
+
+  ### Package Used
+
+  - **[i18next](https://www.npmjs.com/package/i18next)**: The library used for comprehensive internationalization management.
+
 
   ### Package Used
   - **Internationalization Library**: Utilizes **[i18next](https://www.npmjs.com/package/i18next)** for comprehensive internationalization management.
@@ -92,6 +105,280 @@ POS SYSTEM
 - **Integration**: Theme management is incorporated into the main `App` component, alongside other global settings such as language preferences and cart notifications.
   ### Package Used
   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides the `ThemeProvider` and `CssBaseline` components for theme management.
+  
+### ✅ Form Validation with React Hook Form
+
+- **Form Validation**: The login page incorporates form validation to ensure the data entered by the user matches the expected format before submission.
+- **Implementation**:
+  - **React Hook Form**: Utilizes `react-hook-form` to handle form validation and state management seamlessly.
+  - **API Data Matching**: Validates the user-entered data against the data received from the API to ensure consistency and correctness.
+  ### Package Used
+  - **[react-hook-form](https://www.npmjs.com/package/react-hook-form)**: Provides the tools for managing form state and validation in a straightforward manner.
+
+### 📱 Responsive Design
+
+- **Responsive Design**: The entire website is designed to be compatible with all devices, ensuring a user-friendly experience across different screen sizes.
+- **Implementation**:
+  - **Material-UI**: Uses Material-UI components which are inherently responsive and adapt to various screen sizes.
+- **User Experience**: Ensures that the interface is intuitive and accessible, providing a consistent user experience whether on mobile, tablet, or desktop.
+   ### Package Used 
+   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides responsive UI components and styling tools.
+
+### 🚧 UI Blocking
+
+- **UI Blocking**: Implemented to inform users of ongoing API interactions, enhancing the user experience by preventing confusion during data loading.
+- **Implementation**:
+  - **MUI Spinners**: Utilizes Material-UI spinner components to display loading indicators, signaling to users that a process is ongoing.
+- **User Experience**: Provides visual feedback during data fetching, ensuring users are aware that the application is processing their request.
+   ### Package Used
+   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Supplies the spinner components used for indicating loading states.
+### ⚙️ React Hooks
+
+- **State Management**: Utilizes React's `useState` hook to manage component state efficiently.
+- **Side Effects**: Employs the `useEffect` hook to handle side effects such as data fetching and subscriptions.
+- **Context API**: Integrates `useContext` for accessing global state and context values throughout the application.
+- **Custom Hooks**: Defines and uses custom hooks to encapsulate reusable logic and enhance code modularity.
+- **Implementation**:
+  - `useState`: Used to manage local component state, such as form inputs and toggle states.
+  - `useEffect`: Applied for executing side effects, including API calls and updating DOM elements based on state changes.
+  - `useContext`: Utilized to access and manipulate global state provided by context providers.
+  - Custom Hooks: Created custom hooks like `useThemeMode` for managing theme-related logic and `useCart` for handling cart operations.
+
+  ### Packages Used
+
+  - **React**: Provides the core hooks for managing state and side effects.
+  
+ ### 🔍 Sorting and Filtering
+
+- **Alphabetic Sorting**: Implements sorting functionality to arrange products alphabetically.
+- **Search by Code**: Provides a search bar at the top of the dashboard, allowing users to search for products by their code.
+- **Filter Options**: Users can display all products sorted alphabetically, enhancing the browsing experience.
+- **Copy Product Code**: Each product card includes a copy icon to easily copy the product code to the clipboard.
+- **Favorite Option**: Users can mark products as favorites for quick access and better organization.
+
+  ### Implementation
+  - **Alphabetic Sorting**: Products can be sorted in alphabetical order for easy navigation.
+  - **Search Functionality**: The search bar enables quick product lookup by entering the product code.
+  - **Dashboard Integration**: Sorting and filtering options are integrated within the dashboard for user convenience.
+  - **Copy to Clipboard**: Product cards feature a copy icon that uses the `navigator.clipboard.writeText` method to copy the product code directly to the clipboard.
+  - **Favorite Products**: Users can mark and unmark products as favorites, which are then easily accessible from a designated favorites section.
+
+    ```javascript
+    const handleCopyBarcode = useCallback((barcode) => {
+      navigator.clipboard.writeText(barcode).then(
+        () => {
+          console.log("Barcode copied to clipboard");
+        },
+        (err) => {
+          console.error("Could not copy text: ", err);
+        }
+      );
+    }, []);
+    ```
+
+  ### Packages Used
+
+  - **React**: Utilized for building the sorting, filtering, and favorite functionality within the application.
+
+### 🔄 Pagination and Product Slider
+
+- **Smooth Navigation**: Implements smooth pagination and sliding for handling large quantities of products efficiently.
+- **Efficient Rendering**: Uses virtualized lists to optimize rendering performance for a large number of items.
+
+  ### Implementation
+  - **Pagination**: Breaks down large sets of products into manageable pages, ensuring quick load times and easy navigation.
+  - **Product Slider**: Allows users to slide through products seamlessly, providing a smooth and responsive browsing experience.
+  - **Virtualized List**: Utilizes `react-window` and `react-virtualized-auto-sizer` to only render items currently visible on the screen, significantly improving performance.
+
+    ```javascript
+    import { FixedSizeList as List } from "react-window";
+    import AutoSizer from "react-virtualized-auto-sizer";
+
+    const ProductList = ({ products }) => (
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={height}
+            itemCount={products.length}
+            itemSize={50}
+            width={width}
+          >
+            {({ index, style }) => (
+              <div style={style}>
+                {products[index].name}
+              </div>
+            )}
+          </List>
+        )}
+      </AutoSizer>
+    );
+    ```
+
+  ### Packages Used
+
+  - **[react-window](https://www.npmjs.com/package/react-window)**: For creating virtualized lists that efficiently render large sets of items.
+  - **[react-virtualized-auto-sizer](https://www.npmjs.com/package/react-virtualized-auto-sizer)**: To automatically calculate and adjust the size of the virtualized list based on available space.
+ 
+### 🔢 Number Pad for Quantity Input
+
+  - **Dynamic Quantity Input**: Provides a number pad interface that allows users to specify the quantity of items they want to add.
+  - **Add to Cart Functionality**: Users can enter the desired quantity and press "Add to Cart" to update the cart with the specified amount.
+  - **Integration with Cart**: Directly updates the cart with the entered quantity upon confirmation.
+
+  ### Implementation
+  - **Number Pad**: A user-friendly interface for inputting numeric quantities, integrated directly into the product addition workflow.
+  - **Quantity Management**: Users can input any desired quantity, which is then added to the cart upon clicking the "Add to Cart" button.
+  
+    ```javascript
+    import React, { useState } from 'react';
+    import NumberPad from './NumberPad'; // Assume NumberPad is your custom component
+
+    const ProductPage = ({ product }) => {
+      const [quantity, setQuantity] = useState(1);
+
+      const handleAddToCart = () => {
+        // Logic to add the product with specified quantity to the cart
+        console.log(`Adding ${quantity} of ${product.name} to cart`);
+      };
+
+      return (
+        <div>
+          <h1>{product.name}</h1>
+          <NumberPad value={quantity} onChange={setQuantity} />
+          <button onClick={handleAddToCart}>Add to Cart</button>
+        </div>
+      );
+    };
+
+    export default ProductPage;
+    ```
+    
+    ### Package Used
+    - **Custom Component**: Utilizes a custom number pad component to handle numeric input for quantities.
+### 🔔 Success Alert for Adding to Cart
+
+- **Success Alert**: Displays a confirmation message when a product is successfully added to the cart, including details about the product and quantity.
+
+  ### Implementation
+  - **Alert Notification**: Uses Material-UI's `Alert` component to inform users of successful cart updates.
+  
+  ```javascript
+  import React, { useState } from 'react';
+  import { Snackbar, Alert } from '@mui/material';
+  import NumberPad from './NumberPad'; // Assume NumberPad is your custom component
+  
+  const ProductPage = ({ product }) => {
+    const [quantity, setQuantity] = useState(1);
+    const [alertOpen, setAlertOpen] = useState(false);
+  
+    const handleAddToCart = () => {
+      // Logic to add the product with specified quantity to the cart
+      console.log(`Adding ${quantity} of ${product.name} to cart`);
+      setAlertOpen(true); // Show success alert
+    };
+  
+    const handleAlertClose = () => {
+      setAlertOpen(false); // Close success alert
+    };
+  
+    return (
+      <div>
+        <h1>{product.name}</h1>
+        <NumberPad value={quantity} onChange={setQuantity} />
+        <button onClick={handleAddToCart}>Add to Cart</button>
+        <Snackbar
+          open={alertOpen}
+          autoHideDuration={3000}
+          onClose={handleAlertClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Alert onClose={handleAlertClose} severity="success">
+            Added {quantity} {product.name}(s) to cart.
+          </Alert>
+        </Snackbar>
+      </div>
+    );
+  };
+  
+  export default ProductPage;
+  ```
+   ### Package Used
+    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Utilizes Snackbar and Alert components from Material-UI for displaying the success alert.
+
+### 🎁 Offers for Products
+
+  - **Offer Types**: Users can apply different types of offers to their chosen products. Note that multiple offers cannot be applied simultaneously.
+  
+    ### Implementation
+    - **Offers Management**: The logic for applying offers is managed within the cart context. The following offers are supported:
+    
+      - **Buy 3 Pay 2**: `id: "3buy2pay"`
+      - **Buy 1 Get 1 Free**: `id: "1buy1free"`
+      - **20% Off**: `id: "20off"`
+      - **50% Off**: `id: "50off"`
+    
+    - **Message Alerts**: Alerts appear above the cart to inform users about which offer has been applied and how it affects their cart.
+    
+    ```javascript
+    import React, { createContext, useContext, useState } from 'react';
+    import { Snackbar, Alert } from '@mui/material';
+    
+    // Create context for cart management
+    const CartContext = createContext();
+    
+    export const CartProvider = ({ children }) => {
+      const [cart, setCart] = useState([]);
+      const [appliedOffer, setAppliedOffer] = useState(null);
+      const [alertOpen, setAlertOpen] = useState(false);
+    
+      const offers = [
+        { id: "3buy2pay", label: "Buy 3 Pay 2" },
+        { id: "1buy1free", label: "Buy 1 Get 1 Free" },
+        { id: "20off", label: "20% Off" },
+        { id: "50off", label: "50% Off" },
+      ];
+    
+      const applyOffer = (offerId) => {
+        if (offers.some(offer => offer.id === offerId)) {
+          setAppliedOffer(offerId);
+          setAlertOpen(true); // Show success alert with offer details
+        } else {
+          console.error('Invalid offer ID');
+        }
+      };
+    
+      const handleAlertClose = () => {
+        setAlertOpen(false); // Close success alert
+      };
+    
+      return (
+        <CartContext.Provider value={{ cart, appliedOffer, applyOffer, offers }}>
+          {children}
+          <Snackbar
+            open={alertOpen}
+            autoHideDuration={3000}
+            onClose={handleAlertClose}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            style={{ marginTop: '20px' }} // Adjust as needed to position above the cart
+          >
+            <Alert onClose={handleAlertClose} severity="success">
+              {appliedOffer ? `Applied offer: ${offers.find(offer => offer.id === appliedOffer)?.label}` : ''}
+            </Alert>
+          </Snackbar>
+        </CartContext.Provider>
+      );
+    };
+    
+    // Custom hook for using cart context
+    export const useCart = () => {
+      return useContext(CartContext);
+    };
+    ```
+
+      ### Package Used
+        - **API Context**: Uses context API within the cart context to manage and apply offers to products.
+
+
 
 
 - **User Authentication**: Validates API data for login and access control.
