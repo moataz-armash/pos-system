@@ -38,7 +38,24 @@ POS SYSTEM
 ## Table of Contents
 
 - [Live Demo](#live-demo)
-- [Features](#features)
+- [Features](#-features)
+  * [Multi-Language Virtual Keyboard](#multi-language-virtual-keyboard)
+  * [Internationalization (i18n)](#internationalization-i18n)
+  * [Dark and Light Theme Support](#dark-and-light-theme-support)
+  * [Form Validation with React Hook Form](#form-validation-with-react-hook-form)
+  * [Responsive Design](#responsive-design)
+  * [UI Blocking](#ui-blocking)
+  * [React Hooks](#react-hooks)
+  * [Sorting and Filtering](#sorting-and-filtering)
+  * [Pagination and Product Slider](#pagination-and-product-slider)
+  * [Number Pad for Quantity Input](#number-pad-for-quantity-input)
+  * [Success Alert for Adding to Cart](#success-alert-for-adding-to-cart)
+  * [Offers for Products](#offers-for-products)
+  * [Invoicing](#invoicing)
+  * [See Price Option](#see-price-option)
+  * [Product Generation](#product-generation)
+  * [Custom 404 Page](#custom-404-page)
+
 - [Getting Started](#getting-started)
  - [Prerequisites](#prerequisites)
  - [Installation](#installation)
@@ -69,7 +86,7 @@ POS SYSTEM
   - Integrated a virtual keyboard component using `react-simple-keyboard`.
   - Configured the keyboard to switch layouts based on the selected language.
 
-  ### 📦 Package Used
+  ### Package Used
 
   - **[react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard)**: The library used for the virtual keyboard.
 
@@ -103,7 +120,7 @@ POS SYSTEM
   - **Theme Toggle**: Integrated through a custom `ThemeToggle` component that interacts with a custom `useThemeMode` hook to switch themes.
   - **Persistent Styling**: Utilizes `CssBaseline` from Material-UI to ensure consistent styling across themes.
 - **Integration**: Theme management is incorporated into the main `App` component, alongside other global settings such as language preferences and cart notifications.
-  ### 📦 Package Used
+  ### Package Used
   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides the `ThemeProvider` and `CssBaseline` components for theme management.
   
 ### ✅ Form Validation with React Hook Form
@@ -121,7 +138,7 @@ POS SYSTEM
 - **Implementation**:
   - **Material-UI**: Uses Material-UI components which are inherently responsive and adapt to various screen sizes.
 - **User Experience**: Ensures that the interface is intuitive and accessible, providing a consistent user experience whether on mobile, tablet, or desktop.
-   ### 📦 Package Used 
+   ### Package Used 
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides responsive UI components and styling tools.
 
 ### 🚧 UI Blocking
@@ -130,7 +147,7 @@ POS SYSTEM
 - **Implementation**:
   - **MUI Spinners**: Utilizes Material-UI spinner components to display loading indicators, signaling to users that a process is ongoing.
 - **User Experience**: Provides visual feedback during data fetching, ensuring users are aware that the application is processing their request.
-   ### 📦 Package Used
+   ### Package Used
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Supplies the spinner components used for indicating loading states.
 ### ⚙️ React Hooks
 
@@ -144,7 +161,7 @@ POS SYSTEM
   - `useContext`: Utilized to access and manipulate global state provided by context providers.
   - Custom Hooks: Created custom hooks like `useThemeMode` for managing theme-related logic and `useCart` for handling cart operations.
 
-  ### 📦 Packages Used
+  ### Packages Used
 
   - **React**: Provides the core hooks for managing state and side effects.
   
@@ -176,7 +193,7 @@ POS SYSTEM
     }, []);
     ```
 
-  ### 📦 Packages Used
+  ### Packages Used
 
   - **React**: Utilized for building the sorting, filtering, and favorite functionality within the application.
 
@@ -214,7 +231,7 @@ POS SYSTEM
     );
     ```
 
-  ### 📦 Packages Used
+  ### Packages Used
 
   - **[react-window](https://www.npmjs.com/package/react-window)**: For creating virtualized lists that efficiently render large sets of items.
   - **[react-virtualized-auto-sizer](https://www.npmjs.com/package/react-virtualized-auto-sizer)**: To automatically calculate and adjust the size of the virtualized list based on available space.
@@ -253,7 +270,7 @@ POS SYSTEM
     export default ProductPage;
     ```
     
-    ### 📦 Package Used
+    ### Package Used
     - **Custom Component**: Utilizes a custom number pad component to handle numeric input for quantities.
 ### 🔔 Success Alert for Adding to Cart
 
@@ -302,7 +319,7 @@ POS SYSTEM
   
   export default ProductPage;
   ```
-   ### 📦 Package Used
+   ### Package Used
     - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Utilizes Snackbar and Alert components from Material-UI for displaying the success alert.
 
 ### 🎁 Offers for Products
@@ -375,7 +392,7 @@ POS SYSTEM
     };
     ```
 
-      ### 📦 Package Used
+      ### Package Used
     
         - **API Context**: Uses context API within the cart context to manage and apply offers to products.
     
@@ -461,13 +478,13 @@ POS SYSTEM
     );
   };
   ```
-   ### 📦 Package Used
+   ### Package Used
         - **emailjs-com**:  For emailing invoices.
         - **react-to-print**: For printing invoices.
 
 ## 🔍 See Price Option
 
-  - **UPC-A Scanning**: Allows users to scan products with UPC-A code using `react-zxing`.
+  - **UPC-A Scanning**: Allows users to scan products with UPC-A code using "react-zxing".
   - **Display Product Info**: Shows detailed product information after scanning.
   - **Add to Cart**: Enables adding scanned products to the cart.
   - **Quantity Input**: Users can specify the quantity before scanning to add large amounts of products at once.
@@ -475,7 +492,7 @@ POS SYSTEM
   
     ### Implementation
     
-    - Integrates UPC-A code scanning for product lookup using `react-zxing`.
+    - Integrates UPC-A code scanning for product lookup using "react-zxing".
     - Displays product details and allows adding products to the cart.
     - Includes a quantity input feature for batch addition of products.
     - Utilizes localStorage to preserve cart items across page navigations.
@@ -556,8 +573,68 @@ POS SYSTEM
       return { name: 'Product Name', price: 'Product Price' };
     };
   ```
-       ### 📦 Package Used
+       ### Package Used
           - **react-zxing**: For UPC-A code scanning.
+
+## 📦 Product Generation
+
+- **Data Source**: Uses free services like [MockAPI](https://mockapi.io/) and [Mocki](https://mocki.io/) to fetch initial product data.
+- **Product Duplication**: Generates multiple versions of products with unique identifiers by appending numbers (e.g., "Apple 1", "Apple 2").
+- **Dynamic Pricing**: Adjusts product prices randomly within a range to create price variations.
+
+### Implementation
+
+- **Product Duplication**: Duplicates existing products with unique barcodes and adjusted prices.
+- **Unique Barcode Generation**: Ensures each product has a unique UPC-A barcode.
+- **Random Price Variation**: Simulates price differences with random factors.
+
+### Example
+
+Here is an example of how to generate new products with unique barcodes and adjusted prices:
+
+```javascript
+function generateProducts(data) {
+  // Code to process data and generate unique products
+  // Example of barcode and price adjustment:
+  const newProduct = {
+    id: 31,
+    name: "Apple 1",
+    barcode: generateUniqueBarcode(existingBarcodes),
+    price: generateRandomPrice(1.00), // Base price: $1.00
+  };
+}
+```
+ ### Package Used
+    - **fs**: Used for reading and writing files in Node.js.
+
+## 🚫 Custom 404 Page
+
+- **User-Friendly Design**: Provides a customized 404 page for a better user experience when navigating to non-existent URLs.
+- **Error Handling**: Redirects users to a friendly error page with helpful navigation options.
+
+### Implementation
+
+- **404 Page Configuration**: Configured a custom 404 page to enhance user experience.
+- **Navigation Assistance**: Includes options to redirect users to the home page or other relevant sections of the site.
+
+### Example
+
+Here's an example of a simple custom 404 page:
+
+```javascript
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const NotFoundPage = () => (
+  <div style={{ textAlign: 'center', padding: '50px' }}>
+    <h1>404 - Page Not Found</h1>
+    <p>Sorry, the page you are looking for does not exist.</p>
+    <Link to="/">Go to Home Page</Link>
+  </div>
+);
+
+export default NotFoundPage;
+```
 
 
 
