@@ -37,7 +37,7 @@ POS SYSTEM
 
 ## Table of Contents
 
-- [Demo](#demo)
+- [Live Demo](#live-demo)
 - [Features](#features)
 - [Getting Started](#getting-started)
  - [Prerequisites](#prerequisites)
@@ -53,13 +53,46 @@ POS SYSTEM
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 
-## Demo
+## Live Demo
 
 <p align="center">
   <img src="https://res.cloudinary.com/dyiccuwin/image/upload/v1721083471/ScreenRecording2024-07-16013927-ezgif.com-video-to-gif-converter_th2coz.gif" alt="Add a GIF or video demonstrating key features" />
 </p>
 
-## Features
+## ✨ Features
+
+### ⌨️ [Multi-Language Virtual Keyboard](./src/components/LoginPage/virtual-keyboard)
+
+- **Supports English and Turkish**: The virtual keyboard is pre-configured for these languages.
+- **Expandable for Additional Languages**: It can be customized to support more languages.
+
+  ### Package Used
+
+  - **[react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard)**: The library used for the virtual keyboard.
+
+### 🌐 Internationalization (i18n)
+
+- **Language Support**: The POS system is configured to handle both English and Turkish languages.
+- **Language Toggle**: Users can switch between supported languages using a toggle button positioned on the right side of the interface.
+- **Persistent Language Settings**: User-selected language preferences are persisted in localStorage to ensure a consistent experience across sessions.
+- **Dashboard Integration**: Language selection can also be managed through the "WWW" option available in the dashboard sidebar.
+- **Context API Integration**: Implements Context API to propagate language settings throughout the entire application seamlessly.
+- **Scalability**: Designed to be extensible, allowing for the addition of further languages as needed.
+
+  ### Package Used
+  - **Internationalization Library**: Utilizes **[i18next](https://www.npmjs.com/package/i18next)** for comprehensive internationalization management.
+
+### 🌙 Dark and Light Theme Support
+
+- **Theme Management**: The system supports both dark and light themes, which can be toggled using a sun icon located at the right center of the website.
+- **Implementation**:
+  - **`ThemeProvider`**: Uses Material-UI's `ThemeProvider` to apply the current theme globally.
+  - **Theme Toggle**: Integrated through a custom `ThemeToggle` component that interacts with a custom `useThemeMode` hook to switch themes.
+  - **Persistent Styling**: Utilizes `CssBaseline` from Material-UI to ensure consistent styling across themes.
+- **Integration**: Theme management is incorporated into the main `App` component, alongside other global settings such as language preferences and cart notifications.
+  ### Package Used
+  - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides the `ThemeProvider` and `CssBaseline` components for theme management.
+
 
 - **User Authentication**: Validates API data for login and access control.
 - **Product Management**: Add, edit, delete products with image support
