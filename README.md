@@ -38,43 +38,53 @@ POS SYSTEM
 ## Table of Contents
 
 - [Live Demo](#live-demo)
-- [Features](#-features)
-  * [Multi-Language Virtual Keyboard](#multi-language-virtual-keyboard)
-  * [Internationalization (i18n)](#internationalization-i18n)
-  * [Dark and Light Theme Support](#dark-and-light-theme-support)
-  * [Form Validation with React Hook Form](#form-validation-with-react-hook-form)
-  * [Responsive Design](#responsive-design)
-  * [UI Blocking](#ui-blocking)
-  * [React Hooks](#react-hooks)
-  * [Sorting and Filtering](#sorting-and-filtering)
-  * [Pagination and Product Slider](#pagination-and-product-slider)
-  * [Number Pad for Quantity Input](#number-pad-for-quantity-input)
-  * [Success Alert for Adding to Cart](#success-alert-for-adding-to-cart)
-  * [Offers for Products](#offers-for-products)
-  * [Invoicing](#invoicing)
-  * [See Price Option](#see-price-option)
-  * [Product Generation](#product-generation)
-  * [Custom 404 Page](#custom-404-page)
-
+- [Features](#features)
+  - [Multi-language virtual keyboard](#multi-language-virtual-keyboard)
+  - [Internationalization (i18n)](#internationalization-i18n)
+  - [Dark and light theme support](#dark-and-light-theme-support)
+  - [Form validation with React Hook Form](#form-validation-with-react-hook-form)
+  - [Responsive design](#responsive-design)
+  - [UI blocking](#ui-blocking)
+  - [React hooks](#react-hooks)
+  - [Sorting and filtering](#sorting-and-filtering)
+  - [Pagination and product slider](#pagination-and-product-slider)
+  - [Number pad for quantity input](#number-pad-for-quantity-input)
+  - [Success alert for adding to cart](#success-alert-for-adding-to-cart)
+  - [Offers for products](#offers-for-products)
+  - [Invoicing](#invoicing)
+  - [See price option](#see-price-option)
+  - [Product generation](#product-generation)
+  - [Custom 404 page](#custom-404-page)
 - [Getting Started](#getting-started)
- - [Prerequisites](#prerequisites)
- - [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 - [Project Structure](#project-structure)
 - [Key Components](#key-components)
 - [State Management](#state-management)
 - [API Integration](#api-integration)
-- [Internationalization](#internationalization)
 - [Styling](#styling)
+- [Internationalization](#internationalization)
 - [Deployment](#deployment)
 - [Authors](#authors)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
+
 
 ## Live Demo
 
 <p align="center">
   <img src="https://res.cloudinary.com/dyiccuwin/image/upload/v1721083471/ScreenRecording2024-07-16013927-ezgif.com-video-to-gif-converter_th2coz.gif" alt="Add a GIF or video demonstrating key features" />
 </p>
+
+Demo credentials:
+- Username:
+```bash
+Odell.Schoen@yahoo.com
+```
+- Password:
+```bash
+xL6NhsKlz4w42sv
+```
 
 ## ✨ Features
 
@@ -107,10 +117,6 @@ POS SYSTEM
   ### Package Used
 
   - **[i18next](https://www.npmjs.com/package/i18next)**: The library used for comprehensive internationalization management.
-
-
-  ### 📦 Package Used
-  - **Internationalization Library**: Utilizes **[i18next](https://www.npmjs.com/package/i18next)** for comprehensive internationalization management.
 
 ### 🌙 Dark and Light Theme Support
 
@@ -149,15 +155,18 @@ POS SYSTEM
 - **User Experience**: Provides visual feedback during data fetching, ensuring users are aware that the application is processing their request.
    ### Package Used
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Supplies the spinner components used for indicating loading states.
+   - 
 ### ⚙️ React Hooks
 
 - **State Management**: Utilizes React's `useState` hook to manage component state efficiently.
 - **Side Effects**: Employs the `useEffect` hook to handle side effects such as data fetching and subscriptions.
+- **Memoization**: Uses `useMemo` to optimize performance by memoizing expensive calculations and preventing unnecessary re-renders.
 - **Context API**: Integrates `useContext` for accessing global state and context values throughout the application.
 - **Custom Hooks**: Defines and uses custom hooks to encapsulate reusable logic and enhance code modularity.
 - **Implementation**:
   - `useState`: Used to manage local component state, such as form inputs and toggle states.
   - `useEffect`: Applied for executing side effects, including API calls and updating DOM elements based on state changes.
+  - `useMemo`: Leveraged to memoize computationally expensive values and optimize rendering performance.
   - `useContext`: Utilized to access and manipulate global state provided by context providers.
   - Custom Hooks: Created custom hooks like `useThemeMode` for managing theme-related logic and `useCart` for handling cart operations.
 
@@ -393,8 +402,7 @@ POS SYSTEM
     ```
 
       ### Package Used
-    
-        - **API Context**: Uses context API within the cart context to manage and apply offers to products.
+      - **API Context**: Uses context API within the cart context to manage and apply offers to products.
     
 ### 📃 Invoicing
 
@@ -479,8 +487,8 @@ POS SYSTEM
   };
   ```
    ### Package Used
-        - **emailjs-com**:  For emailing invoices.
-        - **react-to-print**: For printing invoices.
+    - **emailjs-com**:  For emailing invoices.
+    - **react-to-print**: For printing invoices.
 
 ## 🔍 See Price Option
 
@@ -572,9 +580,9 @@ POS SYSTEM
       // Replace with actual API call
       return { name: 'Product Name', price: 'Product Price' };
     };
-  ```
-       ### Package Used
-          - **react-zxing**: For UPC-A code scanning.
+    ```
+      ### Package Used
+      - **react-zxing**: For UPC-A code scanning.
 
 ## 📦 Product Generation
 
@@ -605,65 +613,39 @@ function generateProducts(data) {
 }
 ```
  ### Package Used
-    - **fs**: Used for reading and writing files in Node.js.
+  - **fs**: Used for reading and writing files in Node.js.
 
 ## 🚫 Custom 404 Page
 
 - **User-Friendly Design**: Provides a customized 404 page for a better user experience when navigating to non-existent URLs.
 - **Error Handling**: Redirects users to a friendly error page with helpful navigation options.
 
-### Implementation
+  ### Implementation
+  
+  - **404 Page Configuration**: Configured a custom 404 page to enhance user experience.
+  - **Navigation Assistance**: Includes options to redirect users to the home page or other relevant sections of the site.
 
-- **404 Page Configuration**: Configured a custom 404 page to enhance user experience.
-- **Navigation Assistance**: Includes options to redirect users to the home page or other relevant sections of the site.
+  ### Example
+  
+  Here's an example of a simple custom 404 page:
+  
+  ```javascript
+  import React from 'react';
+  import { Link } from 'react-router-dom';
+  
+  const NotFoundPage = () => (
+    <div style={{ textAlign: 'center', padding: '50px' }}>
+      <h1>404 - Page Not Found</h1>
+      <p>Sorry, the page you are looking for does not exist.</p>
+      <Link to="/">Go to Home Page</Link>
+    </div>
+  );
 
-### Example
-
-Here's an example of a simple custom 404 page:
-
-```javascript
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-const NotFoundPage = () => (
-  <div style={{ textAlign: 'center', padding: '50px' }}>
-    <h1>404 - Page Not Found</h1>
-    <p>Sorry, the page you are looking for does not exist.</p>
-    <Link to="/">Go to Home Page</Link>
-  </div>
-);
-
-export default NotFoundPage;
-```
-
-
-
-
-- **User Authentication**: Validates API data for login and access control.
-- **Product Management**: Add, edit, delete products with image support
-- **Inventory Tracking**: Real-time stock updates and low stock alerts
-- **Barcode Scanning**: Scan products and add them to the cart instantly using the integrated ZXing library.
-- **Multi-language Support**: Internationalization with i18next
-- **Virtual Keyboard**: Touch-friendly, multi-language input for tablet and mobile use.
-- **Cart Management**: Flexible cart system with discounts and tax calculation
-- **Payment Processing**: Integration with popular payment gateways
-- **Email Invoicing**: Send invoices directly to customers using emailjs
-- **Invoicing**: Generate and display invoices virtually
-- **Dark Theme Mode Support**: Offers a dark mode for enhanced readability and reduced eye strain.
-- **Responsive Design**: Optimized for various devices and screen sizes
-
-
-
-Demo credentials:
-- Username:
-```bash
-Odell.Schoen@yahoo.com
-```
-- Password:
-```bash
-xL6NhsKlz4w42sv
-```
-
+  export default NotFoundPage;
+  ```
+  ### Package Used
+   -**React Router**: Used for managing navigation and creating links to different routes within the application.
+  
 ## Getting Started
 
 ### Prerequisites
