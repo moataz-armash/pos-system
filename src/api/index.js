@@ -13,9 +13,10 @@ export const fetchStoreInfo = async () => {
 };
 // de74a70b-59da-4641-b849-f3195dcc9b94
 export const fetchProducts = async () => {
+  // 387ef227-7a92-4aae-88af-4497e4741ece
   try {
     const response = await axiosInstance.get(
-      "/387ef227-7a92-4aae-88af-4497e4741ece"
+      "/2d97de85-2d51-4e0f-8640-6184a3537a19"
     );
     return response.data;
   } catch (error) {
