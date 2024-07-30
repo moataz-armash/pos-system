@@ -6,7 +6,7 @@ POS SYSTEM
   <br>
 </h1>
 
-<a name="readme-top"></a>
+
 
 > This is a React project built with React.js, Context API, and hooks. It features a login page and a dashboard where employees can add products, manage quantities, apply discounts, and handle invoicing. The system also includes a virtual keyboard, multi-language support, and dark mode.
 
@@ -34,7 +34,7 @@ POS SYSTEM
 </div>
 
 
-
+<a name="readme-top"></a>
 ## Table of Contents
 
 - [Live Demo](#live-demo)
