@@ -39,35 +39,35 @@ POS SYSTEM
 
 - [Live Demo](#live-demo)
 - [Features](#-features)
-  - [Multi-language virtual keyboard](#-multi-language-virtual-keyboard)
-  - [Internationalization (i18n)](#-internationalization-i18n)
-  - [Dark and light theme support](#-dark-and-light-theme-support)
-  - [Form validation with React Hook Form](#-form-validation-with-react-hook-form)
-  - [Responsive design](#-responsive-design)
-  - [UI blocking](#-ui-blocking)
-  - [React hooks](#-react-hooks)
-  - [Sorting and filtering](#-sorting-and-filtering)
-  - [Pagination and product slider](#-pagination-and-product-slider)
-  - [Number pad for quantity input](#-number-pad-for-quantity-input)
-  - [Success alert for adding to cart](#-success-alert-for-adding-to-cart)
-  - [Offers for products](#-offers-for-products)
+  - [Multi-language virtual keyboard](#multi-language-virtual-keyboard)
+  - [Internationalization (i18n)](#internationalization-i18n)
+  - [Dark and light theme support](#dark-and-light-theme-support)
+  - [Form validation with React Hook Form](#form-validation-with-react-hook-form)
+  - [Responsive design](#responsive-design)
+  - [UI blocking](#ui-blocking)
+  - [React hooks](#react-hooks)
+  - [Sorting and filtering](#sorting-and-filtering)
+  - [Pagination and product slider](#pagination-and-product-slider)
+  - [Number pad for quantity input](#number-pad-for-quantity-input)
+  - [Success alert for adding to cart](#success-alert-for-adding-to-cart)
+  - [Offers for products](#offers-for-products)
   - [Invoicing](#invoicing)
-  - [See price option](#-see-price-option)
-  - [Product generation](#-product-generation)
-  - [Custom 404 page](#-custom-404-page)
-- [Getting Started](#-getting-started)
-  - [Prerequisites](#-prerequisites)
-  - [Installation](#-installation)
-- [Project Structure](#-project-structure)
-- [Key Components](#-key-components)
-- [State Management](#-state-management)
-- [API Integration](#-api-integration)
-- [Styling](#-styling)
-- [Internationalization](#-internationalization)
-- [Deployment](#-deployment)
-- [Authors](#-authors)
-- [License](#-license)
-- [Acknowledgments](#-acknowledgments)
+  - [See price option](#see-price-option)
+  - [Product generation](#product-generation)
+  - [Custom 404 page](#custom-404-page)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Key Components](#key-components)
+- [State Management](#state-management)
+- [API Integration](#api-integration)
+- [Styling](#styling)
+- [Internationalization](#internationalization)
+- [Deployment](#deployment)
+- [Authors](#authors)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 
 ## Live Demo
@@ -88,7 +88,7 @@ xL6NhsKlz4w42sv
 
 ## ✨ Features
 
-### ⌨️ [Multi-Language Virtual Keyboard](./src/components/LoginPage/virtual-keyboard)
+### [Multi-Language Virtual Keyboard](./src/components/LoginPage/virtual-keyboard)
 
 - **Supports English and Turkish**: The virtual keyboard is pre-configured for these languages.
 - **Expandable for Additional Languages**: It can be customized to support more languages.
@@ -100,7 +100,7 @@ xL6NhsKlz4w42sv
 
   - **[react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard)**: The library used for the virtual keyboard.
 
-### 🌐 Internationalization (i18n)
+### Internationalization (i18n)
 
 - **Language Support**: The POS system is configured to handle both English and Turkish languages.
 - **Language Toggle**: Users can switch between supported languages using a toggle button positioned on the right side of the interface.
@@ -118,7 +118,7 @@ xL6NhsKlz4w42sv
 
   - **[i18next](https://www.npmjs.com/package/i18next)**: The library used for comprehensive internationalization management.
 
-### 🌙 Dark and Light Theme Support
+### Dark and Light Theme Support
 
 - **Theme Management**: The system supports both dark and light themes, which can be toggled using a sun icon located at the right center of the website.
 - **Implementation**:
@@ -129,7 +129,7 @@ xL6NhsKlz4w42sv
   ### Package Used
   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides the `ThemeProvider` and `CssBaseline` components for theme management.
   
-### ✅ Form Validation with React Hook Form
+### Form Validation with React Hook Form
 
 - **Form Validation**: The login page incorporates form validation to ensure the data entered by the user matches the expected format before submission.
 - **Implementation**:
@@ -138,7 +138,7 @@ xL6NhsKlz4w42sv
   ### Package Used
   - **[react-hook-form](https://www.npmjs.com/package/react-hook-form)**: Provides the tools for managing form state and validation in a straightforward manner.
 
-### 📱 Responsive Design
+### Responsive Design
 
 - **Responsive Design**: The entire website is designed to be compatible with all devices, ensuring a user-friendly experience across different screen sizes.
 - **Implementation**:
@@ -147,7 +147,7 @@ xL6NhsKlz4w42sv
    ### Package Used 
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides responsive UI components and styling tools.
 
-### 🚧 UI Blocking
+### UI Blocking
 
 - **UI Blocking**: Implemented to inform users of ongoing API interactions, enhancing the user experience by preventing confusion during data loading.
 - **Implementation**:
@@ -156,7 +156,7 @@ xL6NhsKlz4w42sv
    ### Package Used
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Supplies the spinner components used for indicating loading states.
    - 
-### ⚙️ React Hooks
+### React Hooks
 
 - **State Management**: Utilizes React's `useState` hook to manage component state efficiently.
 - **Side Effects**: Employs the `useEffect` hook to handle side effects such as data fetching and subscriptions.
@@ -174,7 +174,7 @@ xL6NhsKlz4w42sv
 
   - **React**: Provides the core hooks for managing state and side effects.
   
- ### 🔍 Sorting and Filtering
+ ### Sorting and Filtering
 
 - **Alphabetic Sorting**: Implements sorting functionality to arrange products alphabetically.
 - **Search by Code**: Provides a search bar at the top of the dashboard, allowing users to search for products by their code.
@@ -206,7 +206,7 @@ xL6NhsKlz4w42sv
 
   - **React**: Utilized for building the sorting, filtering, and favorite functionality within the application.
 
-### 🔄 Pagination and Product Slider
+### Pagination and Product Slider
 
 - **Smooth Navigation**: Implements smooth pagination and sliding for handling large quantities of products efficiently.
 - **Efficient Rendering**: Uses virtualized lists to optimize rendering performance for a large number of items.
@@ -245,7 +245,7 @@ xL6NhsKlz4w42sv
   - **[react-window](https://www.npmjs.com/package/react-window)**: For creating virtualized lists that efficiently render large sets of items.
   - **[react-virtualized-auto-sizer](https://www.npmjs.com/package/react-virtualized-auto-sizer)**: To automatically calculate and adjust the size of the virtualized list based on available space.
  
-### 🔢 Number Pad for Quantity Input
+### Number Pad for Quantity Input
 
   - **Dynamic Quantity Input**: Provides a number pad interface that allows users to specify the quantity of items they want to add.
   - **Add to Cart Functionality**: Users can enter the desired quantity and press "Add to Cart" to update the cart with the specified amount.
@@ -281,7 +281,7 @@ xL6NhsKlz4w42sv
     
     ### Package Used
     - **Custom Component**: Utilizes a custom number pad component to handle numeric input for quantities.
-### 🔔 Success Alert for Adding to Cart
+### Success Alert for Adding to Cart
 
 - **Success Alert**: Displays a confirmation message when a product is successfully added to the cart, including details about the product and quantity.
 
@@ -331,7 +331,7 @@ xL6NhsKlz4w42sv
    ### Package Used
     - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Utilizes Snackbar and Alert components from Material-UI for displaying the success alert.
 
-### 🎁 Offers for Products
+### Offers for Products
 
   - **Offer Types**: Users can apply different types of offers to their chosen products. Note that multiple offers cannot be applied simultaneously.
   
@@ -404,7 +404,7 @@ xL6NhsKlz4w42sv
       ### Package Used
       - **API Context**: Uses context API within the cart context to manage and apply offers to products.
     
-### 📃 Invoicing
+### Invoicing
 
 
 - **Email Invoice**: Provides functionality to email the invoice to the customer after payment.
@@ -490,7 +490,7 @@ xL6NhsKlz4w42sv
     - **emailjs-com**:  For emailing invoices.
     - **react-to-print**: For printing invoices.
 
-## 🔍 See Price Option
+## See Price Option
 
   - **UPC-A Scanning**: Allows users to scan products with UPC-A code using "react-zxing".
   - **Display Product Info**: Shows detailed product information after scanning.
@@ -584,7 +584,7 @@ xL6NhsKlz4w42sv
       ### Package Used
       - **react-zxing**: For UPC-A code scanning.
 
-## 📦 Product Generation
+## Product Generation
 
 - **Data Source**: Uses free services like [MockAPI](https://mockapi.io/) and [Mocki](https://mocki.io/) to fetch initial product data.
 - **Product Duplication**: Generates multiple versions of products with unique identifiers by appending numbers (e.g., "Apple 1", "Apple 2").
@@ -615,7 +615,7 @@ function generateProducts(data) {
  ### Package Used
   - **fs**: Used for reading and writing files in Node.js.
 
-## 🚫 Custom 404 Page
+## Custom 404 Page
 
 - **User-Friendly Design**: Provides a customized 404 page for a better user experience when navigating to non-existent URLs.
 - **Error Handling**: Redirects users to a friendly error page with helpful navigation options.
