@@ -63,7 +63,6 @@ POS SYSTEM
 - [State Management](#state-management)
 - [API Integration](#api-integration)
 - [Styling](#styling)
-- [Internationalization](#internationalization)
 - [Deployment](#deployment)
 - [Authors](#authors)
 - [License](#license)
@@ -817,17 +816,6 @@ export const fetchStoreInfo = () => api.get('/storeInfo');
 export const fetchProducts = (product) => api.get('/products');
 ```
 
-## Internationalization
-I use i18next for multi-language support. Language files are stored in public/locales/.
-Example usage:
-```bash
-import { useTranslation } from 'react-i18next';
-
-function Welcome() {
-  const { t } = useTranslation();
-  return <h1>{t('welcome.title')}</h1>;
-}
-```
 ## Styling
 I use Material-UI for consistent styling. Custom theme is defined in src/theme.js.
 Example:
