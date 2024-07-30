@@ -69,7 +69,7 @@ POS SYSTEM
 - [Acknowledgments](#acknowledgments)
 
 
-## Live Demo
+## Live Demo  
 
 <p align="center">
   <img src="https://res.cloudinary.com/dyiccuwin/image/upload/v1721083471/ScreenRecording2024-07-16013927-ezgif.com-video-to-gif-converter_th2coz.gif" alt="Add a GIF or video demonstrating key features" />
@@ -85,6 +85,10 @@ Odell.Schoen@yahoo.com
 xL6NhsKlz4w42sv
 ```
 
+<span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
+
 ## ✨ Features
 
 ### [Multi-Language Virtual Keyboard](./src/components/LoginPage/virtual-keyboard)
@@ -98,6 +102,9 @@ xL6NhsKlz4w42sv
   ### Package Used
 
   - **[react-simple-keyboard](https://www.npmjs.com/package/react-simple-keyboard)**: The library used for the virtual keyboard.
+<span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ### Internationalization (i18n)
 
@@ -116,6 +123,9 @@ xL6NhsKlz4w42sv
   ### Package Used
 
   - **[i18next](https://www.npmjs.com/package/i18next)**: The library used for comprehensive internationalization management.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ### Dark and Light Theme Support
 
@@ -127,6 +137,9 @@ xL6NhsKlz4w42sv
 - **Integration**: Theme management is incorporated into the main `App` component, alongside other global settings such as language preferences and cart notifications.
   ### Package Used
   - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides the `ThemeProvider` and `CssBaseline` components for theme management.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
   
 ### Form Validation with React Hook Form
 
@@ -136,6 +149,9 @@ xL6NhsKlz4w42sv
   - **API Data Matching**: Validates the user-entered data against the data received from the API to ensure consistency and correctness.
   ### Package Used
   - **[react-hook-form](https://www.npmjs.com/package/react-hook-form)**: Provides the tools for managing form state and validation in a straightforward manner.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ### Responsive Design
 
@@ -145,6 +161,9 @@ xL6NhsKlz4w42sv
 - **User Experience**: Ensures that the interface is intuitive and accessible, providing a consistent user experience whether on mobile, tablet, or desktop.
    ### Package Used 
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Provides responsive UI components and styling tools.
+ <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ### UI Blocking
 
@@ -154,7 +173,10 @@ xL6NhsKlz4w42sv
 - **User Experience**: Provides visual feedback during data fetching, ensuring users are aware that the application is processing their request.
    ### Package Used
    - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Supplies the spinner components used for indicating loading states.
-   - 
+     <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+    </span>
+    
 ### React Hooks
 
 - **State Management**: Utilizes React's `useState` hook to manage component state efficiently.
@@ -172,6 +194,9 @@ xL6NhsKlz4w42sv
   ### Packages Used
 
   - **React**: Provides the core hooks for managing state and side effects.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
   
  ### Sorting and Filtering
 
@@ -204,6 +229,9 @@ xL6NhsKlz4w42sv
   ### Packages Used
 
   - **React**: Utilized for building the sorting, filtering, and favorite functionality within the application.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ### Pagination and Product Slider
 
@@ -243,6 +271,9 @@ xL6NhsKlz4w42sv
 
   - **[react-window](https://www.npmjs.com/package/react-window)**: For creating virtualized lists that efficiently render large sets of items.
   - **[react-virtualized-auto-sizer](https://www.npmjs.com/package/react-virtualized-auto-sizer)**: To automatically calculate and adjust the size of the virtualized list based on available space.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
  
 ### Number Pad for Quantity Input
 
@@ -280,6 +311,9 @@ xL6NhsKlz4w42sv
     
     ### Package Used
     - **Custom Component**: Utilizes a custom number pad component to handle numeric input for quantities.
+    <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 ### Success Alert for Adding to Cart
 
 - **Success Alert**: Displays a confirmation message when a product is successfully added to the cart, including details about the product and quantity.
@@ -329,6 +363,9 @@ xL6NhsKlz4w42sv
   ```
    ### Package Used
     - **[@mui/material](https://www.npmjs.com/package/@mui/material)**: Utilizes Snackbar and Alert components from Material-UI for displaying the success alert.
+   <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ### Offers for Products
 
@@ -402,6 +439,9 @@ xL6NhsKlz4w42sv
 
       ### Package Used
       - **API Context**: Uses context API within the cart context to manage and apply offers to products.
+    <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
     
 ### Invoicing
 
@@ -488,6 +528,9 @@ xL6NhsKlz4w42sv
    ### Package Used
     - **emailjs-com**:  For emailing invoices.
     - **react-to-print**: For printing invoices.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ## See Price Option
 
@@ -582,6 +625,9 @@ xL6NhsKlz4w42sv
     ```
       ### Package Used
       - **react-zxing**: For UPC-A code scanning.
+    <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ## Product Generation
 
@@ -613,6 +659,9 @@ function generateProducts(data) {
 ```
  ### Package Used
   - **fs**: Used for reading and writing files in Node.js.
+<span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ## Custom 404 Page
 
@@ -644,6 +693,9 @@ function generateProducts(data) {
   ```
   ### Package Used
    -**React Router**: Used for managing navigation and creating links to different routes within the application.
+  <span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
   
 ## Getting Started
 
@@ -678,6 +730,9 @@ Odell.Schoen@yahoo.com
 ```bash
 xL6NhsKlz4w42sv
 ```
+<span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ## Project Structure
 ```bash
@@ -790,6 +845,9 @@ pos-system/
 ├── package.json
 └── README.md
 ```
+<span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ## Key Components
 
@@ -798,6 +856,9 @@ pos-system/
 - `Cart`: Manages selected items and checkout process
 - `Dashboard`: Provides overview of sales and key metrics
 - `BarcodeScanner`: Integrates ZXing for product scanning
+<span style="flex-end; width: 100%; text-align: right;">
+  <a href="#readme-top">(Back to Top)</a>
+</span>
 
 ## State Management
 
@@ -850,16 +911,17 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Acknowledgments
 
-Hat tip to anyone whose code was used
-Inspiration
-etc
+- **Material UI**: [Material UI Documentation](https://mui.com/)
+- **Admin Mart Sidebar**: [Admin Mart Sidebar GitHub](https://github.com/admin-mart/sidebar)
+- **ChatGPT**: [OpenAI ChatGPT](https://openai.com/chatgpt)
+- **Claude**: [Claude by Anthropic](https://www.anthropic.com/claude)
 
+## Developed with ❤️ by Moataz Armash
 
-Developed with ❤️ by Moataz Armash
-https://github.com/moataz-armash/pos-system | Report an Issue
+[GitHub Profile](https://github.com/moataz-armash/pos-system) | [Report an Issue](https://github.com/moataz-armash/pos-system/issues)
 
+For more information, please contact: [moatazarmash@gmail.com](mailto:moatazarmash@gmail.com)
 
-For more information, please contact moatazarmash@gmail.com
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
